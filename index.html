@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web</title>
+	<link rel="stylesheet" href="./front/styles/estilos.css">
+    <script src="./front/js/registro.js" defer></script>
+    <script src="./front/js/menu.js" defer></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="logo-conainer">
+            <div class="logo">
+                <figure><img width="20" src="front/assets/logo.jpg"></figure>
+            </div>
+            <p class="solo-escritorio">Juan Pablo Pozo</p>
+        </div>
+        <!-- Menu hamburguesa -->
+        <div class="solo-mobile">
+            <a href="javascript:void(0);" class="menu-hamburguesa" onclick="openMenu()">
+                ☰
+            </a>
+        </div>
+        <!-- Menu normal -->
+        <nav class="solo-tablet" id="navbar">
+            <ul class="menu">
+                <li>
+                    <a href="index.html"><i class="fa fa-home" aria-hidden="true" title="Home"></i> HOME</a>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-book" aria-hidden="true" title="Estudios"></i> ESTUDIOS</a>
+                </li>
+                <li>
+
+                    <a href="index.html"><i class="fa fa-resistance" aria-hidden="true" title="Experiencia"></i> EXPERIENCIA</a>
+                </li>
+                <li>
+                    <a href="index.html"><i class="fa fa-pencil" aria-hidden="true" title="Contacto"></i> CONTACTO</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Lista Menu hamburguesa -->
+        <div class="solo-mobile" id="menu-hamburguesa-lista">
+            <div>
+                <a href="index.html"><i class="menu-hamburguesa-item fa fa-home" aria-hidden="true" title="Home"></i> HOME</a>
+                <a href="index.html"><i class="menu-hamburguesa-item fa fa-book" aria-hidden="true" title="Estudios"></i> ESTUDIOS</a>
+                <a href="index.html"><i class="menu-hamburguesa-item fa fa-resistance" aria-hidden="true" title="Experiencia"></i> EXPERIENCIA</a>
+                <a href="index.html"><i class="menu-hamburguesa-item fa fa-pencil" aria-hidden="true" title="Contacto"></i> CONTACTO</a>
+            </div>
+        </div>
+        <div class="formulario__container">
+            <form onsubmit=enviarDatos(event)>
+                <label for="name">Nombre:</label>
+                <input id="name" type="text" name="name" required>
+                <label for="apellidos">Apellidos:</label>
+                <input required id="apellidos" type="text" name="apellidos">
+                <label for="email">Correo electrónico:</label>
+                <input required id="email" type="email" name="email">
+                <label for="pwd">Contraseña:</label>
+                <div class="password-container">
+                    <input required id="pwd" type="password" class="hidden-password" id="pwd" name="pwd"> 
+                    <span class="toggle-password" onclick=showPassword()>
+                        🐵
+                    </span> 
+                </div>
+                <label for="pwd">Confirmar contraseña:</label>
+                <div class="password-container">
+                    <input required id="repeatPwd" type="password" class="hidden-password" id="repeatPwd" name="repeatPwd"> 
+                    <span class="toggle-repeat-password" onclick=showRepeatPassword()>
+                        🐵
+                    </span> 
+                </div>
+                <button type="submit" id="enviar">Enviar</button>
+            </form>
+           <img src="./front/assets/alumnos.jpg" width="50%"/>
+        </div>
+        <div id="error-mensaje"  class="mensaje-container error-mensaje hidden-message"></div>
+        <div id="success-mensaje" class="mensaje-container success-mensaje hidden-message"></div>
+    </main>
+</body>
+</html>
