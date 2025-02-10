@@ -74,7 +74,3 @@ button:hover {
 .success-mensaje {
     background-color: rgb(144, 236, 141);
 }
-
-.hidden-message {
-    display: none;
-}

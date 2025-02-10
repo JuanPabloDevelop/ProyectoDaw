@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web</title>
-	<link rel="stylesheet" href="./front/styles/estilos.css">
-    <script src="./front/js/registro.js" defer></script>
-    <script src="./front/js/menu.js" defer></script>
+    <title>Proyecto Daw</title>
+	<link rel="stylesheet" href="./client/styles/estilos.css">
+    <script src="./client/js/service/initDb.js" defer></script>
+    <script src="./client/js/menu.js" defer></script>
 </head>
 <body>
     <header class="header" id="header">
         <div class="logo-conainer">
             <div class="logo">
-                <figure><img width="20" src="front/assets/logo.jpg"></figure>
+                <figure><img width="20" src="client/assets/logo.jpg"></figure>
             </div>
-            <p class="solo-escritorio">Juan Pablo Pozo</p>
+            <p class="solo-escritorio">Proyecto Daw</p>
         </div>
         <!-- Menu hamburguesa -->
         <div class="solo-mobile">
@@ -24,19 +24,19 @@
         </div>
         <!-- Menu normal -->
         <nav class="solo-tablet" id="navbar">
-            <ul class="menu">
+            <ul class="menu" id="menu">
                 <li>
-                    <a href="index.html"><i class="fa fa-home" aria-hidden="true" title="Home"></i> HOME</a>
+                    <a id="login" href="./client/src/pages/login/login.html">LOGIN</a>
                 </li>
                 <li>
-                    <a href="index.html"><i class="fa fa-book" aria-hidden="true" title="Estudios"></i> ESTUDIOS</a>
+                    <a href="index.html">OPT1</a>
                 </li>
                 <li>
 
-                    <a href="index.html"><i class="fa fa-resistance" aria-hidden="true" title="Experiencia"></i> EXPERIENCIA</a>
+                    <a href="index.html"> OPT2</a>
                 </li>
                 <li>
-                    <a href="index.html"><i class="fa fa-pencil" aria-hidden="true" title="Contacto"></i> CONTACTO</a>
+                    <a href="index.html">OPT3</a>
                 </li>
             </ul>
         </nav>
@@ -46,40 +46,16 @@
         <!-- Lista Menu hamburguesa -->
         <div class="solo-mobile" id="menu-hamburguesa-lista">
             <div>
-                <a href="index.html"><i class="menu-hamburguesa-item fa fa-home" aria-hidden="true" title="Home"></i> HOME</a>
-                <a href="index.html"><i class="menu-hamburguesa-item fa fa-book" aria-hidden="true" title="Estudios"></i> ESTUDIOS</a>
-                <a href="index.html"><i class="menu-hamburguesa-item fa fa-resistance" aria-hidden="true" title="Experiencia"></i> EXPERIENCIA</a>
-                <a href="index.html"><i class="menu-hamburguesa-item fa fa-pencil" aria-hidden="true" title="Contacto"></i> CONTACTO</a>
+                <a href="./client/src/pages/login/login.html">LOGIN</a>
+                <a href="index.html"> OPT1</a>
+                <a href="index.html">OPT2</a>
+                <a href="index.html">OPT3</a>
             </div>
         </div>
-        <div class="formulario__container">
-            <form onsubmit=enviarDatos(event)>
-                <label for="name">Nombre:</label>
-                <input id="name" type="text" name="name" required>
-                <label for="apellidos">Apellidos:</label>
-                <input required id="apellidos" type="text" name="apellidos">
-                <label for="email">Correo electrónico:</label>
-                <input required id="email" type="email" name="email">
-                <label for="pwd">Contraseña:</label>
-                <div class="password-container">
-                    <input required id="pwd" type="password" class="hidden-password" id="pwd" name="pwd"> 
-                    <span class="toggle-password" onclick=showPassword()>
-                        🐵
-                    </span> 
-                </div>
-                <label for="pwd">Confirmar contraseña:</label>
-                <div class="password-container">
-                    <input required id="repeatPwd" type="password" class="hidden-password" id="repeatPwd" name="repeatPwd"> 
-                    <span class="toggle-repeat-password" onclick=showRepeatPassword()>
-                        🐵
-                    </span> 
-                </div>
-                <button type="submit" id="enviar">Enviar</button>
-            </form>
-           <img src="./front/assets/alumnos.jpg" width="50%"/>
+        <div class="">
+            <h1>Landing page</h1>
+            <p>List of posts</p>
         </div>
-        <div id="error-mensaje"  class="mensaje-container error-mensaje hidden-message"></div>
-        <div id="success-mensaje" class="mensaje-container success-mensaje hidden-message"></div>
     </main>
 </body>
 </html>
