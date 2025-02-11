@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const title = (isUserAdmin ? "Perfil Administrador: " : "Perfil Usuario: ") + user.name;
             titleElement.innerHTML = title;
         }
+        // Añadir info del usuario
+        setProfileInfo(user);
+
         // Pedir lista usuarios
         if (isUserAdmin) {
             handleGet({
@@ -140,6 +143,29 @@ function setUsers(data) {
         tbody.appendChild(row);
     });
 }
+
+//Añadir info del usuario
+function setProfileInfo(user) {
+    Object.entries(user).forEach(value => {
+        const profileFile = document.getElementById(`profile-${value[0]}`);
+        profileFile.textContent = '';
+        const line = document.createElement('span');
+        line.textContent = value[0] !== 'rol' ? value[1] : roleAdapter(value[1]);
+        profileFile.appendChild(line);
+    });
+}
+
+
+function roleAdapter(role) {
+    switch (role) {
+        case '0':
+            return 'Administrador';
+        case '1':
+            return 'Usuario';
+        default:
+            return 'Desconocido';
+    }
+};
 
 async function editUser(userId) {
     try {

@@ -2,5 +2,5 @@
     $host = "localhost";
     $username = "root";
     $pass = "";
-    $dbname = "filmoteca";
+    $dbname = "foro";
 ?>
