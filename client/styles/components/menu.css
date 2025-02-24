@@ -1,14 +1,15 @@
 
 /* Menu Header*/
 .menu {
-  font-family: "Garamond", serif; 
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   margin-right: 20px;
 }
 
+/*Aquí cambié el color de verde a blanco y no se reflejaba en el navegador*/
 .menu li a {
   display: flex;
-  color: green;
+  color: white;
   padding: 10px;
 }
 
@@ -39,7 +40,7 @@
     text-align: center;
     user-select: none;
     margin-right: 20px;
-    color: green
+    color: rgb(224, 230, 224)
   }
 
   .menu-hamburguesa:hover{
