@@ -1,0 +1,90 @@
+
+/* Menu Header*/
+.menu {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  margin-right: 20px;
+}
+
+/*Aquí cambié el color de verde a blanco y no se reflejaba en el navegador*/
+.menu li a {
+  display: flex;
+  color: white;
+  padding: 10px;
+}
+
+.menu li a:hover {
+  transition: 0.8s;
+  color: grey;
+}
+
+.menu li a i{
+  margin-right: 5px;
+}
+
+.menu li a:hover i{
+  color: rgb(66, 66, 66);
+  transition: 1s;
+  transform: rotate(360deg);
+}
+
+
+/* Menu Hamburgesa*/
+.menu-hamburguesa {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    margin-right: 20px;
+    color: rgb(224, 230, 224)
+  }
+
+  .menu-hamburguesa:hover{
+    background: grey;
+  }
+  
+  .menu-hamburguesa-item:hover {
+    filter: brightness(110%);
+  }
+
+  #menu-hamburguesa-lista {
+    overflow: hidden;
+    display: none;
+    background-color: #333;
+  }
+
+  #menu-hamburguesa-lista div {
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: green;
+    background-color: white;
+    z-index: 20;
+  }
+
+  #menu-hamburguesa-lista div a{
+    color: green;
+  }
+
+  #menu-hamburguesa-lista div a:active{
+    color: grey;
+    background-color: rgba(160, 160, 160, 0.08);
+  }
+
+.menu-hamburguesa-item {
+    margin-bottom: 10px;
+    padding: 20px 10px;
+}
+
+.menu-hamburguesa-item:hover {
+    margin-bottom: 5px;
+    color: grey;
+    background-color: rgba(160, 160, 160, 0.08);
+    border-bottom: 1px solid rgba(160, 160, 160, 0.8);
+}

@@ -1,0 +1,102 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    text-decoration: none;
+    outline-style: none;
+    list-style: none; 
+}
+.solo-escritorio, .solo-tablet {
+    display: none;
+}
+
+@media only screen and (min-width: 400px) {
+    .solo-tablet{
+        display: block;        
+    }
+    .solo-mobile{
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 700px) {
+
+    .solo-escritorio{
+        display: block;
+    }
+}
+
+/*Aplico color gris perla de fondo y fuentes en color verde */
+body {
+    background-color: #d8dfd8;
+    color: #699d69; /* Verde pastel */
+    text-align: center; /* Centro el texto globalmente */
+}
+
+/* Centro el h1 */
+h1 {
+    text-align: center;
+}
+
+/* Aplico estilo al marco de "List of posts" */
+main p {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #283e28; /* Borde verde */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: rgb(175, 215, 184); /* Fondo */
+}
+/* *** HEADER *** */
+/*
+.header {
+    transition: 0.5s;
+    display: flex;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 5;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+}
+    */
+.header {
+    transition: 0.5s;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    background-image: url('../assets/interior.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    z-index: 5;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+    color: white; 
+}
+
+
+.logo-container {
+    display: flex;
+}
+
+.logo img {
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    margin-right: 5px;
+}
+
+
+/* *** MAIN *** */
+main {
+    padding-top: 150px;
+}
+

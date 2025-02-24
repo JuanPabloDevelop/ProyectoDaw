@@ -1,0 +1,8 @@
+@import "global.css";
+@import "forms.css";
+@import "utilities.css";
+
+
+@import "./components/menu.css";
+@import "./components/modal.css";
+

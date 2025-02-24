@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página Web</title>
+    <link rel="stylesheet" href="../../../styles/estilos.css">
+    <script src="./login.js" defer></script>
+</head>
+<body>
+    <div id="login" class="formulario__container hidden">
+        <form onsubmit="handleLogin(event)">
+            <label for="login-email">Correo electrónico::</label>
+            <input id="login-email" type="text" name="email" required>
+            <label for="login-password">Contraseña:</label>
+            <div class="password-container">
+                <input id="login-password" type="password" name="pwd" required class="hidden-password"> 
+                <span class="toggle-password" onclick="togglePasswordVisibility('login-password')">
+                    🐵
+                </span> 
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <div id="registro" class="formulario__container hidden">
+        <form onsubmit="handleRegister(event)">
+            <label for="register-name">Nombre:</label>
+            <input id="register-name" type="text" name="name" required>
+            <label for="register-apellidos">Apellidos:</label>
+            <input id="register-apellidos" type="text" name="apellidos" required>
+            <label for="register-email">Correo electrónico:</label>
+            <input id="register-email" type="email" name="email" required>
+            <label for="register-password">Contraseña:</label>
+            <div class="password-container">
+                <input id="register-password" type="password" name="pwd" required class="hidden-password"> 
+                <span class="toggle-password" onclick="togglePasswordVisibility('register-password')">
+                    🐵
+                </span> 
+            </div>
+            <label for="register-repeat-password">Confirmar contraseña:</label>
+            <div class="password-container">
+                <input id="register-repeat-password" type="password" name="repeatPwd" required class="hidden-password"> 
+                <span class="toggle-repeat-password" onclick="togglePasswordVisibility('register-repeat-password')">
+                    🐵
+                </span> 
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <button id="toggleView" onclick="toggleView()">Registrarse</button>
+    <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
+    <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
+</body>
+</html>

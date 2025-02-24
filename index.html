@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Daw</title>
+	<link rel="stylesheet" href="./client/styles/estilos.css">
+    <script src="./client/js/service/initDb.js" defer></script>
+    <script src="./client/js/menu.js" defer></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="logo-container">
+            <div class="logo">
+                <figure><img width="20" src="client/assets/logo.jpg"></figure>
+            </div>
+            <p class="solo-escritorio">Proyecto Daw</p>
+        </div>
+        <!-- Menu hamburguesa -->
+        <div class="solo-mobile">
+            <a href="javascript:void(0);" class="menu-hamburguesa" onclick="openMenu()">
+                ☰
+            </a>
+        </div>
+        <!-- Menu normal -->
+        <nav class="solo-tablet" id="navbar">
+            <ul class="menu" id="menu">
+                <li>
+                    <a id="login" href="./client/src/pages/login/login.html">LOGIN</a>
+                </li>
+                <li>
+                    <a href="index.html">OPT1</a>
+                </li>
+                <li>
+
+                    <a href="index.html"> OPT2</a>
+                </li>
+                <li>
+                    <a href="index.html">OPT3</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Lista Menu hamburguesa -->
+        <div class="solo-mobile" id="menu-hamburguesa-lista">
+            <div>
+                <a href="./client/src/pages/login/login.html">LOGIN</a>
+                <a href="index.html"> OPT1</a>
+                <a href="index.html">OPT2</a>
+                <a href="index.html">OPT3</a>
+            </div>
+        </div>
+        <div class="">
+            <h1>Landing page</h1>
+            <p>List of posts</p>
+        </div>
+    </main>
+</body>
+</html>
