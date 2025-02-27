@@ -1,80 +1,34 @@
-<<<<<<< HEAD
-=======
 /* Estilos generales */
->>>>>>> origin/master
 * {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     text-decoration: none;
     outline-style: none;
-<<<<<<< HEAD
-    list-style: none; 
-}
-=======
     list-style: none;
 }
 
 /* Oculta elementos según el tamaño de la pantalla */
->>>>>>> origin/master
 .solo-escritorio, .solo-tablet {
     display: none;
+    color: rgb(0, 0, 0); /*Color negro para mejor lectura*/
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 400px) {
-<<<<<<< HEAD
-    .solo-tablet{
-        display: block;        
-    }
-    .solo-mobile{
-=======
     .solo-tablet {
         display: block;        
     }
     .solo-mobile {
->>>>>>> origin/master
         display: none;
     }
 }
 
-<<<<<<< HEAD
-
-@media only screen and (min-width: 700px) {
-
-    .solo-escritorio{
-=======
 @media only screen and (min-width: 700px) {
     .solo-escritorio {
->>>>>>> origin/master
         display: block;
     }
 }
 
-<<<<<<< HEAD
-body {
-    background-color: #cac7bb;
-}
-
-
-/* *** HEADER *** */
-/* header */
-/*
-.header {
-    transition: 0.5s;
-    display: flex;
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 5;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
-}
-    */
-=======
 /* Aplico color gris perla de fondo y fuentes en color verde */
 html, body {
     height: 100%;  /* Hace que la página ocupe toda la pantalla */
@@ -101,7 +55,6 @@ main p {
 }
 
 /* *** HEADER *** */
->>>>>>> origin/master
 .header {
     transition: 0.5s;
     display: flex;
@@ -112,37 +65,20 @@ main p {
     padding: 0 20px;
     position: fixed;
     top: 0;
-    background-image: url('../assets/interior.jpg'); 
+    background-image: url('../assets/marmol.jpg'); /* Cambié la imagen para que se leyera mejor la letra */
     background-size: cover;
-    background-position: center;
+    background-position: center 40%;
     background-attachment: fixed; 
     z-index: 5;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
     color: white; 
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 .logo-container {
     display: flex;
 }
 
 .logo img {
-<<<<<<< HEAD
-    border-radius:50%;
-    -webkit-border-radius:50%;
-    margin-right: 5px;
-}
-
-
-/* *** MAIN *** */
-main {
-    padding-top: 150px;
-}
-
-=======
     border-radius: 50%;
     -webkit-border-radius: 50%;
     margin-right: 5px;
@@ -196,16 +132,19 @@ main {
 }
 
 .social-media {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .social-media a {
-    margin: 0 5px;
+    margin: 0 20px;
 }
 
 /* Aquí es donde ajustamo el tamaño de las imágenes */
 .social-media img {
-    width: 6px; /* Tamaño reducido */
-    height: 6px; /* Tamaño reducido */
+    width: 25px; /* Tamaño reducido */
+    height: 25px; /* Tamaño reducido */
+    background-color: white; /* Fondo blanco */
+    border-radius: 60%; /* Fondo sea circular */
+    padding: 2px; /* Espacio alrededor del logo */
+    
 }
->>>>>>> origin/master
