@@ -1,31 +1,55 @@
+<<<<<<< HEAD
+=======
+/* Estilos generales */
+>>>>>>> origin/master
 * {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     text-decoration: none;
     outline-style: none;
+<<<<<<< HEAD
     list-style: none; 
 }
+=======
+    list-style: none;
+}
+
+/* Oculta elementos según el tamaño de la pantalla */
+>>>>>>> origin/master
 .solo-escritorio, .solo-tablet {
     display: none;
 }
 
 @media only screen and (min-width: 400px) {
+<<<<<<< HEAD
     .solo-tablet{
         display: block;        
     }
     .solo-mobile{
+=======
+    .solo-tablet {
+        display: block;        
+    }
+    .solo-mobile {
+>>>>>>> origin/master
         display: none;
     }
 }
 
+<<<<<<< HEAD
 
 @media only screen and (min-width: 700px) {
 
     .solo-escritorio{
+=======
+@media only screen and (min-width: 700px) {
+    .solo-escritorio {
+>>>>>>> origin/master
         display: block;
     }
 }
 
+<<<<<<< HEAD
 body {
     background-color: #cac7bb;
 }
@@ -50,6 +74,34 @@ body {
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
 }
     */
+=======
+/* Aplico color gris perla de fondo y fuentes en color verde */
+html, body {
+    height: 100%;  /* Hace que la página ocupe toda la pantalla */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: #d8dfd8;
+    color: #699d69; /* Verde pastel */
+    text-align: center;
+}
+
+/* Centro el h1 */
+h1 {
+    text-align: center;
+}
+
+/* Aplico estilo al marco de "List of posts" */
+main p {
+    display: inline-block;
+    padding: 10px;
+    border: 2px solid #283e28; /* Borde verde */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: rgb(175, 215, 184); /* Fondo */
+}
+
+/* *** HEADER *** */
+>>>>>>> origin/master
 .header {
     transition: 0.5s;
     display: flex;
@@ -69,12 +121,16 @@ body {
     color: white; 
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 .logo-container {
     display: flex;
 }
 
 .logo img {
+<<<<<<< HEAD
     border-radius:50%;
     -webkit-border-radius:50%;
     margin-right: 5px;
@@ -86,3 +142,70 @@ main {
     padding-top: 150px;
 }
 
+=======
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* *** MAIN *** */
+main {
+    flex: 1; /* Hace que el main ocupe todo el espacio disponible */
+    padding-top: 150px; /* Ajuste por el header fijo */
+    padding-bottom: 170px; /* Evita que el contenido se solape con el footer fijo */
+}
+
+/* *** FOOTER *** */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px; /* Ajusta según necesidad */
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-container {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-nav {
+    margin: 10px 0;
+}
+
+.footer-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-nav a:hover {
+    text-decoration: underline;
+}
+
+.social-media {
+    margin-top: 10px;
+}
+
+.social-media a {
+    margin: 0 5px;
+}
+
+/* Aquí es donde ajustamo el tamaño de las imágenes */
+.social-media img {
+    width: 6px; /* Tamaño reducido */
+    height: 6px; /* Tamaño reducido */
+}
+>>>>>>> origin/master
