@@ -10,6 +10,8 @@
 /* Oculta elementos según el tamaño de la pantalla */
 .solo-escritorio, .solo-tablet {
     display: none;
+    color: rgb(0, 0, 0); /*Color negro para mejor lectura*/
+    font-weight: 600;
 }
 
 @media only screen and (min-width: 400px) {
@@ -63,9 +65,9 @@ main p {
     padding: 0 20px;
     position: fixed;
     top: 0;
-    background-image: url('../assets/interior.jpg'); 
+    background-image: url('../assets/marmol.jpg'); /* Cambié la imagen para que se leyera mejor la letra */
     background-size: cover;
-    background-position: center;
+    background-position: center 40%;
     background-attachment: fixed; 
     z-index: 5;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
@@ -130,15 +132,19 @@ main {
 }
 
 .social-media {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 .social-media a {
-    margin: 0 5px;
+    margin: 0 20px;
 }
 
 /* Aquí es donde ajustamo el tamaño de las imágenes */
 .social-media img {
-    width: 6px; /* Tamaño reducido */
-    height: 6px; /* Tamaño reducido */
+    width: 25px; /* Tamaño reducido */
+    height: 25px; /* Tamaño reducido */
+    background-color: white; /* Fondo blanco */
+    border-radius: 60%; /* Fondo sea circular */
+    padding: 2px; /* Espacio alrededor del logo */
+    
 }

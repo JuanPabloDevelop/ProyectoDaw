@@ -6,20 +6,30 @@
   margin-right: 20px;
 }
 
-/*Aquí cambié el color de verde a blanco y no se reflejaba en el navegador*/
+.menu li {
+  margin-right: 20px;
+}
+
 .menu li a {
-  display: flex;
-  color: white;
-  padding: 10px;
+  display: block;
+  color: rgb(0, 0, 0);
+  padding: 10px 15px;
+  text-decoration: none;
+  background:  rgb(175, 215, 184); /* Mismo color que el que puso Andrés para el fondo de los posts */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: background 0.3s ease, color 0.3s ease;
+  font-weight: 600; /* Letra un poco más negrita */
 }
 
 .menu li a:hover {
-  transition: 0.8s;
-  color: grey;
+  background: rgba(255, 255, 255, 0.4); /* Aclarar al pasar el cursor */
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .menu li a i{
   margin-right: 5px;
+  transition: transform 0.5s ease-in-out, color 0.3s ease;
 }
 
 .menu li a:hover i{
