@@ -56,7 +56,7 @@ async function handleGetUserById(userId) {
                      } 
 
                     // Añade más campos según sea necesario
-                    var editModal = document.getElementById("editUserModal");
+                    let editModal = document.getElementById("editUserModal");
                     editModal.style.display = "block";
                 };
             } else {
@@ -157,7 +157,6 @@ function setUsers(data) {
 //Añadir info del usuario
 function setProfileInfo(user) {
     Object.entries(user).forEach(value => {
-        console.log(value);
         const profileFile = document.getElementById(`profile-${value[0]}`);
         profileFile.textContent = '';
         const line = document.createElement('span');
@@ -213,22 +212,26 @@ function handlePost(user) {
             const response = JSON.parse(xhttp.responseText);
 
             if (response.success) {
-                const currentUser = JSON.parse(localStorage.getItem('responseData'));
+
                 if (response.data && response.data.length === 0) {
                     showErrorMessage('No hay usuarios registrados.');
                     return;
                 } else {
+                    let currentUser = JSON.parse(localStorage.getItem('responseData'));
                     if(response.user) {
                         // Solo actualizamos localStorage si estamos editando nuestro propio usuario
                         if (user.action === "updateUser" && currentUser && currentUser.email === user.email) {
                             localStorage.removeItem('responseData');
                             localStorage.setItem('responseData', JSON.stringify(response.user));
+                            currentUser = response.user;
                             setProfileInfo(response.user);
                         }
                     }
-        
+                    // Comprobamos de nuevo el localStorage no haya cambiado
+                    const currentUserRol = currentUser.rol;
+                    const isUserAdmin = currentUserRol === '0';
                     // Después de cualquier actualización, si somos admin, actualizamos la tabla
-                    if (response.user.rol === "0") {
+                    if (isUserAdmin) {
                         handleGet({
                             action: "getUsers"
                         });
@@ -289,6 +292,6 @@ function handleUpdate(event) {
         rol: userRol,
     });
 
-    var modal = document.getElementById("editUserModal")
+    let modal = document.getElementById("editUserModal")
     modal.style.display = "none";
 }
