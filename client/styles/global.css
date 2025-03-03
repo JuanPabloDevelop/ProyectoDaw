@@ -54,6 +54,8 @@ main p {
     background-color: rgb(175, 215, 184); /* Fondo */
 }
 
+
+
 /* *** HEADER *** */
 .header {
     transition: 0.5s;
@@ -93,7 +95,6 @@ main {
 
 /* *** FOOTER *** */
 .footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
