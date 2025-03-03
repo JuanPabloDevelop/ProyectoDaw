@@ -1,10 +1,59 @@
-.formulario__container {
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #d8dfd8; /* Color de fondo igual al de index.html */
+    color: #699d69; /* Color de texto igual al de index.html */
+    text-align: center;
     display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ocupa toda la altura disponible */
+    overflow-x: hidden; /* Oculta la barra horizontal */
+    overflow-y: auto;
 }
-form { 
-    flex: 1;
-    padding: 20px 20px 0 20px;
-} 
+
+/* Estilo para el ícono de la casita */
+.home-icon {
+    position: fixed;         
+    top: 20px;               
+    left: 30px;              
+    z-index: 1000;           /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-icon a {
+    font-size: 30px;         /* Tamaño del icono */
+    color: #699d69;          /* Color del icono (igual que el del texto) */
+    text-decoration: none;   
+    background-color: white; 
+    padding: 10px;          
+    border-radius: 50%;      
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+.home-icon a:hover {
+    background-color: #e0e0e0; /* Color del fondo cuando se pasa el cursor */
+    color: #4a4a4a;             /* Cambio de color cuando se pasa el cursor */
+}
+
+/* FORMULARIO */
+.formulario__container {
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+form {
+    width: 100%;
+    max-width: 400px; 
+    padding: 20px;
+    background-color: white; 
+    border-radius: 8px; 
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); 
+}
 
 label { 
     display: block; 
@@ -45,16 +94,27 @@ label::after {
 
  button { 
     width: 100%;
+    max-width: 130px;
     padding: 10px 20px;
-     background-color: #4CAF50; 
-     color: white; 
-     border: none; 
-     border-radius: 4px; 
-     cursor: pointer; 
+    margin-top: 10px;
+    background-color: rgb(121, 207, 141); 
+    color: black; /* Color de texto para el botón */
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; 
 } 
 
 button:hover { 
-    background-color: #45a049;
+    background-color: rgb(175, 215, 184); /* Aclarar al pasar el cursor */
+    color: black;
+    
+}
+
+#toggleView {
+    display: block; 
+    margin: 20px auto; /* 20px de margen arriba y centrado */ 
 }
 
 .mensaje-container {
