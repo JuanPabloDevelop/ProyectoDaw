@@ -1,16 +1,16 @@
 <?php
 
-    function iniciar_Db($con) {
-        crear_bdd($con);
+    function init_db($con) {
+        create_bdd($con);
 		mysqli_select_db($con, $GLOBALS["dbname"]);
-		crear_tabla_usuarios($con);
+		create_user_table($con);
     };
 
-	function crear_bdd($con){
+	function create_bdd($con){
 		mysqli_query($con, 'create database if not exists ' .$GLOBALS["dbname"]. ';');
 	};
 
-	function crear_tabla_usuarios($con){
+	function create_user_table($con){
 		mysqli_query($con, "create table if not exists usuario(
 			id_usuario int primary key auto_increment, 
 			nombre varchar(100), 
@@ -18,13 +18,13 @@
 			password int,
 			email varchar(100),
 			rol int DEFAULT 1)");
-		rellenar_tabla_usuario($con);
+		fill_user_table($con);
 	};
 
-	function rellenar_tabla_usuario($con){
+	function fill_user_table($con){
 		require_once("./model/users/usuario.php");
-		$resultado = obtener_usuarios($con);
-		if(!isset($resultado) || obtener_num_filas($resultado) == 0){
+		$resultado = get_users($con);
+		if(!isset($resultado) || get_num_rows($resultado) == 0){
 			$stmt = mysqli_prepare($con, "insert into usuario(nombre, apellidos, password, email, rol) values(?, ?, ?, ?, ?)");
 			$usuarios = array(
 				array("admin", "admin", 123456, "admin@test.com", 0),
@@ -49,7 +49,7 @@
 		}
 	};
 
-	function crear_tabla_pelicula($con){
-		mysqli_query($con, "create table if not exists pelicula(id_pelicula int primary key auto_increment, titulo varchar(255), sinopsis varchar(255), director int, foreign key (director) references director(id_director))");
-	};
+	//function crear_tabla_pelicula($con){
+	//	mysqli_query($con, "create table if not exists pelicula(id_pelicula int primary key auto_increment, titulo varchar(255), sinopsis varchar(255), director int, foreign key (director) references director(id_director))");
+	// };
 ?>

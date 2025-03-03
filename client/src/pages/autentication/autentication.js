@@ -133,11 +133,10 @@ function handlePost(user) {
             const response = JSON.parse(xhttp.responseText);
 
             if (response.success) {
-  
                 localStorage.setItem('responseData', JSON.stringify(response.data));
                 window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
             } else {
-                showErrorMessage('Login incorrecto');
+                showErrorMessage(response.message);
             }
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);

@@ -10,10 +10,10 @@
         $email = $datos['email'];
         $rol = '1';
 
-        $comprobarUsuario = obtener_usuario($con, $email);
-        $result = obtener_num_filas($comprobarUsuario);
+        $comprobarUsuario = get_user($con, $email);
+        $result = get_num_rows($comprobarUsuario);
         if($result == 0) {
-            crear_usuario($con, $name, $lastName, $password, $email, $rol);
+            create_user($con, $name, $lastName, $password, $email, $rol);
 
             $_SESSION["name"] = $name;
             $_SESSION["lastName"] = $lastName;
