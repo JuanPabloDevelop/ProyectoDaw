@@ -46,10 +46,17 @@ async function handleGetUserById(userId) {
                     document.getElementById("modalLastName").value = response.data.apellidos;
                     document.getElementById("modalEmail").value = response.data.email;
                     document.getElementById("modalPassword").value = response.data.password;
-                    document.getElementById("modalRol").value = response.data.rol;
+                    const userSession = JSON.parse(localStorage.getItem('responseData'));
+                    const curreontUserRol = userSession.rol;
+                    if(curreontUserRol !== '0') { 
+                         document.getElementById("rol-container").classList.add('hidden')
+                     } else {
+                        document.getElementById("modalRol").value = response.data.rol;
+                        document.getElementById("rol-container").classList.remove('hidden');
+                     } 
 
                     // Añade más campos según sea necesario
-                    var editModal = document.getElementById("editUserModal");
+                    let editModal = document.getElementById("editUserModal");
                     editModal.style.display = "block";
                 };
             } else {
@@ -109,7 +116,14 @@ function setUsers(data) {
     // Añadimos info a la tabla: primero limpiamos y luego añadimos
     const tbody = document.getElementById('table-body');
     tbody.innerHTML = '';
+    const userSession = JSON.parse(localStorage.getItem('responseData'));
+
     data.forEach(user => {
+        // No mostramos el usuario actual en la tabla
+        if(userSession.email === user.email) {
+            return;
+        }
+
         const row = document.createElement('tr');
         
         // Añadir celdas
@@ -119,27 +133,23 @@ function setUsers(data) {
             row.appendChild(cell);
         });
 
-        // Añadir las acciones salvo para el usuario actual
-        const userSession = JSON.parse(localStorage.getItem('responseData'));
+        // Añadir las acciones
+        const actionsCell = document.createElement('td');
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Editar';
+        editButton.onclick = () => editUser(user.id_usuario);
 
-        if(userSession.email !== user.email) {
-            const actionsCell = document.createElement('td');
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Editar';
-            editButton.onclick = () => editUser(user.id_usuario);
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Eliminar';
+        deleteButton.onclick = () => deleteUser(user.id_usuario);
 
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Eliminar';
-            deleteButton.onclick = () => deleteUser(user.id_usuario);
+        const actionsDiv = document.createElement('div');
+        actionsDiv.classList.add('actions');
+        actionsDiv.appendChild(editButton);
+        actionsDiv.appendChild(deleteButton);
 
-            const actionsDiv = document.createElement('div');
-            actionsDiv.classList.add('actions');
-            actionsDiv.appendChild(editButton);
-            actionsDiv.appendChild(deleteButton);
-
-            actionsCell.appendChild(actionsDiv);
-            row.appendChild(actionsCell);
-        };
+        actionsCell.appendChild(actionsDiv);
+        row.appendChild(actionsCell);
         tbody.appendChild(row);
     });
 }
@@ -175,13 +185,19 @@ async function editUser(userId) {
     }
 }
 
+function editCurrentUser() {
+    const user = JSON.parse(localStorage.getItem('responseData'));
+    const email = user.id;
+    handleGetUserById(email);
+}
+
+
 function deleteUser(userId) {
     handlePost({
         action: "deleteUser",
         userId: userId,
     });
 }
-
 
 
 function handlePost(user) {
@@ -196,18 +212,38 @@ function handlePost(user) {
             const response = JSON.parse(xhttp.responseText);
 
             if (response.success) {
-                if (response.data.length === 0) {
+
+                if (response.data && response.data.length === 0) {
                     showErrorMessage('No hay usuarios registrados.');
                     return;
                 } else {
-                    // Mostramos la tabla actualizada
-                    const table = document.getElementById('table');
-                    table.classList.remove('hidden');
-                    setUsers(response.data);
+                    let currentUser = JSON.parse(localStorage.getItem('responseData'));
+                    if(response.user) {
+                        // Solo actualizamos localStorage si estamos editando nuestro propio usuario
+                        if (user.action === "updateUser" && currentUser && currentUser.email === user.email) {
+                            localStorage.removeItem('responseData');
+                            localStorage.setItem('responseData', JSON.stringify(response.user));
+                            currentUser = response.user;
+                            setProfileInfo(response.user);
+                        }
+                    }
+                    // Comprobamos de nuevo el localStorage no haya cambiado
+                    const currentUserRol = currentUser.rol;
+                    const isUserAdmin = currentUserRol === '0';
+                    // Después de cualquier actualización, si somos admin, actualizamos la tabla
+                    if (isUserAdmin) {
+                        handleGet({
+                            action: "getUsers"
+                        });
+                    } else {
+                        // La escondemos en caso de que no sea admin
+                        const table = document.getElementById('table');
+                        table.classList.add('hidden');
+                    }
                     return;
-                };
+                }
             } else {
-                showErrorMessage('Login incorrecto');
+                showErrorMessage('Error al realizar la operación');
             }
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
@@ -219,7 +255,14 @@ function handlePost(user) {
     xhttp.send(datosJson);
 };
 
+function showErrorMessage(mensaje) {
+    const mensajeError = document.getElementById('error-success');
+    mensajeError.classList.add('hidden');
 
+    const mensajeContainer = document.getElementById('error-mensaje');
+    mensajeContainer.classList.remove('hidden');
+    mensajeContainer.innerHTML = mensaje;
+}
 
 function handleUpdate(event) {
     event.preventDefault();
@@ -230,6 +273,15 @@ function handleUpdate(event) {
     const emailCliente = document.getElementById('modalEmail').value;
     const constraseñaCliente = document.getElementById('modalPassword').value;
     const rol = document.getElementById('modalRol').value;
+    const isRolHidden = document.getElementById('rol-container').classList.value === 'hidden';
+    let userRol;
+
+    if(isRolHidden) {
+        const currentUser = JSON.parse(localStorage.getItem('responseData'));
+        userRol = currentUser.rol;
+    } else {
+        userRol = rol;
+    }
 
     handlePost({
         action: "updateUser",
@@ -237,9 +289,9 @@ function handleUpdate(event) {
         apellidos: apellidosCliente,
         email: emailCliente,
         pwd: constraseñaCliente,
-        rol: rol,
+        rol: userRol,
     });
 
-    var modal = document.getElementById("editUserModal")
+    let modal = document.getElementById("editUserModal")
     modal.style.display = "none";
 }

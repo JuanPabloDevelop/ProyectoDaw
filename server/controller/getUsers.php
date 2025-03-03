@@ -1,9 +1,9 @@
 <?php
     require_once("./model/users/usuario.php");
     require_once("./controller/utils.php");
-    function get_users($con) {
-        $usuarios_result = obtener_usuarios($con);
-        $result = obtener_num_filas($usuarios_result);
+    function  handle_get_users($con) {
+        $usuarios_result = get_users($con);
+        $result = get_num_rows($usuarios_result);
         
         if($result == 0) {
             $data = array("success" => false, "message" => "No hay usuarios registrados");
@@ -17,9 +17,9 @@
         echo json_encode($data);
     };
 
-    function get_users_by_id($con, $idUsusario) {
-        $usuario_result = obtener_usuario_id($con, $idUsusario);
-        $result = obtener_num_filas($usuario_result);
+    function handle_get_users_by_id($con, $idUsusario) {
+        $usuario_result = get_user_id($con, $idUsusario);
+        $result = get_num_rows($usuario_result);
 
         if($result == 0) {
             $data = array("success" => false, "message" => "No hay ningún usuario registrado con ese id");

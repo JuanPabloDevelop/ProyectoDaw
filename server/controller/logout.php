@@ -1,6 +1,6 @@
 <?php
     function logout($con) {
-        cerrar_conexion($con);
+        close_conect($con);
         $data = array("success" => true, "message" => "Sesión cerrada");
         echo json_encode($data);
     }
