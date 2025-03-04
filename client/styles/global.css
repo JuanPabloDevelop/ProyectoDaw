@@ -200,22 +200,24 @@ button.secondary:hover {
 
 /* Messages */
 .mensaje-container {
-    padding: 1rem;
+    position: fixed;
+    top:12px;
+    left: 38%;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
-    margin-bottom: 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    z-index: 20;
     animation: fadeIn 0.3s ease-out;
+    background-color: var(--black);
 }
 
 .error-mensaje {
-    background-color: var(--white);
     color: var(--error-color);
-    border: 1px solid  var(--white);
 }
 
 .success-mensaje {
-    background-color:  var(--white);
     color: var(--success-color);
-    border: 1px solid  var(--white);
 }
 
 /* Actions container */
