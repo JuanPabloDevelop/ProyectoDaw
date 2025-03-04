@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const user = JSON.parse(localStorage.getItem('responseData'));
   if (user) {
       // Eliminar el elemento de login
-      const loginElement = document.getElementById('login');
+      const loginElement = document.getElementById('login-button');
       if (loginElement) {
           loginElement.parentElement.remove();
       }

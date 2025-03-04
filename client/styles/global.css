@@ -1,10 +1,229 @@
-/* Estilos generales */
+/* Variables globales */
+:root {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --background-color: #f8fafc;
+    --white: #ffffff;
+    --text-color: #1e293b;
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+    --success-color: #22c55e;
+    --error-color: #ef4444;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --radius: 0.5rem;
+}
+
+/* Reset y estilos base */
 * {
-    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    text-decoration: none;
-    outline-style: none;
-    list-style: none;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Estilos generales */
+html, body {
+    height: 100%;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+/* Layout */
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Header */
+.header {
+    background-color:  var(--white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Contenedores */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Cards */
+.card {
+    background-color:  var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (min-width: 640px) {
+    main {
+        padding: 3rem 2rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* User info section */
+#user-info {
+    background-color:  var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+#user-info p {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#user-info span {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color:  var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin: 2rem 0;
+}
+
+thead {
+    background-color: #f8fafc;
+}
+
+th {
+    text-align: center;
+    padding: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--border-color);
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Buttons */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--primary-color);
+    color:  var(--white);
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+button.secondary {
+    background-color:  var(--white);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+button.secondary:hover {
+    background-color: #f8fafc;
+}
+
+/* Messages */
+.mensaje-container {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.error-mensaje {
+    background-color: #fef2f2;
+    color: var(--error-color);
+    border: 1px solid #fee2e2;
+}
+
+.success-mensaje {
+    background-color: #f0fdf4;
+    color: var(--success-color);
+    border: 1px solid #dcfce7;
+}
+
+/* Actions container */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.actions button {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
 }
 
 /* Oculta elementos según el tamaño de la pantalla */
@@ -29,17 +248,6 @@
     }
 }
 
-/* Aplico color gris perla de fondo y fuentes en color verde */
-html, body {
-    height: 100%;  /* Hace que la página ocupe toda la pantalla */
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: #d8dfd8;
-    color: #699d69; /* Verde pastel */
-    text-align: center;
-}
-
 /* Centro el h1 */
 h1 {
     text-align: center;
@@ -54,45 +262,6 @@ main p {
     background-color: rgb(175, 215, 184); /* Fondo */
 }
 
-
-
-/* *** HEADER *** */
-.header {
-    transition: 0.5s;
-    display: flex;
-    width: 100%;
-    height: 100px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    background-image: url('../assets/marmol.jpg'); /* Cambié la imagen para que se leyera mejor la letra */
-    background-size: cover;
-    background-position: center 40%;
-    background-attachment: fixed; 
-    z-index: 5;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
-    color: white; 
-}
-
-.logo-container {
-    display: flex;
-}
-
-.logo img {
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    margin-right: 5px;
-}
-
-/* *** MAIN *** */
-main {
-    flex: 1; /* Hace que el main ocupe todo el espacio disponible */
-    padding-top: 150px; /* Ajuste por el header fijo */
-    padding-bottom: 170px; /* Evita que el contenido se solape con el footer fijo */
-}
-
 /* *** FOOTER *** */
 .footer {
     bottom: 0;
@@ -100,7 +269,7 @@ main {
     width: 100%;
     height: 150px; /* Ajusta según necesidad */
     background-color: #333;
-    color: white;
+    color:  var(--white);
     text-align: center;
     padding: 20px 10px;
     display: flex;
@@ -123,7 +292,7 @@ main {
 }
 
 .footer-nav a {
-    color: white;
+    color:  var(--white);
     text-decoration: none;
     margin: 0 10px;
 }
@@ -144,8 +313,7 @@ main {
 .social-media img {
     width: 25px; /* Tamaño reducido */
     height: 25px; /* Tamaño reducido */
-    background-color: white; /* Fondo blanco */
+    background-color:  var(--white); /* Fondo blanco */
     border-radius: 60%; /* Fondo sea circular */
     padding: 2px; /* Espacio alrededor del logo */
-    
 }
