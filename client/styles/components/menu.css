@@ -1,100 +1,163 @@
-
-/* Menu Header*/
-.menu {
-  font-family: Arial, Helvetica, sans-serif;
+/* Header and Navigation */
+.header {
   display: flex;
-  margin-right: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color:  var(--white);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
 }
 
-.menu li {
-  margin-right: 20px;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* Desktop Menu */
+.menu {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .menu li a {
-  display: block;
-  color: rgb(0, 0, 0);
-  padding: 10px 15px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--text-color);
+  font-weight: 500;
   text-decoration: none;
-  background:  rgb(175, 215, 184); /* Mismo color que el que puso Andrés para el fondo de los posts */
-  border-radius: 8px; /* Bordes redondeados */
-  transition: background 0.3s ease, color 0.3s ease;
-  font-weight: 600; /* Letra un poco más negrita */
+  border-radius: var(--radius);
+  transition: all 0.2s;
 }
 
 .menu li a:hover {
-  background: rgba(255, 255, 255, 0.4); /* Aclarar al pasar el cursor */
-  color: black;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f8fafc;
+  color: var(--primary-color);
 }
 
-.menu li a i{
-  margin-right: 5px;
-  transition: transform 0.5s ease-in-out, color 0.3s ease;
+.menu li a.active {
+  background-color: var(--primary-color);
+  color:  var(--white);
 }
 
-.menu li a:hover i{
-  color: rgb(66, 66, 66);
-  transition: 1s;
-  transform: rotate(360deg);
+.menu li a i {
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+  transition: transform 0.2s;
 }
 
+.menu li a:hover i {
+  transform: translateY(-1px);
+}
 
-/* Menu Hamburgesa*/
+/* Mobile Menu Button */
 .menu-hamburguesa {
-    box-sizing: border-box;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-weight: bold;
-    text-align: center;
-    user-select: none;
-    margin-right: 20px;
-    color: rgb(224, 230, 224)
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--text-color);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color:  var(--white);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
 
-  .menu-hamburguesa:hover{
-    background: grey;
+.menu-hamburguesa:hover {
+  background-color: #f8fafc;
+  color: var(--primary-color);
+}
+
+/* Mobile Menu Panel */
+#menu-hamburguesa-lista {
+  display: none;
+  position: fixed;
+  margin-top: 60px;
+  inset: 0;
+  background-color:  var(--white);
+  z-index: 40;
+  padding: 1rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+#menu-hamburguesa-lista.active {
+  display: block;
+}
+
+#menu-hamburguesa-lista div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 3rem;
+}
+
+#menu-hamburguesa-lista a {
+  display: block;
+  padding: 1rem;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: var(--radius);
+  transition: all 0.2s;
+}
+
+#menu-hamburguesa-lista a:hover {
+  background-color: #f8fafc;
+  color: var(--primary-color);
+}
+
+#menu-hamburguesa-lista a:active {
+  background-color: #f1f5f9;
+}
+
+/* Mobile menu animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .header {
+    padding: 1rem 2rem;
   }
   
-  .menu-hamburguesa-item:hover {
-    filter: brightness(110%);
+  .menu {
+    gap: 1rem;
   }
-
-  #menu-hamburguesa-lista {
-    overflow: hidden;
-    display: none;
-    background-color: #333;
-  }
-
-  #menu-hamburguesa-lista div {
-    position:fixed;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    color: green;
-    background-color: white;
-    z-index: 20;
-  }
-
-  #menu-hamburguesa-lista div a{
-    color: green;
-  }
-
-  #menu-hamburguesa-lista div a:active{
-    color: grey;
-    background-color: rgba(160, 160, 160, 0.08);
-  }
-
-.menu-hamburguesa-item {
-    margin-bottom: 10px;
-    padding: 20px 10px;
 }
 
-.menu-hamburguesa-item:hover {
-    margin-bottom: 5px;
-    color: grey;
-    background-color: rgba(160, 160, 160, 0.08);
-    border-bottom: 1px solid rgba(160, 160, 160, 0.8);
+@media (max-width: 767px) {
+  .solo-tablet {
+    display: none;
+  }
+  
+  .solo-mobile {
+    display: block;
+  }
 }

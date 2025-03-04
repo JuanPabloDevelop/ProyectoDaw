@@ -18,7 +18,7 @@
         </div>
         <!-- Menu hamburguesa -->
         <div class="solo-mobile">
-            <a href="javascript:void(0);" class="menu-hamburguesa" onclick="openMenu()">
+            <a href="javascript:void(0);" id="menu-hamburguesa" class="menu-hamburguesa" onclick="openMenu()">
                 ☰
             </a>
         </div>
@@ -26,18 +26,8 @@
         <nav class="solo-tablet" id="navbar">
             <ul class="menu" id="menu">
                 <li>
-                    <a id="login" href="./client/src/pages/autentication/autentication.html">LOGIN</a>
-                </li>
-                <li>
-                    <a href="index.html">OPT1</a>
-                </li>
-                <li>
-
-                    <a href="index.html"> OPT2</a>
-                </li>
-                <li>
-                    <a href="index.html">OPT3</a>
-                </li>
+                    <a class="button" id="login-button" href="./client/src/pages/autentication/autentication.html">LOGIN</a>
+                </li>         
             </ul>
         </nav>
     </header>
@@ -45,11 +35,8 @@
     <main>
         <!-- Lista Menu hamburguesa -->
         <div class="solo-mobile" id="menu-hamburguesa-lista">
-            <div>
-                <a href="./client/src/pages/login/login.html">LOGIN</a>
-                <a href="index.html"> OPT1</a>
-                <a href="index.html">OPT2</a>
-                <a href="index.html">OPT3</a>
+            <div id="menu-hamburguesa-lista-container">
+                <a id="login-button-hamburguesa" href="./client/src/pages/autentication/autentication.html">LOGIN</a>
             </div>
         </div>
         <div class="">

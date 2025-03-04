@@ -8,7 +8,7 @@
     <script src="./autentication.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="auth-container">
     <!--Icono de home-->
     <div class="home-icon">
         <a href="../../../../index.html">
@@ -26,8 +26,12 @@
                     🐵
                 </span> 
             </div>
-            <button type="submit">Iniciar sesión</button> <!--Cambié enviar por esto-->
+            <div>
+                <button class="full" type="submit">Iniciar sesión</button>
+
+            </div>
         </form>
+        <button id="toggleView" class="full" onclick="toggleView()">Registrarse</button>
     </div>
     <div id="registro" class="formulario__container hidden">
         <form onsubmit="handleRegister(event)">
@@ -51,28 +55,11 @@
                     🐵
                 </span> 
             </div>
-            <button type="submit">Registrarse</button>
+            <button class="full" type="submit">Registrarse</button>
         </form>
+        <button id="toggleView" class="full" onclick="toggleView()">Login</button>
     </div>
-    <button id="toggleView" onclick="toggleView()">Registrarse</button>
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
     <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
-    <footer class="footer">
-        <div class="footer-container">
-            <p>&copy; 2025 Proyecto Daw. Todos los derechos reservados.</p>
-            <nav class="footer-nav">
-                <a href="#">Términos y condiciones |</a>
-                <a href="#">Política de privacidad |</a>
-                <a href="#">Contacto</a>
-            </nav>
-            <div class="social-media">
-                <a href="#"><img src="../../../assets/facebook.png" alt="Facebook"></a>
-                <a href="#"><img src="../../../assets/twitter.png" alt="Twitter"></a>
-                <a href="#"><img src="../../../assets/instagram.png" alt="Instagram"></a>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
 </body>
 </html>

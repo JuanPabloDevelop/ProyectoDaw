@@ -1,8 +1,15 @@
+/* STYLES */
 @import "global.css";
 @import "forms.css";
 @import "utilities.css";
+@import "reset.css";
 
 
+/* COMPONENTS */
 @import "./components/menu.css";
 @import "./components/modal.css";
+
+/* PAGES */
+@import "./pages/authentication.css";
+
 
