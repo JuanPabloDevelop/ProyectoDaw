@@ -19,3 +19,38 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 1;
 }
+
+
+/* Estilo para el ícono de la casita */
+.home-icon {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 50;
+}
+
+.home-icon a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color:  var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--primary-color);
+    transition: all 0.2s;
+}
+
+.home-icon a:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--white);
+}
+
+@media (max-width: 640px) {
+    .home-icon {
+        top: 1rem;
+        left: 1rem;
+    }
+}

@@ -5,3 +5,15 @@
 .full {
     width: 100% !important;
 }
+
+.error-mensaje {
+    background-color: var(--error-light);
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.success-mensaje {
+    background-color: var(--success-light);
+    color: var(--success);
+    border: 1px solid var(--success);
+}

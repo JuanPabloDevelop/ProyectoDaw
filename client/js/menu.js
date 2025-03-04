@@ -4,29 +4,55 @@ document.addEventListener("DOMContentLoaded", function() {
   if (user) {
       // Eliminar el elemento de login
       const loginElement = document.getElementById('login-button');
+      const loginMobileElement = document.getElementById('login-button-hamburguesa');
+
+      // Version Desktop
       if (loginElement) {
           loginElement.parentElement.remove();
+
+          // Crear nuevos elementos de lista: login y perfil
+          const newMenuItemPerfil = document.createElement('li');
+          const newMenuLinkPerfil = document.createElement('a');
+          newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
+          newMenuLinkPerfil.textContent = "PERFIL";
+
+          const newMenuItemLogout = document.createElement('li');
+          const newMenuLinkLogout = document.createElement('a');
+          newMenuLinkLogout.href = "./client/src/pages/logout/logout.html";
+          newMenuLinkLogout.textContent = "LOGOUT";
+
+          // Añadir los nuevos enlaces a los nuevos elementos de lista
+          newMenuItemPerfil.appendChild(newMenuLinkPerfil);
+          newMenuItemLogout.appendChild(newMenuLinkLogout);
+
+          // Añadir los nuevos elementos de lista al menú
+          const menu = document.getElementById('menu');
+          menu.appendChild(newMenuItemPerfil);
+          menu.appendChild(newMenuItemLogout);
       }
 
-      // Crear nuevos elementos de lista: login y perfil
-      const newMenuItemPerfil = document.createElement('li');
-      const newMenuLinkPerfil = document.createElement('a');
-      newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
-      newMenuLinkPerfil.textContent = "PERFIL";
+      // Version mobile
+      if (loginMobileElement) {
+    
+          loginMobileElement.parentElement.remove();
 
-      const newMenuItemLogout = document.createElement('li');
-      const newMenuLinkLogout = document.createElement('a');
-      newMenuLinkLogout.href = "./client/src/pages/logout/logout.html";  // Asegúrate de que esta página existe
-      newMenuLinkLogout.textContent = "LOGOUT";
+          // Crear nuevos elementos de lista: login y perfil
+          const newMenuLinkPerfil = document.createElement('a');
+          newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
+          newMenuLinkPerfil.textContent = "PERFIL";
 
-      // Añadir los nuevos enlaces a los nuevos elementos de lista
-      newMenuItemPerfil.appendChild(newMenuLinkPerfil);
-      newMenuItemLogout.appendChild(newMenuLinkLogout);
+          const newMenuLinkLogout = document.createElement('a');
+          newMenuLinkLogout.href = "./client/src/pages/logout/logout.html"; 
+          newMenuLinkLogout.textContent = "LOGOUT";
 
-      // Añadir los nuevos elementos de lista al menú
-      const menu = document.getElementById('menu');
-      menu.appendChild(newMenuItemPerfil);
-      menu.appendChild(newMenuItemLogout);
+          // Añadir los nuevos elementos de lista al menú
+          const menuMobile = document.getElementById("menu-hamburguesa-lista");
+;
+          menuMobile.appendChild(newMenuLinkPerfil);
+          menuMobile.appendChild(newMenuLinkLogout);
+      }
+
+
   };
 });
 
@@ -44,9 +70,12 @@ window.addEventListener("scroll", function(){
 
 function openMenu() {
     const x = document.getElementById("menu-hamburguesa-lista");
+    const icon = document.getElementById('menu-hamburguesa');
     if (x.style.display === "block") {
+      icon.innerHTML = '☰';
       x.style.display = "none";
     } else {
+      icon.innerHTML = 'X';
       x.style.display = "block";
     }
   }

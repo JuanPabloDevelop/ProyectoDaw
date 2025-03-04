@@ -1,44 +1,3 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    background-color: #d8dfd8; /* Color de fondo igual al de index.html */
-    color: #699d69; /* Color de texto igual al de index.html */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ocupa toda la altura disponible */
-    overflow-x: hidden; /* Oculta la barra horizontal */
-    overflow-y: auto;
-}
-
-/* Estilo para el ícono de la casita */
-.home-icon {
-    position: fixed;
-    top: 1.5rem;
-    left: 1.5rem;
-    z-index: 50;
-}
-
-.home-icon a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    background-color:  var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    color: var(--primary-color);
-    transition: all 0.2s;
-}
-
-.home-icon a:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-    background-color: #f8fafc;
-}
-
-
 /* Buttons */
 button[type="submit"] {
     width: 100%;
@@ -200,30 +159,9 @@ button[type="submit"]:hover {
     }
 }
 
-.error-mensaje {
-    background-color: var(--error-light);
-    color: var(--error);
-    border: 1px solid var(--error);
-}
 
-.success-mensaje {
-    background-color: var(--success-light);
-    color: var(--success);
-    border: 1px solid var(--success);
-}
-
-/* Responsive Design */
 @media (max-width: 640px) {
     .formulario__container {
         padding: 1rem;
-    }
-
-    .formulario__container form {
-        padding: 1.5rem;
-    }
-
-    .home-icon {
-        top: 1rem;
-        left: 1rem;
     }
 }

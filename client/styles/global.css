@@ -3,24 +3,21 @@
     --primary-color: #3b82f6;
     --primary-hover: #2563eb;
     --background-color: #f8fafc;
+    --secondary-color: #6b7280;
+
     --white: #ffffff;
+    --black: #000000;
     --text-color: #1e293b;
     --text-light: #64748b;
     --border-color: #e2e8f0;
     --success-color: #22c55e;
     --error-color: #ef4444;
+
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     --radius: 0.5rem;
 }
 
-/* Reset y estilos base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-}
 
 /* Estilos generales */
 html, body {
@@ -31,9 +28,16 @@ html, body {
 }
 
 body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #d8dfd8; /* Color de fondo igual al de index.html */
+    color: #699d69; /* Color de texto igual al de index.html */
+    text-align: center;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* Ocupa toda la altura disponible */
+    overflow-x: hidden; /* Oculta la barra horizontal */
+    overflow-y: auto;
 }
 
 /* Tipografía */
@@ -85,7 +89,7 @@ main {
     margin-bottom: 1rem;
 }
 
-/* Responsive */
+
 @media (min-width: 640px) {
     main {
         padding: 3rem 2rem;
@@ -162,7 +166,7 @@ tr:last-child td {
 }
 
 tr:hover {
-    background-color: #f8fafc;
+    background-color:  var(--white);
 }
 
 /* Buttons */
@@ -203,15 +207,15 @@ button.secondary:hover {
 }
 
 .error-mensaje {
-    background-color: #fef2f2;
+    background-color: var(--white);
     color: var(--error-color);
-    border: 1px solid #fee2e2;
+    border: 1px solid  var(--white);
 }
 
 .success-mensaje {
-    background-color: #f0fdf4;
+    background-color:  var(--white);
     color: var(--success-color);
-    border: 1px solid #dcfce7;
+    border: 1px solid  var(--white);
 }
 
 /* Actions container */
@@ -229,7 +233,7 @@ button.secondary:hover {
 /* Oculta elementos según el tamaño de la pantalla */
 .solo-escritorio, .solo-tablet {
     display: none;
-    color: rgb(0, 0, 0); /*Color negro para mejor lectura*/
+    color: var(--black); 
     font-weight: 600;
 }
 
@@ -259,7 +263,7 @@ main p {
     padding: 10px;
     border: 2px solid #283e28; /* Borde verde */
     border-radius: 10px; /* Bordes redondeados */
-    background-color: rgb(175, 215, 184); /* Fondo */
+    background-color:  var(--secondary-color);; /* Fondo */
 }
 
 /* *** FOOTER *** */
@@ -311,9 +315,9 @@ main p {
 
 /* Aquí es donde ajustamo el tamaño de las imágenes */
 .social-media img {
-    width: 25px; /* Tamaño reducido */
-    height: 25px; /* Tamaño reducido */
-    background-color:  var(--white); /* Fondo blanco */
-    border-radius: 60%; /* Fondo sea circular */
-    padding: 2px; /* Espacio alrededor del logo */
+    width: 25px; 
+    height: 25px; 
+    background-color:  var(--white); 
+    border-radius: 60%;
+    padding: 2px;
 }

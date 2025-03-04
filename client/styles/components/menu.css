@@ -91,6 +91,7 @@
 #menu-hamburguesa-lista {
   display: none;
   position: fixed;
+  margin-top: 60px;
   inset: 0;
   background-color:  var(--white);
   z-index: 40;
