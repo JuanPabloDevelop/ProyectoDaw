@@ -23,12 +23,12 @@
             <div class="password-container">
                 <input id="login-password" type="password" name="pwd" required class="hidden-password"> 
                 <span class="toggle-password" onclick="togglePasswordVisibility('login-password')">
-                    🐵
+                    <i class="fa fa-eye"></i> <!--Clase para el icono del ojo-->
                 </span> 
             </div>
             <div>
                 <button class="full" type="submit">Iniciar sesión</button>
-
+                <div id="loading-login" class="loading-spinner-hidden"></div> <!--Spinner-->
             </div>
         </form>
         <button id="toggleView" class="full" onclick="toggleView()">Registrarse</button>
@@ -45,17 +45,18 @@
             <div class="password-container">
                 <input id="register-password" type="password" name="pwd" required class="hidden-password"> 
                 <span class="toggle-password" onclick="togglePasswordVisibility('register-password')">
-                    🐵
+                    <i class="fa fa-eye"></i>
                 </span> 
             </div>
             <label for="register-repeat-password">Confirmar contraseña:</label>
             <div class="password-container">
                 <input id="register-repeat-password" type="password" name="repeatPwd" required class="hidden-password"> 
                 <span class="toggle-repeat-password" onclick="togglePasswordVisibility('register-repeat-password')">
-                    🐵
+                    <i class="fa fa-eye"></i>
                 </span> 
             </div>
             <button class="full" type="submit">Registrarse</button>
+            <div id="loading-register" class="loading-spinner-hidden"></div> <!--Spinner-->
         </form>
         <button id="toggleView" class="full" onclick="toggleView()">Login</button>
     </div>

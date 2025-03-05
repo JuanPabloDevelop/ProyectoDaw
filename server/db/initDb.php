@@ -49,7 +49,4 @@
 		}
 	};
 
-	//function crear_tabla_pelicula($con){
-	//	mysqli_query($con, "create table if not exists pelicula(id_pelicula int primary key auto_increment, titulo varchar(255), sinopsis varchar(255), director int, foreign key (director) references director(id_director))");
-	// };
 ?>

@@ -24,17 +24,19 @@ function submitRegistro() {
 // Inicializa la vista
 toggleView();
 
-
+// Cambié esto para que aparezca el icono del ojo
 function togglePasswordVisibility(inputId) {
     const passwordInput = document.getElementById(inputId);
-    const passwordIcon = passwordInput.nextElementSibling;
+    const passwordIcon = passwordInput.nextElementSibling.querySelector('i');
 
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        passwordIcon.textContent = '🙈';
+        passwordIcon.classList.remove('fa-eye');
+        passwordIcon.classList.add('fa-eye-slash');
     } else {
         passwordInput.type = 'password';
-        passwordIcon.textContent = '🐵';
+        passwordIcon.classList.remove('fa-eye-slash');
+        passwordIcon.classList.add('fa-eye');
     }
 }
 
@@ -121,20 +123,39 @@ function handleLogin(event) {
     return;
 }
 
+// Esto es lo que cambié para que se mostrase el spinner
 function handlePost(user) {
+    console.log('Iniciando handlePost');
     const xhttp = new XMLHttpRequest();
     const datosJson = JSON.stringify(user);
 
     xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
     xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 
+    if (user.action === "login") {
+        console.log('Mostrando spinner de login');
+        document.getElementById('loading-login').classList.remove('loading-spinner-hidden');
+        document.getElementById('loading-login').classList.add('loading-spinner');
+    } else if (user.action === "register") {
+        document.getElementById('loading-register').classList.remove('loading-spinner-hidden');
+        document.getElementById('loading-register').classList.add('loading-spinner');
+    }
+
     xhttp.onload = function () {
+        console.log('Solicitud completada');
+        document.getElementById('loading-login').classList.add('loading-spinner-hidden');
+        document.getElementById('loading-login').classList.remove('loading-spinner');
+        document.getElementById('loading-register').classList.add('loading-spinner-hidden');
+        document.getElementById('loading-register').classList.remove('loading-spinner');
+
         if (xhttp.status === 200) {
             const response = JSON.parse(xhttp.responseText);
 
             if (response.success) {
                 localStorage.setItem('responseData', JSON.stringify(response.data));
-                window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
+                setTimeout(() => {
+                    window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
+                }, 2000); // Dos segundos de delay
             } else {
                 showErrorMessage(response.message);
             }
@@ -143,6 +164,11 @@ function handlePost(user) {
         }
     };
     xhttp.onerror = function () {
+        console.log('Error de red');
+        document.getElementById('loading-login').classList.add('loading-spinner-hidden');
+        document.getElementById('loading-login').classList.remove('loading-spinner');
+        document.getElementById('loading-register').classList.add('loading-spinner-hidden');
+        document.getElementById('loading-register').classList.remove('loading-spinner');
         showErrorMessage('Error de red');
     };
     xhttp.send(datosJson);
