@@ -112,64 +112,67 @@ function handleRegister(event) {
 function handleLogin(event) {
     event.preventDefault();
     event.stopPropagation();
+    loadingButton('login-button');
+
 
     const emailCliente = document.getElementById('login-email').value;
     const constraseñaCliente = document.getElementById('login-password').value;
-    handlePost({
-        action: "login",
-        email: emailCliente,
-        pwd: constraseñaCliente,
-    });
+    setTimeout(() => {
+        handlePost({
+            action: "login",
+            email: emailCliente,
+            pwd: constraseñaCliente,
+        });
+    }, 2000); // Dos segundos de delay para simular una petición más lenta
     return;
 }
 
 // Esto es lo que cambié para que se mostrase el spinner
 function handlePost(user) {
-    console.log('Iniciando handlePost');
     const xhttp = new XMLHttpRequest();
     const datosJson = JSON.stringify(user);
 
     xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
     xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 
-    if (user.action === "login") {
-        console.log('Mostrando spinner de login');
-        document.getElementById('loading-login').classList.remove('loading-spinner-hidden');
-        document.getElementById('loading-login').classList.add('loading-spinner');
-    } else if (user.action === "register") {
-        document.getElementById('loading-register').classList.remove('loading-spinner-hidden');
-        document.getElementById('loading-register').classList.add('loading-spinner');
-    }
-
     xhttp.onload = function () {
-        console.log('Solicitud completada');
-        document.getElementById('loading-login').classList.add('loading-spinner-hidden');
-        document.getElementById('loading-login').classList.remove('loading-spinner');
-        document.getElementById('loading-register').classList.add('loading-spinner-hidden');
-        document.getElementById('loading-register').classList.remove('loading-spinner');
 
         if (xhttp.status === 200) {
             const response = JSON.parse(xhttp.responseText);
 
             if (response.success) {
                 localStorage.setItem('responseData', JSON.stringify(response.data));
-                setTimeout(() => {
-                    window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
-                }, 2000); // Dos segundos de delay
+                window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
             } else {
                 showErrorMessage(response.message);
             }
+            loadingButton(`${user.action}-button`);
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
+            loadingButton(`${user.action}-button`);
         }
     };
     xhttp.onerror = function () {
         console.log('Error de red');
-        document.getElementById('loading-login').classList.add('loading-spinner-hidden');
-        document.getElementById('loading-login').classList.remove('loading-spinner');
-        document.getElementById('loading-register').classList.add('loading-spinner-hidden');
-        document.getElementById('loading-register').classList.remove('loading-spinner');
+        loadingButton(`${user.action}-button`);
         showErrorMessage('Error de red');
     };
     xhttp.send(datosJson);
+}
+
+function loadingButton (id) {
+    const button = document.getElementById(id);
+
+    if (document.getElementById('child-loading')) {
+        const loading = document.getElementById('child-loading');
+        loading.remove();
+        button.innerHTML = 'Login';
+    } else {
+        const loading = document.createElement('span');
+        button.innerHTML = '';
+        loading.id = 'child-loading';
+        loading.classList.add('button-loader');
+
+        button.appendChild(loading);
+    }
 }

@@ -11,7 +11,7 @@
 <body>
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
     <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
-    <button onclick="history.back();">VOLVER</button>
+    <button class="button" onclick="history.back();">VOLVER</button>
 
     <h1 id="title">Registro Exitoso!!</h1>
     <div id="user-info">
@@ -21,7 +21,7 @@
         <p>Email: <span id="profile-email"></span></p>
         <p>Rol: <span id="profile-rol"></span></p>
     </div>
-    <button onclick="editCurrentUser()">Editar</button>
+    <button class="button" onclick="editCurrentUser()">Editar</button>
     <table id="table" class="hidden">
         <thead>
             <tr>
@@ -62,7 +62,7 @@
                       </select><br><br>
                 </div>
                 <!-- Añade más campos según sea necesario -->
-                <button type="submit">Guardar</button>
+                <button class="button" type="submit">Guardar</button>
             </form>
         </div>
     </div>
