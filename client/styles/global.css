@@ -113,22 +113,23 @@ main {
 }
 
 /* User info section */
-#user-info {
+.user-info {
     background-color:  var(--white);
     border-radius: var(--radius);
     padding: 2rem;
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
+    min-height: 215px;
 }
 
-#user-info p {
+.user-info p {
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-#user-info span {
+.user-info span {
     color: var(--text-light);
     font-weight: 500;
 }

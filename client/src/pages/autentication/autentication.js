@@ -146,11 +146,11 @@ function handlePost(user) {
             } else {
                 showErrorMessage(response.message);
             }
-            loadingButton(`${user.action}-button`);
+
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
-            loadingButton(`${user.action}-button`);
         }
+        loadingButton(`${user.action}-button`);
     };
     xhttp.onerror = function () {
         console.log('Error de red');

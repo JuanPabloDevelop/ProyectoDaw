@@ -1,5 +1,5 @@
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .full {
@@ -16,8 +16,4 @@
     animation: spin 1s linear infinite;
     margin: 10px auto;
     display: block; 
-}
-
-.loading-spinner-hidden {
-    display: none;
 }

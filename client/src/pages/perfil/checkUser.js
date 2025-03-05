@@ -137,10 +137,12 @@ function setUsers(data) {
         const actionsCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
+        editButton.classList.add('button')
         editButton.onclick = () => editUser(user.id_usuario);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Eliminar';
+        deleteButton.classList.add('button')
         deleteButton.onclick = () => deleteUser(user.id_usuario);
 
         const actionsDiv = document.createElement('div');
@@ -156,6 +158,7 @@ function setUsers(data) {
 
 //Añadir info del usuario
 function setProfileInfo(user) {
+
     Object.entries(user).forEach(value => {
         const profileFile = document.getElementById(`profile-${value[0]}`);
         profileFile.textContent = '';
@@ -163,6 +166,7 @@ function setProfileInfo(user) {
         line.textContent = value[0] !== 'rol' ? value[1] : roleAdapter(value[1]);
         profileFile.appendChild(line);
     });
+
 }
 
 
@@ -188,7 +192,19 @@ async function editUser(userId) {
 function editCurrentUser() {
     const user = JSON.parse(localStorage.getItem('responseData'));
     const email = user.id;
-    handleGetUserById(email);
+
+    const loading = document.getElementById('profile-loading');
+    const form = document.getElementById('user-info');
+
+    form.classList.add('hidden');
+    loading.classList.remove('hidden');
+    
+    // TimeOut to simulate a slow conection
+    setTimeout(() => {
+        form.classList.remove('hidden');
+        loading.classList.add('hidden');
+        handleGetUserById(email);
+    }, 2000)
 }
 
 
