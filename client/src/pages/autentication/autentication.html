@@ -23,15 +23,12 @@
             <div class="password-container">
                 <input id="login-password" type="password" name="pwd" required class="hidden-password"> 
                 <span class="toggle-password" onclick="togglePasswordVisibility('login-password')">
-                    🐵
+                    <i class="fa fa-eye"></i> <!--Clase para el icono del ojo-->
                 </span> 
             </div>
-            <div>
-                <button class="full" type="submit">Iniciar sesión</button>
-
-            </div>
+                <button id="login-button" class="button full" type="submit">Login</span></button>
         </form>
-        <button id="toggleView" class="full" onclick="toggleView()">Registrarse</button>
+        <button id="toggleView" class="button full" onclick="toggleView()">Registrarse</button>
     </div>
     <div id="registro" class="formulario__container hidden">
         <form onsubmit="handleRegister(event)">
@@ -45,19 +42,19 @@
             <div class="password-container">
                 <input id="register-password" type="password" name="pwd" required class="hidden-password"> 
                 <span class="toggle-password" onclick="togglePasswordVisibility('register-password')">
-                    🐵
+                    <i class="fa fa-eye"></i>
                 </span> 
             </div>
             <label for="register-repeat-password">Confirmar contraseña:</label>
             <div class="password-container">
                 <input id="register-repeat-password" type="password" name="repeatPwd" required class="hidden-password"> 
                 <span class="toggle-repeat-password" onclick="togglePasswordVisibility('register-repeat-password')">
-                    🐵
+                    <i class="fa fa-eye"></i>
                 </span> 
             </div>
-            <button class="full" type="submit">Registrarse</button>
+            <button class="button full" type="submit">Registrarse</button>
         </form>
-        <button id="toggleView" class="full" onclick="toggleView()">Login</button>
+        <button id="toggleView" class="button full" onclick="toggleView()">Login</button>
     </div>
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
     <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
