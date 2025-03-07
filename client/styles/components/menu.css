@@ -35,17 +35,6 @@
   list-style: none;
 }
 
-.menu li a {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  color: var(--text-color);
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: var(--radius);
-  transition: all 0.2s;
-}
-
 .menu li a:hover {
   background-color: #f8fafc;
   color: var(--primary-color);

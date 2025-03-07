@@ -40,9 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function handleShowErrorMessage(mensaje) {
-    const mensajeError = document.getElementById('error-success');
-    mensajeError.classList.add('hidden');
-
     const mensajeContainer = document.getElementById('error-mensaje');
     mensajeContainer.classList.remove('hidden');
     mensajeContainer.innerHTML = mensaje;
