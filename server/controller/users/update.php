@@ -1,7 +1,8 @@
 <?php
     require_once("./model/users/usuario.php");
     require_once("./controller/utils.php");
-
+    require_once("./model/utils.php");
+    
     function update($con, $datos) {
         $name = $datos['nombre'];
         $password = $datos['pwd'];

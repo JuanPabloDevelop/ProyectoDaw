@@ -55,6 +55,10 @@ function showMessage(idToHide, idToShow, mensaje) {
     const mensajeContainer = document.getElementById(idToShow);
     mensajeContainer.classList.remove('hidden');
     mensajeContainer.innerHTML = mensaje;
+
+    setTimeout(() => {
+        mensajeContainer.classList.add('hidden');
+    }, 5000);
 }
 
 function cleanInputs() {
@@ -100,7 +104,7 @@ function handleRegister(event) {
     if (validateForm(nombreCliente, apellidosCliente, emailCliente, constraseñaCliente, confirmarConstraseñaCliente)) {
         showSuccessMessage('Formulario enviado correctamente.');
         handlePost({
-            action: "register",
+            action: "user-register",
             nombre: nombreCliente,
             apellidos: apellidosCliente,
             email: emailCliente,
@@ -119,7 +123,7 @@ function handleLogin(event) {
     const constraseñaCliente = document.getElementById('login-password').value;
     setTimeout(() => {
         handlePost({
-            action: "login",
+            action: "user-login",
             email: emailCliente,
             pwd: constraseñaCliente,
         });

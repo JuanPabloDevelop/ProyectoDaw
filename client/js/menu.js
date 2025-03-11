@@ -47,12 +47,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
           // Añadir los nuevos elementos de lista al menú
           const menuMobile = document.getElementById("menu-hamburguesa-lista");
-;
           menuMobile.appendChild(newMenuLinkPerfil);
           menuMobile.appendChild(newMenuLinkLogout);
       }
-
-
   };
 });
 
@@ -69,13 +66,13 @@ window.addEventListener("scroll", function(){
 
 
 function openMenu() {
-    const x = document.getElementById("menu-hamburguesa-lista");
-    const icon = document.getElementById('menu-hamburguesa');
-    if (x.style.display === "block") {
-      icon.innerHTML = '☰';
-      x.style.display = "none";
-    } else {
-      icon.innerHTML = 'X';
-      x.style.display = "block";
-    }
+  const x = document.getElementById("menu-hamburguesa-lista");
+  const icon = document.getElementById('menu-hamburguesa');
+  if (x.style.display === "block") {
+    icon.innerHTML = '☰';
+    x.style.display = "none";
+  } else {
+    icon.innerHTML = 'X';
+    x.style.display = "block";
   }
+}

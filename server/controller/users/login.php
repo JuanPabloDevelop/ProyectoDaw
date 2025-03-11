@@ -1,5 +1,7 @@
 <?php
     require_once("./model/users/usuario.php");
+    require_once("./model/utils.php");
+    require_once("./model/utils.php");
     function login($con, $datos) {
         $email = $datos['email'];
         $usuarioLogado = get_user($con, $email);

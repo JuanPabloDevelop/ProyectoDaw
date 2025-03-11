@@ -15,12 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         
                     if (response.success) {
-                        console.log('response', response)
+                        console.log("Base de datos inicializada");
                         return;
         
                     } else {
-                        handleShowErrorMessage("Login incorrecto");
-        
+                        handleShowErrorMessage("Error al inicializar la Base de datos");
                     }
                 } else {
                     handleShowErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);

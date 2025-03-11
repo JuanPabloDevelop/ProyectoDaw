@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="./client/styles/estilos.css">
     <script src="./client/js/service/initDb.js" defer></script>
     <script src="./client/js/menu.js" defer></script>
+    <script src="./client/src/pages/home/home.js" defer></script>
 </head>
 <body>
     <header class="header" id="header">
@@ -31,7 +32,6 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <!-- Lista Menu hamburguesa -->
         <div class="solo-mobile" id="menu-hamburguesa-lista">
@@ -39,11 +39,14 @@
                 <a id="login-button-hamburguesa" href="./client/src/pages/autentication/autentication.html">LOGIN</a>
             </div>
         </div>
-        <div class="">
-            <h1>Landing page</h1><br>
-            <p>List of posts</p><br>
-        </div><br>
+
+        <!-- Content -->
+        <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
+        <section class="content">
+            <div id="posts-container" class="posts-container"></div>
+        </section>
     </main>
+
      <!-- Footer -->
      <footer class="footer">
         <div class="footer-container">
