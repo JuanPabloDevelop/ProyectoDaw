@@ -5,6 +5,7 @@
 		mysqli_select_db($con, $GLOBALS["dbname"]);
 		create_user_table($con);
 		create_post_table($con);
+		create_filters_table($con);
     };
 
 	function create_bdd($con){
@@ -99,4 +100,32 @@
 		}
 	};
 
+
+	function create_filters_table($con){
+		mysqli_query($con, "create table if not exists filter(
+			tipo varchar(10) check (Tipo IN ('all', 'deco', 'ilu', 'mobi', 'text', 'acc')) default 'all'
+			)");
+		fill_filter_table($con);
+	};
+
+	function fill_filter_table($con){
+		require_once("./model/filters/filter.php");
+		$resultado = get_post_type_filters($con);
+		if(!isset($resultado) || get_num_rows($resultado) == 0){
+			$stmt = mysqli_prepare($con, "insert into filter(tipo) values(?)");
+			$filters = array(
+				array("all"),
+				array("deco"),
+				array("ilu"),
+				array("mobi"),
+				array("text"),
+				array("acc"),
+			);
+			
+			foreach($filters as $filter){
+				mysqli_stmt_bind_param($stmt, "s", $filter[0]);
+				mysqli_stmt_execute($stmt);
+			}
+		}
+	};
 ?>

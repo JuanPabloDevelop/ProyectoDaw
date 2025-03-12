@@ -1,18 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     const miDiv = document.getElementById("posts-container");
     if (miDiv) {
-    console.log("Estamos en la página de posts");
-      handleGetPosts({
-        action: "user-get-all"
+    handleGetPosts();
+    handleGetFilters({
+        action: "filter-get-posts-types",
     });
     }
 });
   
-function handleGetPosts(currentUser) {
+function handleGetFilters(action) {
   const xhttp = new XMLHttpRequest();
   const user = {
-      ...currentUser,
-      action: "post-get-all",
+    ...action,
   };
   const datosJson = JSON.stringify(user);
 
@@ -20,30 +19,67 @@ function handleGetPosts(currentUser) {
   xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
 
   xhttp.onload = function () {
-      if (xhttp.status === 200) {
+    const select = document.getElementById('filter-select');
+        if (xhttp.status === 200) {
           const response = JSON.parse(xhttp.responseText);
 
           if (response.success) {
-              if (response.data.length === 0) {
-                  const postsContainer = document.getElementById('posts-container');
-                  postsContainer.innerHTML = 'No hay posts registrados.';
-                  return;
-              } else {
-                  setPosts(response.data);
-                  return;
-              };
+            if (response.data.length === 0) {
+                select.classList.add('hidden');
+                return;
+            } else {
+                setSelectOptions(response.data);
+                return;
+            };
           } else {
-              showErrorMessage('Error al obtener los usuarios.');
+            select.classList.add('hidden');;
           }
-      } else {
-          showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
-      }
+        } else {
+            select.classList.add('hidden');
+        }
   };
   xhttp.onerror = function () {
       showErrorMessage('Error de red');
   };
   xhttp.send(datosJson);
 }
+
+function handleGetPosts(filter= 'all') {
+    const xhttp = new XMLHttpRequest();
+    const user = {
+        action: "post-get-all",
+        filter: filter,
+    };
+    const datosJson = JSON.stringify(user);
+  
+    xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+  
+    xhttp.onload = function () {
+        if (xhttp.status === 200) {
+            const response = JSON.parse(xhttp.responseText);
+  
+            if (response.success) {
+                if (response.data.length === 0) {
+                    const postsContainer = document.getElementById('posts-container');
+                    postsContainer.innerHTML = 'No hay posts registrados.';
+                    return;
+                } else {
+                    setPosts(response.data);
+                    return;
+                };
+            } else {
+                showErrorMessage('Error al obtener los usuarios.');
+            }
+        } else {
+            showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
+        }
+    };
+    xhttp.onerror = function () {
+        showErrorMessage('Error de red');
+    };
+    xhttp.send(datosJson);
+  }
 
 function setPosts(data) {
     // Primero limpiamos y luego añadimos los posts
@@ -125,6 +161,19 @@ function setPosts(data) {
     });
 }
 
+function setSelectOptions(data) {
+    const select = document.getElementById('filter-select');
+    // Borrar duplicados
+    const uniqueArray = [...new Set(data)];
+    uniqueArray.forEach(item => {
+        const option = document.createElement('option');
+        option.value = item.tipo;
+        option.textContent = perseTipo(item.tipo);
+        select.appendChild(option);
+    });
+    select.addEventListener('change', (event) => handleGetPosts(event.target.value));
+}
+
 function colorAleatorio() {
     let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
     return color;
@@ -132,6 +181,7 @@ function colorAleatorio() {
 
 function perseTipo(tipo) {
     const type = {
+        "all": "Todos",
         "deco": "Estilos de decoración",
         "ilu": "Iluminación",
         "mobi": "Mobiliario",
