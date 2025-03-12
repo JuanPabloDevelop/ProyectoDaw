@@ -103,7 +103,7 @@
 
 	function create_filters_table($con){
 		mysqli_query($con, "create table if not exists filter(
-			tipo varchar(10) check (Tipo IN ('all', 'deco', 'ilu', 'mobi', 'text', 'acc')) default 'all'
+			tipo varchar(10) default 'all' check (Tipo IN ('all', 'deco', 'ilu', 'mobi', 'text', 'acc'))
 			)");
 		fill_filter_table($con);
 	};
