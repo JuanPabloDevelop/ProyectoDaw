@@ -26,8 +26,10 @@
             require_once("./controller/posts.controller.php");
 
         }
-        
-        
+
+        if (strpos($datos['action'], 'filter-') === 0) {
+            require_once("./controller/filters.controller.php");
+        }
     }
     
     // Llama a la función handleRequest con los datos

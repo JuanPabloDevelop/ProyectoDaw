@@ -4,17 +4,9 @@
 
     switch ($datos['action']) {
         case 'post-get-all':
-            handleGetPosts($con);
+            handleGetPosts($con, $datos['filter']);
             break;
-        // case 'post-get-by-id':
-        //     handleGetUserById($con, $datos);
-        //     break;
-        // case 'post-delete':
-        //     handleDeleteUser($con, $datos);
-        //     break;
-        // case 'post-update':
-        //     handleUpdateUser($con, $datos);
-        //     break;
+
         default:
             $data = array("success" => false, "message" => "Acción no reconocida");
             echo json_encode($data);
@@ -22,9 +14,14 @@
     }
 
     
-    function handleGetPosts($con) {
+    function handleGetPosts($con, $filter) {
         require_once("./controller/posts/getPosts.php");
-        handle_get_posts($con);
+        if($filter == 'all') {
+            handle_get_posts($con);
+        } else {
+            handle_get_posts_by_type($con, $filter);
+        }
+
     }
 
     
