@@ -8,6 +8,7 @@
 /* COMPONENTS */
 @import "./components/menu.css";
 @import "./components/modal.css";
+@import "./components/card.css";
 
 /* PAGES */
 @import "./pages/authentication.css";

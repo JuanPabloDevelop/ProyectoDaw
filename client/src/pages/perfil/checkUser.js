@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Pedir lista usuarios
         if (isUserAdmin) {
             handleGet({
-                action: "getUsers"
+                action: "user-get-all"
             });
         }
     };
@@ -25,7 +25,7 @@ async function handleGetUserById(userId) {
     const xhttp = new XMLHttpRequest();
     const user = {
         userId: userId,
-        action: "getUserById",
+        action: "user-get-by-id",
     };
     const datosJson = JSON.stringify(user);
 
@@ -76,7 +76,7 @@ function handleGet(currentUser) {
     const xhttp = new XMLHttpRequest();
     const user = {
         ...currentUser,
-        action: "getUsers",
+        action: "user-get-all",
     };
     const datosJson = JSON.stringify(user);
 
@@ -210,7 +210,7 @@ function editCurrentUser() {
 
 function deleteUser(userId) {
     handlePost({
-        action: "deleteUser",
+        action: "user-delete",
         userId: userId,
     });
 }
@@ -236,7 +236,7 @@ function handlePost(user) {
                     let currentUser = JSON.parse(localStorage.getItem('responseData'));
                     if(response.user) {
                         // Solo actualizamos localStorage si estamos editando nuestro propio usuario
-                        if (user.action === "updateUser" && currentUser && currentUser.email === user.email) {
+                        if (user.action === "user-update" && currentUser && currentUser.email === user.email) {
                             localStorage.removeItem('responseData');
                             localStorage.setItem('responseData', JSON.stringify(response.user));
                             currentUser = response.user;
@@ -249,7 +249,7 @@ function handlePost(user) {
                     // Después de cualquier actualización, si somos admin, actualizamos la tabla
                     if (isUserAdmin) {
                         handleGet({
-                            action: "getUsers"
+                            action: "user-get-all"
                         });
                     } else {
                         // La escondemos en caso de que no sea admin
@@ -300,7 +300,7 @@ function handleUpdate(event) {
     }
 
     handlePost({
-        action: "updateUser",
+        action: "user-update",
         nombre: nombreCliente,
         apellidos: apellidosCliente,
         email: emailCliente,

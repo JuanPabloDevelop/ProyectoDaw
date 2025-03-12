@@ -1,9 +1,10 @@
 <?php
-
+    require_once("./model/utils.php");
     function init_db($con) {
         create_bdd($con);
 		mysqli_select_db($con, $GLOBALS["dbname"]);
 		create_user_table($con);
+		create_post_table($con);
     };
 
 	function create_bdd($con){
@@ -44,6 +45,55 @@
 
 			foreach($usuarios as $usuario){
 				mysqli_stmt_bind_param($stmt, "ssisi", $usuario[0], $usuario[1], $usuario[2], $usuario[3], $usuario[4]);
+				mysqli_stmt_execute($stmt);
+			}
+		}
+	};
+
+	function create_post_table($con){
+		mysqli_query($con, "create table if not exists post(
+			id_post int primary key auto_increment, 
+			tipo varchar(100), 
+			titulo varchar(100),
+			contenido varchar(1000),
+			fecha_creacion date,
+			fecha_modificacion date,
+			autor_id int,
+			foreign key (autor_id) references usuario(id_usuario))");
+		fill_post_table($con);
+	};
+
+	function fill_post_table($con){
+		require_once("./model/posts/post.php");
+		$resultado = get_posts($con);
+		$fecha_actual = date('Y-m-d');
+		if(!isset($resultado) || get_num_rows($resultado) == 0){
+			$stmt = mysqli_prepare($con, "insert into post(tipo, titulo, contenido, fecha_creacion, fecha_modificacion, autor_id) values(?, ?, ?, ?, ?, ?)");
+			$posts = array(
+				array("deco", "Nuevo descubrimiento", "Se ha encontrado una nueva especie de ave en el Amazonas.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Concierto en el parque", "Este sábado habrá un concierto gratuito en el parque central.", $fecha_actual, $fecha_actual, 1),
+				array("mobi", "Oferta especial", "¡Descuentos hasta el 50% en productos seleccionados esta semana!", $fecha_actual, $fecha_actual, 1),
+				array("text", "Mi experiencia viajando", "Un resumen de mi viaje por Europa y las lecciones aprendidas.", $fecha_actual, $fecha_actual, 1),
+				array("acc", "El futuro de la tecnología", "Reflexionando sobre cómo la IA está cambiando el mundo.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Cómo cocinar pasta", "Una guía sencilla para preparar pasta deliciosa.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Película del mes", "Una ilu sobre la última película de ciencia ficción.", $fecha_actual, $fecha_actual, 1),
+				array("acc", "Clima extremo", "Cómo el cambio climático está afectando los patrones climáticos.", $fecha_actual, $fecha_actual, 1),
+				array("deco", "Lanzamiento de cohete", "Se lanzó con éxito un cohete de SpaceX al espacio.", $fecha_actual, $fecha_actual, 1),
+				array("mobi", "Nueva tienda abierta", "Hoy se inauguró una nueva tienda en el centro comercial.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Feria de comida", "No te pierdas la feria de comida en el centro de la ciudad.", $fecha_actual, $fecha_actual, 1),
+				array("acc", "El cambio en educación", "Hablamos sobre cómo la educación en línea está transformando las aulas.", $fecha_actual, $fecha_actual, 1),
+				array("text", "Consejos de lectura", "Mis libros favoritos para este año y por qué deberías leerlos.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Cómo plantar árboles", "Consejos simples para ayudar al medio ambiente plantando árboles.", $fecha_actual, $fecha_actual, 1),
+				array("ilu", "Producto del mes", "Una ilu sobre el gadget más reciente del mercado.", $fecha_actual, $fecha_actual, 1),
+				array("acc", "Estado del tráfico", "Un análisis sobre los embotellamientos en las grandes ciudades.", $fecha_actual, $fecha_actual, 1),
+				array("mobi", "Empleo disponible", "Una nueva vacante ha sido publicada en nuestra empresa.", $fecha_actual, $fecha_actual, 1),
+				array("deco", "Descubrimiento histórico", "Se ha descubierto una antigua civilización bajo el desierto.", $fecha_actual, $fecha_actual, 2),
+				array("ilu", "Taller de arte", "Aprende a pintar con este taller gratuito el próximo domingo.", $fecha_actual, $fecha_actual, 2),
+				array("acc", "Importancia del deporte", "Reflexionando sobre los beneficios físicos y mentales del deporte.", $fecha_actual, $fecha_actual, 3),
+			);
+			
+			foreach($posts as $post){
+				mysqli_stmt_bind_param($stmt, "sssssi", $post[0], $post[1], $post[2], $post[3], $post[4], $post[5]);
 				mysqli_stmt_execute($stmt);
 			}
 		}

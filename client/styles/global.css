@@ -80,14 +80,6 @@ main {
     padding: 0 1rem;
 }
 
-/* Cards */
-.card {
-    background-color:  var(--white);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
 
 
 @media (min-width: 640px) {
@@ -264,7 +256,7 @@ tr:hover {
     border-radius: var(--radius);
     font-weight: 500;
     font-size: 0.875rem;
-    z-index: 20;
+    z-index: 50;
     animation: fadeIn 0.3s ease-out;
     background-color: var(--black);
 }
@@ -314,15 +306,6 @@ tr:hover {
 /* Centro el h1 */
 h1 {
     text-align: center;
-}
-
-/* Aplico estilo al marco de "List of posts" */
-main p {
-    display: inline-block;
-    padding: 10px;
-    border: 2px solid #283e28; /* Borde verde */
-    border-radius: 10px; /* Bordes redondeados */
-    background-color:  var(--secondary-color);; /* Fondo */
 }
 
 /* *** FOOTER *** */

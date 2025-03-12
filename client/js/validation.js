@@ -38,4 +38,8 @@ function showMessage(idToHide, idToShow, mensaje) {
     const mensajeContainer = document.getElementById(idToShow);
     mensajeContainer.classList.remove('hidden');
     mensajeContainer.innerHTML = mensaje;
+
+    setTimeout(() => {
+        mensajeContainer.classList.add('hidden');
+    }, 5000);
 }

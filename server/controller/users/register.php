@@ -1,7 +1,8 @@
 <?php
     require_once("./model/users/usuario.php");
     require_once("./controller/utils.php");
-    require_once("./controller/login.php");
+    require_once("./controller/users/login.php");
+    require_once("./model/utils.php");
 
     function register($con, $datos) {
         $name = $datos['nombre'];

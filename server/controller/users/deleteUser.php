@@ -1,6 +1,7 @@
 <?php
     require_once("./model/users/usuario.php");
     require_once("./controller/utils.php");
+    require_once("./model/utils.php");
     function  handle_delete_user($con, $datos) {
         $id = $datos['userId'];
 

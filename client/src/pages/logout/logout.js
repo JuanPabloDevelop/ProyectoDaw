@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function handleLogout() {
     const xhttp = new XMLHttpRequest();
     const user = {
-        action: "logout",
+        action: "user-logout",
     };
     const datosJson = JSON.stringify(user);
 

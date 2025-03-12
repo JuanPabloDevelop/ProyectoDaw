@@ -1,4 +1,5 @@
 <?php
+    require_once("./model/utils.php");
 	function get_user($con, $email_usuario){
 		$resultado = mysqli_query($con, "select * from usuario where email='$email_usuario';");
 		return $resultado;
@@ -56,13 +57,4 @@
 		};
 		return true;
 	};
-
-	function get_results($resultado){
-		return mysqli_fetch_array($resultado);
-	};
-
-	function get_num_rows($resultado){
-		return mysqli_num_rows($resultado);
-	}
-
 ?>

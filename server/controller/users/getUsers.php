@@ -1,6 +1,7 @@
 <?php
     require_once("./model/users/usuario.php");
     require_once("./controller/utils.php");
+    require_once("./model/utils.php");
     function  handle_get_users($con) {
         $usuarios_result = get_users($con);
         $result = get_num_rows($usuarios_result);
