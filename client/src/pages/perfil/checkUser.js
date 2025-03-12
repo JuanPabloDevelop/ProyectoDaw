@@ -236,7 +236,7 @@ function handlePost(user) {
                     let currentUser = JSON.parse(localStorage.getItem('responseData'));
                     if(response.user) {
                         // Solo actualizamos localStorage si estamos editando nuestro propio usuario
-                        if (user.action === "updateUser" && currentUser && currentUser.email === user.email) {
+                        if (user.action === "user-update" && currentUser && currentUser.email === user.email) {
                             localStorage.removeItem('responseData');
                             localStorage.setItem('responseData', JSON.stringify(response.user));
                             currentUser = response.user;

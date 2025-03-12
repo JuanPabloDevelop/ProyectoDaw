@@ -11,7 +11,7 @@
 	};
 
 	function get_posts($con){
-		$resultado = mysqli_query($con, "select * from post p join usuario u on p.autor_id = u.id_usuario;");
+		$resultado = mysqli_query($con, "select p.id_post, p.tipo, p.titulo, p.contenido, p.fecha_creacion, p.fecha_modificacion, p.autor_id, u.nombre, u.apellidos, u.email, u.rol from post p join usuario u on p.autor_id = u.id_usuario;");
 		return $resultado;
 	};
 

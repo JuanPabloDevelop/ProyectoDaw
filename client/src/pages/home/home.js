@@ -50,7 +50,7 @@ function setPosts(data) {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = '';
 
-    data.forEach(post => {
+    data.forEach((post, index) => {
         const card = document.createElement('div');
         card.classList.add('card');
         const userSession = JSON.parse(localStorage.getItem('responseData'));
@@ -64,15 +64,44 @@ function setPosts(data) {
         avatar.style.backgroundColor = colorAleatorio();
         card.appendChild(avatar);
 
+        // Crear imagen
+        const userImg = document.createElement('img');
+        userImg.classList.add('image');
+        userImg.alt = 'user image';
+       userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
+        card.appendChild(userImg);
+
+
         // Añadir campos a la card
-        Object.values(post).forEach(value => {
-            const cell = document.createElement('p');
-            cell.textContent = value;
-            card.appendChild(cell);
+        Object.entries(post).forEach((value) => {
+            const file = document.createElement('p');
+            file.classList.add('file');
+            file.id = `post-${value[0]}-${index}`;
+
+            if(value[0] === 'fecha_modificacion') {
+                value[1] = value[1] ? value[1] : '';
+            }
+
+            if(value[0] === 'tipo') {
+                value[1] = perseTipo(value[1]);
+            }
+
+            if(value[0] === 'rol' || value[0] === 'autor_id' || value[0] === 'id_post') {
+                return;
+            }
+
+            file.textContent = value[1];
+            card.appendChild(file);
         });
 
-    
-        if(userSession.id === post.author_id || userSession.rol === '0') { 
+        // Mostrar fecha de modificación solo si es distinta a la de creación
+        const fechaCreacion = document.getElementById(`post-fecha_creacion-${0}`);
+        const fechaModificacion = document.getElementById(`post-fecha_modificacion-${0}`);
+        if(fechaCreacion && fechaModificacion) {
+            fechaCreacion.textContent === fechaModificacion.textContent ? fechaModificacion.style.display = 'none' : fechaModificacion.style.display = 'block';
+        }
+
+        if(userSession && (userSession.id === post.author_id || userSession.rol === '0')) { 
             // Añadir las acciones
             const actionsCell = document.createElement('div');
             actionsCell.classList.add('actions');
@@ -99,4 +128,15 @@ function setPosts(data) {
 function colorAleatorio() {
     let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
     return color;
+}
+
+function perseTipo(tipo) {
+    const type = {
+        "deco": "Estilos de decoración",
+        "ilu": "Iluminación",
+        "mobi": "Mobiliario",
+        "text": "Textiles",
+        "acc": "accesorios",
+    }
+    return type[tipo];
 }
