@@ -1,13 +1,13 @@
 /* Variables globales */
 :root {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
-    --background-color: #f8fafc;
+    --primary-color: #559155;
+    --primary-hover: #80b180;
+    --background-color: #d8dfd8;
     --secondary-color: #6b7280;
 
     --white: #ffffff;
     --black: #000000;
-    --text-color: #1e293b;
+    --text-color: #000000;
     --text-light: #64748b;
     --border-color: #e2e8f0;
     --success-color: #22c55e;
@@ -30,8 +30,6 @@ html, body {
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    background-color: #d8dfd8; /* Color de fondo igual al de index.html */
-    color: #699d69; /* Color de texto igual al de index.html */
     text-align: center;
     display: flex;
     flex-direction: column;
