@@ -2,8 +2,11 @@
 :root {
     --primary-color: #3b82f6;
     --primary-hover: #2563eb;
-    --background-color: #f8fafc;
-    --secondary-color: #6b7280;
+
+    --secondary-color: #699d69;
+    --secondary-hover: #699d69;
+
+    --background-color: #d8dfd8;
 
     --white: #ffffff;
     --black: #000000;
@@ -30,13 +33,13 @@ html, body {
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    background-color: #d8dfd8; /* Color de fondo igual al de index.html */
-    color: #699d69; /* Color de texto igual al de index.html */
+    height: auto;
+    background-color:  var(--background-color); 
+    color: var(--secondary-color); 
     text-align: center;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ocupa toda la altura disponible */
-    overflow-x: hidden; /* Oculta la barra horizontal */
+    overflow-x: hidden;
     overflow-y: auto;
 }
 

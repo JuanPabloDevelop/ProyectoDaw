@@ -46,7 +46,7 @@
     font-size: 0.875rem;
 }
 
-.formulario__container input {
+.formulario__container input, textarea {
     width: 100%;
     padding: 0.625rem;
     border: 1px solid var(--border-color);
@@ -56,7 +56,7 @@
     font-size: 0.875rem;
 }
 
-.formulario__container input:focus {
+.formulario__container input:focus, textarea:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-light);
 }

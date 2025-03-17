@@ -1,10 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const miDiv = document.getElementById("posts-container");
-    if (miDiv) {
-    handleGetPosts();
-    handleGetFilters({
-        action: "filter-get-posts-types",
-    });
+    const mainContent = document.getElementById("content");
+    const cardLoading = document.getElementById("skeleton-container");
+
+    if (cardLoading || mainContent) {
+        setTimeout(() => {
+            mainContent.classList.remove('hidden');
+            cardLoading.classList.add('hidden');
+
+            handlePosts({
+                action: "post-get-all",
+                filter: "all",
+            });
+            const filters = handleGetFilters({
+                action: "filter-get-posts-types",
+            });
+
+            if (filters) {
+                setSelectOptions(filters, 'filter-select');
+            }
+
+        }, 2000);
     }
 });
   
@@ -28,7 +43,9 @@ function handleGetFilters(action) {
                 select.classList.add('hidden');
                 return;
             } else {
-                setSelectOptions(response.data);
+                const filters = response.data.map(item =>perseTipo(item.tipo));
+                localStorage.setItem('filters', filters);
+                setSelectOptions(response.data, 'filter-select');
                 return;
             };
           } else {
@@ -44,13 +61,12 @@ function handleGetFilters(action) {
   xhttp.send(datosJson);
 }
 
-function handleGetPosts(filter= 'all') {
+function handlePosts(data) {
     const xhttp = new XMLHttpRequest();
-    const user = {
-        action: "post-get-all",
-        filter: filter,
+    const info = {
+        ...data,
     };
-    const datosJson = JSON.stringify(user);
+    const datosJson = JSON.stringify(info);
   
     xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
     xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
@@ -79,8 +95,132 @@ function handleGetPosts(filter= 'all') {
         showErrorMessage('Error de red');
     };
     xhttp.send(datosJson);
-  }
+}
 
+async function handleGetPostById(postId) {
+    return new Promise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+        const post = {
+            id: postId,
+            action: "post-get-by-id",
+        };
+        const datosJson = JSON.stringify(post);
+
+        xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+
+        xhttp.onload = function () {
+            if (xhttp.status === 200) {
+                const response = JSON.parse(xhttp.responseText);
+
+                if (response.success) {
+                    if (response.data.length === 0) {
+                        reject('No hay Posts registrados.');
+                    } else {
+                        resolve(response.data);
+                    }
+                } else {
+                    reject('Error al obtener los usuarios.');
+                }
+            } else {
+                reject(`Error: ${xhttp.status}, ${xhttp.statusText}`);
+            }
+        };
+        xhttp.onerror = function () {
+            reject('Error de red');
+        };
+        xhttp.send(datosJson);
+    });
+}
+
+async function editPost(id) {
+    try {
+        const response = await handleGetPostById(id);
+        document.getElementById("modalPostTitle").value = response[0].titulo;
+        document.getElementById("modalPostContent").value = response[0].contenido;
+        document.getElementById("modalPostId").value = response[0].id_post;
+        
+        // Cargar las opciones del select
+        const select = document.getElementById("modalPostType");
+        // Limpiar opciones existentes
+        select.innerHTML = '';
+        
+        // Crear las opciones basadas en los tipos disponibles
+        const tipos = {
+            "ilu": "Iluminación",
+            "mobi": "Mobiliario",
+            "text": "Textiles",
+            "acc": "Accesorios"
+        };
+
+        // Agregar las opciones al select
+        Object.entries(tipos).forEach(([valor, texto]) => {
+            const option = document.createElement('option');
+            option.value = valor;
+            option.textContent = texto;
+            // Si es el tipo actual del post, seleccionarlo
+            if (valor === response[0].tipo) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+
+        const modal = document.getElementById("editPostModal");
+        const closeBtn = document.getElementById("close");
+
+        // Función para cerrar el modal
+        const closeModal = () => {
+            modal.style.display = "none";
+        };
+
+        // Event listener para el botón de cierre (×)
+        closeBtn.onclick = closeModal;
+
+        // Event listener para cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        };
+
+        // Event listeners para los botones
+        document.getElementById("modalPostSave").onclick = () => {
+            const title = document.getElementById("modalPostTitle").value;
+            const content = document.getElementById("modalPostContent").value;
+            const type = document.getElementById("modalPostType").value;
+            const postId = document.getElementById("modalPostId").value;
+            
+            if (!title || !content) {
+                showErrorMessage('Por favor, rellena todos los campos obligatorios.');
+                return;
+            }
+
+            handlePosts({
+                action: "post-update",
+                id: postId,
+                titulo: title,
+                contenido: content,
+                tipo: type,
+            });
+            closeModal();
+        };
+
+        document.getElementById("modalPostCancel").onclick = closeModal;
+
+        // Mostrar el modal
+        modal.style.display = "block";
+    } catch (error) {
+        showErrorMessage(error);
+    }
+}
+
+function deletePost(id) {
+    handlePosts({
+        action: "post-delete",
+        id: id,
+    });
+};
+    
 function setPosts(data) {
     // Primero limpiamos y luego añadimos los posts
     const postsContainer = document.getElementById('posts-container');
@@ -104,7 +244,7 @@ function setPosts(data) {
         const userImg = document.createElement('img');
         userImg.classList.add('image');
         userImg.alt = 'user image';
-       userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
+        userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
         card.appendChild(userImg);
 
 
@@ -161,8 +301,8 @@ function setPosts(data) {
     });
 }
 
-function setSelectOptions(data) {
-    const select = document.getElementById('filter-select');
+function setSelectOptions(data, id) {
+    const select = document.getElementById(id);
     // Borrar duplicados
     const uniqueArray = [...new Set(data)];
     uniqueArray.forEach(item => {
@@ -171,7 +311,12 @@ function setSelectOptions(data) {
         option.textContent = perseTipo(item.tipo);
         select.appendChild(option);
     });
-    select.addEventListener('change', (event) => handleGetPosts(event.target.value));
+    select.addEventListener('change', (event) => handlePosts(
+        {
+            action: "post-get-all",
+            filter: event.target.value,
+        }
+    ));
 }
 
 function colorAleatorio() {
@@ -186,7 +331,7 @@ function perseTipo(tipo) {
         "ilu": "Iluminación",
         "mobi": "Mobiliario",
         "text": "Textiles",
-        "acc": "accesorios",
+        "acc": "Accesorios",
     }
     return type[tipo];
 }

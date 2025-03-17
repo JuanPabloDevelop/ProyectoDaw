@@ -23,6 +23,23 @@
         $result = get_num_rows($posts_result);
 
         if($result == 0) {
+            $data = array("success" => false, "message" => "No hay ningún post registrado con ese tipo");
+            echo json_encode($data);
+            exit;
+        }
+
+        $posts = result_to_array($posts_result);
+    
+        $data = array("success" => true, "message" => "Posts encontrado", "data" => $posts);
+        echo json_encode($data);
+    };
+
+    
+    function handle_get_posts_by_id($con, $id) {
+        $posts_result = get_posts_by_id($con, $id);
+        $result = get_num_rows($posts_result);
+
+        if($result == 0) {
             $data = array("success" => false, "message" => "No hay ningún post registrado con ese id");
             echo json_encode($data);
             exit;
