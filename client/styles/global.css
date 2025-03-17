@@ -33,8 +33,7 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ocupa toda la altura disponible */
-    overflow-x: hidden; /* Oculta la barra horizontal */
+    overflow-x: hidden;
     overflow-y: auto;
 }
 

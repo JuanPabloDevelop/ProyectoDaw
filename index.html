@@ -42,13 +42,19 @@
 
         <!-- Content -->
         <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
-        <section class="content">
+        <div class="skeleton-container" id="skeleton-container">
+            <div class="skeleton" style="height:40px;"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+        </div>
+        <section class="content hidden" id="content">
             <div class="">
                 <select id="filter-select" class="filter-select"></select>
                 <button id="add-post-button" class="button">Añadir post</button>
             </div>
 
-            <div id="posts-container" class="posts-container"></div>
+            <div id="posts-container" class="posts-container "> 
+            </div>
         </section>
     </main>
 
@@ -68,5 +74,29 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal -->
+    <div id="editPostModal" class="modal">
+        <span id="close" class="close">&times;</span>
+        <h2>Editar Post</h2>
+        <div class="modal-content">
+
+            <form id="editPostForm">
+                <input type="hidden" id="modalPostId" name="id">
+                <div id="Type-container">
+                    <label for="modalPostType">Tipo:</label>
+                    <select id="modalPostType" name="modalPostType"></select>
+                </div>
+                <label for="modalPostTitle">Título:</label>
+                <input type="text" id="modalPostTitle" name="title" required><br>
+                <label for="modalPostContent">Contenido:</label>
+                <textarea id="modalPostContent" name="modalPostContent" rows="5" required></textarea>
+            </form>
+            <div class="button-container">
+                <button class="button full" id="modalPostSave" type="button">Guardar</button>
+                <button class="button full" id="modalPostCancel" type="button">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -7,6 +7,18 @@
             handleGetPosts($con, $datos['filter']);
             break;
 
+        case 'post-get-by-id':
+            handleGetPostById($con, $datos['id']);
+            break;  
+
+        case 'post-delete':
+            handleDeletePost($con, $datos['id']);
+            break;
+          
+        case 'post-update':
+            handleUpdatePost($con, $datos);
+            break;
+
         default:
             $data = array("success" => false, "message" => "Acción no reconocida");
             echo json_encode($data);
@@ -21,8 +33,20 @@
         } else {
             handle_get_posts_by_type($con, $filter);
         }
-
     }
 
+    function handleGetPostById($con, $id) {
+        require_once("./controller/posts/getPosts.php");
+        handle_get_posts_by_id($con, $id);
+    }
+
+    function handleDeletePost($con, $id) {
+        require_once("./controller/posts/deletePosts.php");
+        handle_delete_post($con, $id);
+    }
     
+    function handleUpdatePost($con, $datos) {
+        require_once("./controller/posts/updatePost.php");
+        handle_update_post($con, $datos);
+    }
 ?>
