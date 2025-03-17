@@ -35,3 +35,24 @@
     height: 100px;
     border-radius: 50%;
 }
+
+.skeleton {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+    position: relative;
+    background: linear-gradient(90deg, #ededed 30%, #cccaca 50%, #ededed 70%);
+    background-size: 400%;
+    animation: shimmer 1.5s infinite linear;
+    height: 300px;
+    width: 100%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

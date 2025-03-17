@@ -12,6 +12,7 @@
 
 /* Modal content */
 .modal-content {
+    padding: 1.5rem;
     background-color:  var(--white);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -30,10 +31,6 @@
     font-size: 1.25rem;
 }
 
-/* Modal body */
-.modal-content form {
-    padding: 1.5rem;
-}
 
 /* Close button */
 .close {
