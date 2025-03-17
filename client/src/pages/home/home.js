@@ -186,7 +186,7 @@ function perseTipo(tipo) {
         "ilu": "Iluminación",
         "mobi": "Mobiliario",
         "text": "Textiles",
-        "acc": "accesorios",
+        "acc": "Accesorios",
     }
     return type[tipo];
 }

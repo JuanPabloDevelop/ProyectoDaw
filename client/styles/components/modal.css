@@ -46,17 +46,17 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--radius);
-    background-color: #f8fafc;
+    background-color: var(--primary-color);
     border: 1px solid var(--border-color);
-    color: var(--text-light);
+    color: var(--white);
     font-size: 1.25rem;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .close:hover {
-    background-color: #f1f5f9;
-    color: var(--text-color);
+    background-color:var(--primary-hover);
+    color: var(--black);
 }
 
 /* Form elements within modal */
