@@ -46,7 +46,7 @@
 
 .card .image {
     width: 100%;
-    height: 200px; 
+    height: 250px; 
     border-radius: var(--radius);
     object-fit: cover;
     margin-bottom: 1rem; 
@@ -76,6 +76,10 @@
 
 .card .file:nth-of-type(3){
     background-color: var(--background-color);
+}
+
+.card .file:nth-of-type(3) p {
+    text-align: justify;
 }
 
 .card .file:nth-of-type(4),
@@ -109,6 +113,8 @@
     display: inline-block;
     width: auto;
     margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .skeleton {
