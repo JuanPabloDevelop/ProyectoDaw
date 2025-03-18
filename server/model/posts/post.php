@@ -35,8 +35,9 @@
 	}
 
 	function update_post($con, $id, $titulo, $contenido, $tipo) {
-		$stmt = mysqli_prepare($con, "update post set titulo = ?, contenido = ?, tipo = ? where id_post = ?");
-		mysqli_stmt_bind_param($stmt, "ssss", $titulo, $contenido, $tipo, $id);
+		$fecha_modificacion = date('Y-m-d');
+		$stmt = mysqli_prepare($con, "update post set titulo = ?, contenido = ?, tipo = ? where id_post = ?, fecha_modificacion = ?");
+		mysqli_stmt_bind_param($stmt, "sssss", $titulo, $contenido, $tipo, $id, $fecha_modificacion);
 		mysqli_stmt_execute($stmt);
 
 		if (mysqli_stmt_affected_rows($stmt) > 0) {
