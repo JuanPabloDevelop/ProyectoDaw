@@ -9,6 +9,7 @@
 @import "./components/menu.css";
 @import "./components/modal.css";
 @import "./components/card.css";
+@import "./components/comments-card.css";
 
 /* PAGES */
 @import "./pages/authentication.css";
