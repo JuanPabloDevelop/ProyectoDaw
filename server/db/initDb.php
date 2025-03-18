@@ -6,6 +6,7 @@
 		create_user_table($con);
 		create_post_table($con);
 		create_filters_table($con);
+		create_comments_table($con);
     };
 
 	function create_bdd($con){
@@ -124,6 +125,74 @@
 			
 			foreach($filters as $filter){
 				mysqli_stmt_bind_param($stmt, "s", $filter[0]);
+				mysqli_stmt_execute($stmt);
+			}
+		}
+	};
+
+	function create_comments_table($con){
+		mysqli_query($con, "create table if not exists comment(
+			id_comment int primary key auto_increment,
+			contenido varchar(1000),
+			fecha_creacion date,
+			fecha_modificacion date,
+			post_id int,
+			usuario_id int,
+			foreign key (post_id) references post(id_post) on delete cascade,
+			foreign key (usuario_id) references usuario(id_usuario) on delete cascade
+		);");
+		fill_comment_table($con);
+	};
+
+	function fill_comment_table($con){
+		require_once("./model/comments/comment.php");
+		$resultado = get_comments($con);
+		$fecha_actual = date('Y-m-d');
+		if(!isset($resultado) || get_num_rows($resultado) == 0){
+			$stmt = mysqli_prepare($con, "insert into comment(contenido, fecha_creacion, fecha_modificacion, usuario_id, post_id) values(?, ?, ?, ?, ?)");
+			$comments = array(
+				array("Excelente", $fecha_actual, $fecha_actual, 1, 1),
+				array("Lo recomendaré", $fecha_actual, $fecha_actual, 1, 2),
+				array("Lo veo insuficiente", $fecha_actual, $fecha_actual, 1, 3),
+				array("Está sacado de una revista", $fecha_actual, $fecha_actual, 1, 4),
+				array("No estoy de acuerdo. Creo que aporta un punto de vista interesante con respecto al resto", $fecha_actual, $fecha_actual, 1, 5),
+				array("Estoy de acuerdo", $fecha_actual, $fecha_actual, 1, 6),
+				array("Esto me hace reflexionar", $fecha_actual, $fecha_actual, 1, 7),
+				array("Es justo lo que necesitaba", $fecha_actual, $fecha_actual, 1, 8),
+				array("No lo veo interesante", $fecha_actual, $fecha_actual, 1, 9),
+				array("A veces pasa si lo lees por encima", $fecha_actual, $fecha_actual, 1, 10),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 11),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 12),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 11),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 12),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 11),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 10),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 9),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 11),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 1, 12),
+				array("Muy interesante", $fecha_actual, $fecha_actual, 2, 3),
+				array("Gracias por compartir", $fecha_actual, $fecha_actual, 3, 5),
+				array("¡Gran aporte!", $fecha_actual, $fecha_actual, 4, 7),
+				array("Esto me ayudó mucho", $fecha_actual, $fecha_actual, 5, 2),
+				array("No estoy de acuerdo", $fecha_actual, $fecha_actual, 6, 4),
+				array("Súper útil", $fecha_actual, $fecha_actual, 7, 6),
+				array("Necesito más detalles", $fecha_actual, $fecha_actual, 8, 8),
+				array("¡Fantástico!", $fecha_actual, $fecha_actual, 9, 9),
+				array("Esto me hace reflexionar", $fecha_actual, $fecha_actual, 6, 6),
+				array("Buen contenido", $fecha_actual, $fecha_actual, 8, 8),
+				array("No estoy seguro de esto", $fecha_actual, $fecha_actual, 6, 6),
+				array("Es justo lo que necesitaba", $fecha_actual, $fecha_actual, 6, 1),
+				array("¡Motivador!", $fecha_actual, $fecha_actual, 4, 3),
+				array("Estoy impresionado", $fecha_actual, $fecha_actual, 4, 5),
+				array("¿Dónde puedo aprender más?", $fecha_actual, $fecha_actual, 6, 7),
+				array("Sencillo pero efectivo", $fecha_actual, $fecha_actual, 7, 2),
+				array("Interesante enfoque", $fecha_actual, $fecha_actual, 8, 4),
+				array("Increíble trabajo", $fecha_actual, $fecha_actual, 9, 6),
+				array("Voy a recomendarlo", $fecha_actual, $fecha_actual, 2, 8)
+			);
+			
+			foreach($comments as $comment){
+				mysqli_stmt_bind_param($stmt, "sssii", $comment[0], $comment[1], $comment[2], $comment[3], $comment[4]);
 				mysqli_stmt_execute($stmt);
 			}
 		}

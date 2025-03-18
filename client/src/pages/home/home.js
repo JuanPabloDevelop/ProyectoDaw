@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 setSelectOptions(filters, 'filter-select');
             }
 
+            handleComments({
+                action: "comments-get-all",
+            });
         }, 2000);
     }
 });
@@ -77,8 +80,8 @@ function handlePosts(data) {
   
             if (response.success) {
                 if (response.data.length === 0) {
-                    const postsContainer = document.getElementById('posts-container');
-                    postsContainer.innerHTML = 'No hay posts registrados.';
+                    const postsContainer = document.getElementById('post-actions-content');
+                    postsContainer.innerHTML = '0 comentarios';
                     return;
                 } else {
                     setPosts(response.data);
@@ -221,85 +224,297 @@ function deletePost(id) {
     });
 };
     
-function setPosts(data) {
-    // Primero limpiamos y luego añadimos los posts
-    const postsContainer = document.getElementById('posts-container');
-    postsContainer.innerHTML = '';
+async function setPosts(data) {
 
-    data.forEach((post, index) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        const userSession = JSON.parse(localStorage.getItem('responseData'));
+    try {
+        // Primero limpiamos y luego añadimos los posts
+        const postsContainer = document.getElementById('posts-container');
+        postsContainer.innerHTML = '';
 
-        // Crear avatar
-        const avatar = document.createElement('div');
-        avatar.classList.add('avatar');
-        let iniciales = post.nombre.charAt(0) + post.apellidos.charAt(0);
-        iniciales = iniciales.toUpperCase();
-        avatar.textContent = iniciales;
-        avatar.style.backgroundColor = colorAleatorio();
-        card.appendChild(avatar);
+        // Pedimos los comentarios
+        const comments = await handleGetComments();
 
-        // Crear imagen
-        const userImg = document.createElement('img');
-        userImg.classList.add('image');
-        userImg.alt = 'user image';
-        userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
-        card.appendChild(userImg);
+        data.forEach(async (post, index) => {
+
+            // Filtramos  los comentarios
+            const commentsFiltered = comments.filter(comment => comment.id_post === post.id_post);
+
+            // Crear card
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.id = `card-${post.id_post}`;
+            const userSession = JSON.parse(localStorage.getItem('responseData'));
+
+            // Crear avatar
+            const avatar = document.createElement('div');
+            avatar.classList.add('avatar');
+            let iniciales = post.nombre.charAt(0) + post.apellidos.charAt(0);
+            iniciales = iniciales.toUpperCase();
+            avatar.textContent = iniciales;
+            avatar.style.backgroundColor = colorAleatorio();
+            card.appendChild(avatar);
+
+            // Crear imagen
+            const userImg = document.createElement('img');
+            userImg.classList.add('image');
+            userImg.alt = 'user image';
+            userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
+            card.appendChild(userImg);
 
 
-        // Añadir campos a la card
-        Object.entries(post).forEach((value) => {
-            const file = document.createElement('p');
-            file.classList.add('file');
-            file.id = `post-${value[0]}-${index}`;
+            // Añadir campos a la card
+            Object.entries(post).forEach((value) => {
+                const file = document.createElement('p');
+                file.classList.add('file');
+                file.id = `post-${value[0]}-${index}`;
 
-            if(value[0] === 'fecha_modificacion') {
-                value[1] = value[1] ? value[1] : '';
+                if(value[0] === 'fecha_modificacion') {
+                    value[1] = value[1] ? value[1] : '';
+                }
+
+                if(value[0] === 'tipo') {
+                    value[1] = perseTipo(value[1]);
+                }
+
+                if(value[0] === 'rol' || value[0] === 'autor_id' || value[0] === 'id_post') {
+                    return;
+                }
+
+                file.textContent = value[1];
+                card.appendChild(file);
+            });
+
+            // Mostrar fecha de modificación solo si es distinta a la de creación
+            const fechaCreacion = document.getElementById(`post-fecha_creacion-${0}`);
+            const fechaModificacion = document.getElementById(`post-fecha_modificacion-${0}`);
+            if(fechaCreacion && fechaModificacion) {
+                fechaCreacion.textContent === fechaModificacion.textContent ? fechaModificacion.style.display = 'none' : fechaModificacion.style.display = 'block';
             }
 
-            if(value[0] === 'tipo') {
-                value[1] = perseTipo(value[1]);
+            // Añadir número comentarios
+            if(commentsFiltered.length > 0) {
+                const commentsCounter = document.createElement('p');
+                commentsCounter.classList.add('comments-counter');
+                commentsCounter.textContent = `${commentsFiltered.length} comentarios`;
+                card.appendChild(commentsCounter);
+            };
+
+            if(userSession && (userSession.id === post.author_id || userSession.rol === '0')) { 
+                // Añadir las acciones
+                const actionsCell = document.createElement('div');
+                actionsCell.id = 'post-actions-content';
+                actionsCell.classList.add('actions');
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.classList.add('button')
+                editButton.onclick = () => editPost(post.id_post);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Eliminar';
+                deleteButton.classList.add('button')
+                deleteButton.onclick = () => deletePost(post.id_post);
+
+                const commentsButton = document.createElement('button');
+                commentsButton.textContent = 'Comentar';
+                commentsButton.classList.add('button')
+                commentsButton.onclick = () => handleComments(post.id_post);
+
+                actionsCell.appendChild(editButton);
+                actionsCell.appendChild(deleteButton);
+                actionsCell.appendChild(commentsButton);
+
+                card.appendChild(actionsCell);        
             }
 
-            if(value[0] === 'rol' || value[0] === 'autor_id' || value[0] === 'id_post') {
-                return;
+            // Añadir comentarios
+            const commentsContainer = document.createElement('div');
+            commentsContainer.classList.add('comments-container');
+            commentsContainer.classList.add('comments-container-close');
+            commentsContainer.id = `comments-container-${post.id_post}`;
+            card.appendChild(commentsContainer);
+
+            commentsFiltered.forEach(comment => {
+                const commentCard = document.createElement('div');
+                commentCard.classList.add('comment-card');
+                commentCard.id = `comment-card-${comment.id_comment}`;
+
+                const commentContentContainer = document.createElement('div');
+                commentContentContainer.classList.add('comment-content-container');
+
+                const commentUserImg = document.createElement('img');
+                commentUserImg.classList.add('image');
+                commentUserImg.classList.add('image--comentario');
+                commentUserImg.alt = 'user image';
+                commentUserImg.src = `client//assets/users/user-${comment.id_usuario}.jpg`;
+                commentContentContainer.appendChild(commentUserImg);
+
+                const commentContent = document.createElement('p');
+                commentContent.classList.add('content');
+                commentContent.textContent = comment.contenido;
+                commentContentContainer.appendChild(commentContent);
+
+                const creationDateContent = document.createElement('p');
+                creationDateContent.classList.add('creation-date');
+                creationDateContent.textContent = comment.fecha_creacion;
+                commentContentContainer.appendChild(creationDateContent);
+
+                if (comment.fecha_modificacion !== comment.fecha_creacion) {
+                    const editionDateContent = document.createElement('p');
+                    editionDateContent.classList.add('edition-date');
+                    editionDateContent.textContent = comment.fecha_modificacion;
+                    commentContentContainer.appendChild(editionDateContent);
+                }
+
+
+                commentCard.appendChild(commentContentContainer);
+
+                if(userSession && (userSession.id === comment.id_usuario || userSession.rol === '0')) { 
+                    // Añadir las acciones
+                    const commentActionsCell = document.createElement('div');
+                    commentActionsCell.id = 'comments-actions-content';
+                    commentActionsCell.classList.add('actions');
+                    const editCommentButton = document.createElement('button');
+                    editCommentButton.textContent = 'Editar';
+                    editCommentButton.classList.add('button')
+                    editCommentButton.onclick = () => editComment(comment.id_comment);
+    
+                    const deleteCommentButton = document.createElement('button');
+                    deleteCommentButton.textContent = 'Eliminar';
+                    deleteCommentButton.classList.add('button')
+                    deleteCommentButton.onclick = () => deleteComment(comment.id_comment);
+    
+                    commentActionsCell.appendChild(editCommentButton);
+                    commentActionsCell.appendChild(deleteCommentButton);
+    
+                    commentCard.appendChild(commentActionsCell);        
+                }
+                commentsContainer.appendChild(commentCard);
+            });
+
+            // Empty comments message
+            if(!commentsFiltered.length) {
+                const emptyCommentText = document.createElement('p');
+                emptyCommentText.classList.add('comments-empty-text');
+                emptyCommentText.textContent = "Sé el primero en comentar";
+                commentsContainer.appendChild(emptyCommentText);
             }
 
-            file.textContent = value[1];
-            card.appendChild(file);
+            // Input para añadir comentarios
+            const sendCommentContent = document.createElement('div');
+            sendCommentContent.id = 'comments-add-content';
+            sendCommentContent.classList.add('comments-add-content');
+
+            const commentInput = document.createElement('input');
+            commentInput.classList.add('comment-input');
+            commentInput.placeholder = 'Escribe un comentario...';
+            sendCommentContent.appendChild(commentInput);
+
+            const AddCommentButton = document.createElement('button');
+            AddCommentButton.textContent = 'Enviar';
+            AddCommentButton.classList.add('button')
+            AddCommentButton.onclick = () =>addComment(commentInput.value);
+            sendCommentContent.appendChild(AddCommentButton);
+
+            commentsContainer.appendChild(sendCommentContent);
+
+            postsContainer.appendChild(card);
         });
 
-        // Mostrar fecha de modificación solo si es distinta a la de creación
-        const fechaCreacion = document.getElementById(`post-fecha_creacion-${0}`);
-        const fechaModificacion = document.getElementById(`post-fecha_modificacion-${0}`);
-        if(fechaCreacion && fechaModificacion) {
-            fechaCreacion.textContent === fechaModificacion.textContent ? fechaModificacion.style.display = 'none' : fechaModificacion.style.display = 'block';
-        }
-
-        if(userSession && (userSession.id === post.author_id || userSession.rol === '0')) { 
-            // Añadir las acciones
-            const actionsCell = document.createElement('div');
-            actionsCell.classList.add('actions');
-            const editButton = document.createElement('button');
-            editButton.textContent = 'Editar';
-            editButton.classList.add('button')
-            editButton.onclick = () => editPost(post.id_post);
-
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = 'Eliminar';
-            deleteButton.classList.add('button')
-            deleteButton.onclick = () => deletePost(post.id_post);
-
-            actionsCell.appendChild(editButton);
-            actionsCell.appendChild(deleteButton);
-
-            card.appendChild(actionsCell);        
-        }
-
-        postsContainer.appendChild(card);
-    });
+    } catch (error) {
+        showErrorMessage(error);
+    }
 }
+
+function addComment(comment) {
+    console.log(comment);
+}
+async function handleComments(id) {
+
+    try {
+        const commentsContainer = document.getElementById(`comments-container-${id}`);
+
+        if (commentsContainer) {
+            if(commentsContainer.classList.contains('comments-container-close')) {
+                commentsContainer.classList.remove('comments-container-close');
+                commentsContainer.classList.add('comments-container-open');
+            } else {
+                commentsContainer.classList.remove('comments-container-open');
+                commentsContainer.classList.add('comments-container-close');
+            }
+        }
+        return;
+
+    } catch (error) {
+        showErrorMessage(error);
+    }
+};
+
+async function handleGetComments() {
+    return new Promise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+        const post = {
+            action: "comments-get-all",
+        };
+        const datosJson = JSON.stringify(post);
+
+        xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+
+        xhttp.onload = function () {
+            if (xhttp.status === 200) {
+                const response = JSON.parse(xhttp.responseText);
+
+                if (response.success) {
+                    if (response.data.length === 0) {
+                        reject('No hay comentarios registrados.');
+                    }
+
+                    resolve(response.data);
+                } else {
+                    reject('Error al obtener los comentarios.');
+                }
+            }
+        }
+        xhttp.onerror = function () {
+            reject('Error de red');
+        };
+        xhttp.send(datosJson);
+    });
+};
+
+async function handleGetCommentsByPostId(postId) {
+    return new Promise((resolve, reject) => {
+        const xhttp = new XMLHttpRequest();
+        const post = {
+            id: postId,
+            action: "comments-get-by-post-id",
+        };
+        const datosJson = JSON.stringify(post);
+
+        xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
+        xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+
+        xhttp.onload = function () {
+            if (xhttp.status === 200) {
+                const response = JSON.parse(xhttp.responseText);
+
+                if (response.success) {
+                    if (response.data.length === 0) {
+                        reject('No hay comentarios registrados.');
+                    }
+
+                    resolve(response.data);
+                } else {
+                    reject('Error al obtener los comentarios.');
+                }
+            }
+        }
+        xhttp.onerror = function () {
+            reject('Error de red');
+        };
+        xhttp.send(datosJson);
+    });
+};
 
 function setSelectOptions(data, id) {
     const select = document.getElementById(id);
@@ -317,6 +532,42 @@ function setSelectOptions(data, id) {
             filter: event.target.value,
         }
     ));
+}
+
+function handlePosts(data) {
+    const xhttp = new XMLHttpRequest();
+    const info = {
+        ...data,
+    };
+    const datosJson = JSON.stringify(info);
+  
+    xhttp.open('POST', 'http://localhost/ejercicios/ProyectoDaw/server/server.php', true);
+    xhttp.setRequestHeader('Content-type', 'application/json; charset=UTF-8');
+  
+    xhttp.onload = function () {
+        if (xhttp.status === 200) {
+            const response = JSON.parse(xhttp.responseText);
+  
+            if (response.success) {
+                if (response.data.length === 0) {
+                    const postsContainer = document.getElementById('posts-container');
+                    postsContainer.innerHTML = 'No hay posts registrados.';
+                    return;
+                } else {
+                    setPosts(response.data);
+                    return;
+                };
+            } else {
+                showErrorMessage('Error al obtener los usuarios.');
+            }
+        } else {
+            showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
+        }
+    };
+    xhttp.onerror = function () {
+        showErrorMessage('Error de red');
+    };
+    xhttp.send(datosJson);
 }
 
 function colorAleatorio() {
