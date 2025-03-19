@@ -35,7 +35,7 @@
 	}
 
 	function update_post($con, $id, $titulo, $contenido, $tipo) {
-		$fecha_modificacion = date('Y-m-d');
+		$fecha_modificacion = date("Y-m-d h:ia");
 		$stmt = mysqli_prepare($con, "update post set titulo = ?, contenido = ?, tipo = ?, fecha_modificacion = ? where id_post = ?");
 		mysqli_stmt_bind_param($stmt, "sssss", $titulo, $contenido, $tipo, $fecha_modificacion, $id);
 		mysqli_stmt_execute($stmt);

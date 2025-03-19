@@ -296,7 +296,7 @@ async function updateScrolledPosts(id, comments) {
 /**  COMMENTS **/
 function addCommentToCard(cardInfo, postId, comments) {
     const card = cardInfo || document.getElementById(`card-${postId}`); 
-    debugger;
+
     const userSession = JSON.parse(localStorage.getItem('responseData'));
     
     const commentsContainer = document.createElement('div');
@@ -318,6 +318,7 @@ function addCommentToCard(cardInfo, postId, comments) {
 
         const commentContentContainer = document.createElement('div');
         commentContentContainer.classList.add('comment-content-container');
+        commentContentContainer.id = `comment-content-container-${comment.id_comment}`;
 
         const commentUserImg = document.createElement('img');
         commentUserImg.classList.add('image');
@@ -328,6 +329,7 @@ function addCommentToCard(cardInfo, postId, comments) {
 
         const commentContent = document.createElement('p');
         commentContent.classList.add('content');
+        commentContent.id = `content-${comment.id_comment}`
         commentContent.textContent = comment.contenido;
         commentContentContainer.appendChild(commentContent);
 
@@ -399,7 +401,6 @@ function addCommentToCard(cardInfo, postId, comments) {
     return card;
 };
 
-
 async function addComment(id_post, content) {
     const userSession = JSON.parse(localStorage.getItem('responseData'));
     document.getElementById('new-comment-input').value = '';
@@ -446,3 +447,64 @@ async function deleteComment(postId, commentId) {
         updateScrolledPosts(postId, commentsUpdated);
     }
 };
+
+async function editComment(postId, commentId) {
+// Obtenemos el valor actual
+  const commentContent = document.getElementById(`content-${commentId}`);
+  const valor = commentContent.textContent;
+
+  // Creamos un div para incluir el input y el boton
+  const newActionContainer = document.createElement("div");
+  newActionContainer.id = `actions-content-${commentId}`;
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.id = `input-content-${commentId}`;
+  input.value = valor;
+
+  const updateButton = document.createElement("button");
+  updateButton.classList.add("button")
+  updateButton.textContent = "Enviar";
+  updateButton.onclick = () => updateComment(postId, commentId, input.value);
+
+  const cancelButton = document.createElement("button");
+  cancelButton.classList.add("button")
+  cancelButton.textContent = "cancelar";
+  cancelButton.onclick = () => changeInputToParagraph(commentId, valor);
+
+  newActionContainer.innerHTML = "";
+  newActionContainer.appendChild(input); 
+  newActionContainer.appendChild(updateButton); 
+  newActionContainer.appendChild(cancelButton); 
+
+  // Sustituimos elementos:
+  commentContent.parentNode.replaceChild(newActionContainer, commentContent)
+};
+
+async function updateComment(postId, commentId, content) {
+
+    const commentsUpdated = await handleFetchData({
+        action: "comments-update",
+        commentId: commentId,
+        content: content,
+        postId: postId,
+    });
+
+    // Cambiamos el input por un p
+    if(commentsUpdated) {
+        changeInputToParagraph(commentId)
+    }
+}
+
+function changeInputToParagraph(commentId, value = '') {
+    const actionsContainer = document.getElementById(`actions-content-${commentId}`);
+    const input = document.getElementById(`input-content-${commentId}`);
+    const valor = value || input.value;
+
+    const parrafo = document.createElement("p");
+    parrafo.textContent = valor;
+    parrafo.id = `content-${commentId}`;
+    parrafo.classList.add('content');
+
+    actionsContainer.parentNode.replaceChild(parrafo, actionsContainer)
+}

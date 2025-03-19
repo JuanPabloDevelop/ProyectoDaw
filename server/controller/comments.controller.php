@@ -18,6 +18,10 @@
         case 'comments-delete':
             handleDeleteComment($con, $datos['id']);
             break;
+
+        case 'comments-update':
+            handleUpdateComment($con, $datos);
+            break;
     
         default:
             $data = array("success" => false, "message" => "Acción no reconocida");
@@ -43,5 +47,10 @@
     function handleDeleteComment($con, $id) {
         require_once("./controller/comments/deleteComments.php");
         handle_delete_Comment($con, $id);
+    }
+
+    function handleUpdateComment($con, $datos) {
+        require_once("./controller/comments/updateComments.php");
+        handle_update_Comment($con, $datos);
     }
 ?>
