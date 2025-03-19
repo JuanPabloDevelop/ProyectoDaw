@@ -258,7 +258,7 @@ async function setPosts(data) {
             const userImg = document.createElement('img');
             userImg.classList.add('image');
             userImg.alt = 'user image';
-            userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
+            userImg.src = `client//assets/tipos/${post.tipo}.jpg`;
             card.appendChild(userImg);
 
 
@@ -280,7 +280,7 @@ async function setPosts(data) {
                     return;
                 }
 
-                file.textContent = value[1];
+                file.innerHTML = value[1];
                 card.appendChild(file);
             });
 
