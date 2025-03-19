@@ -58,8 +58,8 @@
 			tipo varchar(100), 
 			titulo varchar(100),
 			contenido varchar(1000),
-			fecha_creacion date,
-			fecha_modificacion date,
+			fecha_creacion varchar(30),
+			fecha_modificacion varchar(30),
 			autor_id int,
 			foreign key (autor_id) references usuario(id_usuario))");
 		fill_post_table($con);
@@ -68,7 +68,7 @@
 	function fill_post_table($con){
 		require_once("./model/posts/post.php");
 		$resultado = get_posts($con);
-		$fecha_actual = date('Y-m-d');
+		$fecha_actual = date("Y-m-d h:ia");
 		if(!isset($resultado) || get_num_rows($resultado) == 0){
 			$stmt = mysqli_prepare($con, "insert into post(tipo, titulo, contenido, fecha_creacion, fecha_modificacion, autor_id) values(?, ?, ?, ?, ?, ?)");
 			$posts = array(
@@ -134,8 +134,8 @@
 		mysqli_query($con, "create table if not exists comment(
 			id_comment int primary key auto_increment,
 			contenido varchar(1000),
-			fecha_creacion date,
-			fecha_modificacion date,
+			fecha_creacion  varchar(30),
+			fecha_modificacion  varchar(30),
 			post_id int,
 			usuario_id int,
 			foreign key (post_id) references post(id_post) on delete cascade,
@@ -147,7 +147,7 @@
 	function fill_comment_table($con){
 		require_once("./model/comments/comment.php");
 		$resultado = get_comments($con);
-		$fecha_actual = date('Y-m-d');
+		$fecha_actual = date("Y-m-d h:ia");
 		if(!isset($resultado) || get_num_rows($resultado) == 0){
 			$stmt = mysqli_prepare($con, "insert into comment(contenido, fecha_creacion, fecha_modificacion, usuario_id, post_id) values(?, ?, ?, ?, ?)");
 			$comments = array(

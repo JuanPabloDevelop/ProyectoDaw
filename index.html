@@ -7,7 +7,14 @@
 	<link rel="stylesheet" href="./client/styles/estilos.css">
     <script src="./client/js/service/initDb.js" defer></script>
     <script src="./client/js/menu.js" defer></script>
-    <script src="./client/src/pages/home/home.js" defer></script>
+    <script src="./client/js/modal.js" defer></script>
+    <script type="module">
+        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton } from "./client/js/helper.js";
+    </script>
+    <script type="module">
+        import { default as handleFetchData } from "./client/js/service/services.js";
+    </script>
+    <script type="module" src="./client/src/pages/home/home.js" defer></script>
 </head>
 <body>
     <header class="header" id="header">
@@ -46,6 +53,7 @@
             <div class="skeleton" style="height:40px;"></div>
             <div class="skeleton"></div>
             <div class="skeleton"></div>
+            <div class="skeleton"></div>
         </div>
         <section class="content hidden" id="content">
             <div class="">
@@ -77,10 +85,10 @@
 
     <!-- Modal -->
     <div id="editPostModal" class="modal">
-        <span id="close" class="close">&times;</span>
-        <h2>Editar Post</h2>
-        <div class="modal-content">
 
+        <div class="modal-content">
+            <span id="close" class="close">&times;</span>
+            <h2>Editar Post</h2>
             <form id="editPostForm">
                 <input type="hidden" id="modalPostId" name="id">
                 <div id="Type-container">
