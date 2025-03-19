@@ -1,5 +1,5 @@
 // Obtener elementos
-let modal = document.getElementById("editUserModal");
+let modal = document.getElementById("editUserModal") || document.getElementById("editPostModal");
 let btn = document.getElementById("openModalBtn");
 let closeModal = document.getElementById("close");
 
@@ -10,6 +10,8 @@ closeModal.addEventListener("click", function() {
 });
 
 // Abrir modal
-btn.onclick = function() {
-    modal.style.display = "block";
+if (btn) {
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
 }

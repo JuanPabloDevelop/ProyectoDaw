@@ -3,8 +3,8 @@
     require_once("./controller/utils.php");
     require_once("./model/utils.php");
     function  handle_delete_post($con, $id) {
-        $comprobarUsuario = get_posts_by_id($con, $id);
-        $result = get_num_rows($comprobarUsuario);
+        $comprobarPost = get_posts_by_id($con, $id);
+        $result = get_num_rows($comprobarPost);
         if($result == 0) {
             $data =  array("success" => false, "message" => "El post no existe");
             echo json_encode($data);

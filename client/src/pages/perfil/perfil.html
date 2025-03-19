@@ -6,7 +6,7 @@
     <title>Mi Página Web</title>
     <link rel="stylesheet" href="../../../styles/estilos.css">
     <script src="./profile.js" defer></script>
-    <script src="./modal.js" defer></script>
+    <script src="../../../js/modal.js" defer></script>
 </head>
 <body>
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
@@ -43,9 +43,10 @@
 
     <!-- Modal -->
     <div id="editUserModal" class="modal">
-        <span id="close" class="close">&times;</span>
-        <h2>Editar Usuario</h2>
+>
         <div class="modal-content">
+            <span id="close" class="close">&times;</span>
+            <h2>Editar Usuario</h2>
             <form onsubmit="handleUpdate(event)" id="editUserForm">
                 <input type="hidden" id="modalId" name="id">
                 <label for="modalName">Nombre:</label>
