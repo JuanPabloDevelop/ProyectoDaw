@@ -14,3 +14,49 @@ export function loadingButton (id) {
         button.appendChild(loading);
     }
 }
+
+export function scrollToElementId(id) {
+    const content = document.getElementById(id);
+
+    setTimeout(() => {
+        if(content) {
+            content.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',    
+                inline: 'center'
+            })
+        };
+    }, 100);
+}
+
+export function parseTipo(tipo) {
+    const type = {
+        "all": "Todos",
+        "deco": "Estilos de decoración",
+        "ilu": "Iluminación",
+        "mobi": "Mobiliario",
+        "text": "Textiles",
+        "acc": "Accesorios",
+    }
+    return type[tipo];
+}
+
+export function colorAleatorio() {
+    let color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    return color;
+}
+
+export function handleSkeleton() {
+    const mainContent = document.getElementById("content");
+    const cardLoading = document.getElementById("skeleton-container");
+
+    if (mainContent.classList.contains('hidden')) {
+
+        mainContent.classList.remove('hidden');
+        cardLoading.classList.add('hidden');
+        return;
+    } else {
+        mainContent.classList.add('hidden');
+        cardLoading.classList.remove('hidden');
+    };
+}

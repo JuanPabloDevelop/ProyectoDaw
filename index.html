@@ -7,7 +7,14 @@
 	<link rel="stylesheet" href="./client/styles/estilos.css">
     <script src="./client/js/service/initDb.js" defer></script>
     <script src="./client/js/menu.js" defer></script>
-    <script src="./client/src/pages/home/home.js" defer></script>
+    <script src="./client/js/modal.js" defer></script>
+    <script type="module">
+        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton } from "./client/js/helper.js";
+    </script>
+    <script type="module">
+        import { default as handleFetchData } from "./client/js/service/services.js";
+    </script>
+    <script type="module" src="./client/src/pages/home/home.js" defer></script>
 </head>
 <body>
     <header class="header" id="header">
@@ -46,13 +53,19 @@
             <div class="skeleton" style="height:40px;"></div>
             <div class="skeleton"></div>
             <div class="skeleton"></div>
+            <div class="skeleton"></div>
         </div>
         <section class="content hidden" id="content">
+            <button id="add-post-button" class="button">Añadir post</button>
             <div class="">
-                <select id="filter-select" class="filter-select"></select>
-                <button id="add-post-button" class="button">Añadir post</button>
+                <label for="filter-type-select">Filtro por tipo:</label>
+                <select id="filter-type-select" name="filter-type-select" class="filter-select"></select>
+                <label for="filter-user-select">Filtro por usuario:</label>
+                <select id="filter-user-select" name="filter-user-select" class="filter-select">
+                    <option value="allUsers">Todos los usuarios</option>
+                    <option value="miUser">Mis posts</option>
+                </select>
             </div>
-
             <div id="posts-container" class="posts-container "> 
             </div>
         </section>
@@ -77,10 +90,10 @@
 
     <!-- Modal -->
     <div id="editPostModal" class="modal">
-        <span id="close" class="close">&times;</span>
-        <h2>Editar Post</h2>
-        <div class="modal-content">
 
+        <div class="modal-content">
+            <span id="close" class="close">&times;</span>
+            <h2>Editar Post</h2>
             <form id="editPostForm">
                 <input type="hidden" id="modalPostId" name="id">
                 <div id="Type-container">
