@@ -50,6 +50,7 @@
     overflow: hidden;
 }
 
-.comments-container-open {
-    height: 100%;
+.comments-list-container {
+    max-height: 500px;
+    overflow-x: auto;
 }
