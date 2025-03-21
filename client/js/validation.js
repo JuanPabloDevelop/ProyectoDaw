@@ -1,4 +1,4 @@
-function validateForm(nombreCliente, apellidosCliente, emailCliente, contraseñaCliente, confirmarConstraseñaCliente) {
+export function validateForm(nombreCliente, apellidosCliente, emailCliente, contraseñaCliente, confirmarConstraseñaCliente) {
     const regexNombre = /^[A-Za-z\s]{2,}$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexContraseñas = /^.{6,}$/;
@@ -16,30 +16,35 @@ function validateForm(nombreCliente, apellidosCliente, emailCliente, contraseña
         .map(error => error.mensaje);
 
     if (mensajesError.length) {
-        showErrorMessage(mensajesError.join('</br>'));
-        return false;
+        return {
+            success: false,
+            message: mensajesError.join('</br>'),
+        }
     }
 
-    return true;
+    return {success: true};
 }
 
-function showSuccessMessage(mensaje) {
-    showMessage('error-mensaje', 'success-mensaje', mensaje);
-}
+const palabrasProhibidas = ["palabra1", "palabra2", "palabra3", "test"];
 
-function showErrorMessage(mensaje) {
-    showMessage('success-mensaje', 'error-mensaje', mensaje);
-}
+// Función para validar el contenido
+export function validarContenido(texto) {
+    const palabrasCensuradas = "No pueden usarse las siguientes palabras: ";
+    const count = 0;
 
-function showMessage(idToHide, idToShow, mensaje) {
-    const mensajeError = document.getElementById(idToHide);
-    mensajeError.classList.add('hidden');
+    for (let palabra of palabrasProhibidas) {
+        if (texto.toLowerCase().includes(palabra.toLowerCase())) {
+            palabrasCensuradas += `, ${palabra}`
+            count ++;
+        }
+    }
 
-    const mensajeContainer = document.getElementById(idToShow);
-    mensajeContainer.classList.remove('hidden');
-    mensajeContainer.innerHTML = mensaje;
-
-    setTimeout(() => {
-        mensajeContainer.classList.add('hidden');
-    }, 5000);
+    if(count > 0) {
+        return {
+            success: false,
+            message: palabrasCensuradas,
+        }
+    } else {
+        return {success: true}; // Contenido válido
+    }
 }

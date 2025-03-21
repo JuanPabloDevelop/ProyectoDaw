@@ -4,12 +4,16 @@
 
     switch ($datos['action']) {
         case 'post-get-all':
-            handleGetPosts($con, $datos['filter']);
+            handleGetPosts($con, $datos);
             break;
 
         case 'post-get-by-id':
             handleGetPostById($con, $datos['id']);
-            break;  
+            break;
+            
+        case 'post-get-by-user-id':
+            handleGetPostByUserId($con, $datos['id']);
+            break;
 
         case 'post-delete':
             handleDeletePost($con, $datos['id']);
@@ -26,18 +30,39 @@
     }
 
     
-    function handleGetPosts($con, $filter) {
+    function handleGetPosts($con, $datos) {
         require_once("./controller/posts/getPosts.php");
-        if($filter == 'all') {
+
+        $filterType = $datos["filterbytype"];
+        $filterUser = $datos["filterbyuser"];
+
+        if($filterType == 'all' && $filterUser == 'allUsers') {
             handle_get_posts($con);
-        } else {
-            handle_get_posts_by_type($con, $filter);
-        }
+        } 
+
+        if($filterType == 'all' && $filterUser == 'miUser') {
+            handle_get_posts_by_user_id($con, $datos["userId"]);
+        } 
+
+        if($filterType != 'all' && $filterUser == 'allUsers') {
+            handle_get_posts_by_type($con, $filterType);
+        } 
+
+        if($filterType != 'all' && $filterUser == 'miUser') {
+            handle_get_posts_by_type_and_user($con, $filterType, $filterUser);
+        } 
+
+
     }
 
     function handleGetPostById($con, $id) {
         require_once("./controller/posts/getPosts.php");
         handle_get_posts_by_id($con, $id);
+    }
+
+    function handleGetPostByUserId($con, $id) {
+        require_once("./controller/posts/getPosts.php");
+        handle_get_posts_by_user_id($con, $id);
     }
 
     function handleDeletePost($con, $id) {

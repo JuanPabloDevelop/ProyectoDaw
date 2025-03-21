@@ -16,17 +16,17 @@ export function loadingButton (id) {
 }
 
 export function scrollToElementId(id) {
-    // Pongo el skeleton
-    handleSkeleton();
+    const content = document.getElementById(id);
 
     setTimeout(() => {
-        // Oculto el skeleton y redigo a la card
-        handleSkeleton();
-        const content = document.getElementById(id);
-        content.classList.remove('comments-container-close');
-        content.classList.add('comments-container-open');
-        content.scrollIntoView(alignToTop);
-    }, 1000);
+        if(content) {
+            content.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',    
+                inline: 'center'
+            })
+        };
+    }, 100);
 }
 
 export function parseTipo(tipo) {

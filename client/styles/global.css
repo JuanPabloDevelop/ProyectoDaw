@@ -250,7 +250,6 @@ tr:hover {
   }
 }
 
-
 /* Messages */
 .mensaje-container {
     position: fixed;
@@ -260,7 +259,7 @@ tr:hover {
     border-radius: var(--radius);
     font-weight: 500;
     font-size: 0.875rem;
-    z-index: 50;
+    z-index: 100;
     animation: fadeIn 0.3s ease-out;
     background-color: var(--black);
 }
