@@ -60,3 +60,13 @@ export function handleSkeleton() {
         cardLoading.classList.remove('hidden');
     };
 }
+
+export function showErrorMessage(mensaje) {
+    const mensajeContainer = document.getElementById('error-mensaje');
+    mensajeContainer.classList.remove('hidden');
+    mensajeContainer.innerHTML = mensaje;
+
+    setTimeout(() => {
+        mensajeContainer.classList.add('hidden');
+    }, 5000);
+}
