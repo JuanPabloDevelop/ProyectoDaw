@@ -147,7 +147,7 @@ async function setPosts(data) {
                 file.id = `post-${value[0]}-${index}`;
 
                 if(value[0] === 'fecha_modificacion') {
-                    value[1] = value[1] ? `(editado: ${value[1]})` : '';
+                    value[1] = value[1] ? value[1] : '';
                 }
 
                 if(value[0] === 'tipo') {
