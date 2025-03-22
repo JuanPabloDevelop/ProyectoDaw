@@ -49,7 +49,7 @@
         } 
 
         if($filterType != 'all' && $filterUser == 'miUser') {
-            handle_get_posts_by_type_and_user($con, $filterType, $filterUser);
+            handle_get_posts_by_type_and_user($con, $filterType, $datos["userId"]);
         } 
 
 

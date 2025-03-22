@@ -9,7 +9,10 @@
     <script src="./client/js/menu.js" defer></script>
     <script src="./client/js/modal.js" defer></script>
     <script type="module">
-        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton } from "./client/js/helper.js";
+        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage } from "./client/js/helper.js";
+    </script>
+    <script type="module">
+        import { checkValidContent } from "./client/js/validation.js";
     </script>
     <script type="module">
         import { default as handleFetchData } from "./client/js/service/services.js";
@@ -57,14 +60,18 @@
         </div>
         <section class="content hidden" id="content">
             <button id="add-post-button" class="button">Añadir post</button>
-            <div class="">
-                <label for="filter-type-select">Filtro por tipo:</label>
-                <select id="filter-type-select" name="filter-type-select" class="filter-select"></select>
-                <label for="filter-user-select">Filtro por usuario:</label>
-                <select id="filter-user-select" name="filter-user-select" class="filter-select">
-                    <option value="allUsers">Todos los usuarios</option>
-                    <option value="miUser">Mis posts</option>
-                </select>
+            <div class="display-space-around">
+                <div>
+                    <label for="filter-type-select">Filtro por tipo:</label>
+                    <select id="filter-type-select" name="filter-type-select" class="filter-select"></select>
+                </div>
+                <div>
+                    <label for="filter-user-select">Filtro por usuario:</label>
+                    <select id="filter-user-select" name="filter-user-select" class="filter-select">
+                        <option value="allUsers">Todos los usuarios</option>
+                        <option value="miUser">Mis posts</option>
+                    </select>
+                </div>
             </div>
             <div id="posts-container" class="posts-container "> 
             </div>
