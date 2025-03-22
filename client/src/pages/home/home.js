@@ -1,5 +1,6 @@
-import {scrollToElementId, parseTipo, colorAleatorio, handleSkeleton } from '../../../js/helper.js'
+import {scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage } from '../../../js/helper.js'
 import handleFetchData from '../../../js/service/services.js'
+import { checkValidContent } from '../../../js/validation.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -44,6 +45,7 @@ export function setSelectTypeOptions(data, id) {
         select.appendChild(option);
     });
     select.addEventListener('change', async (event) => {
+        handleSkeleton();
         const filters = await handleFetchData(
         {
             action: "post-get-all",
@@ -51,12 +53,15 @@ export function setSelectTypeOptions(data, id) {
             filterbyuser: selectUserType.value,
             userId: currentUser.id,
         });
-
-        if(filters.success) {
-            setPosts(filters.data);
-        } else {
-            emptyPosts();
-        }
+        setTimeout(() => {
+            if(filters.success) {
+                handleSkeleton();
+                setPosts(filters.data);
+            } else {
+                handleSkeleton();
+                emptyPosts();
+            }
+        }, 100);
     }
     );
 }
@@ -68,6 +73,7 @@ export function setSelectUser() {
     let currentUser = JSON.parse(localStorage.getItem('responseData'));
 
     select.addEventListener('change', async (event) => {
+        handleSkeleton();
         const filters = await handleFetchData(
         {
             action: "post-get-all",
@@ -75,115 +81,20 @@ export function setSelectUser() {
             filterbyuser: event.target.value,
             userId: currentUser.id,
         });
-        if(filters.success) {
-            setPosts(filters.data);
-        } else {
-            emptyPosts();
-        }
+        setTimeout(() => {
+            if(filters.success) {
+                handleSkeleton();
+                setPosts(filters.data);
+            } else {
+                handleSkeleton();
+                emptyPosts();
+            }
+        }, 100);
     })
 }
 
-
 /**  POSTS **/
-async function editPost(id) {
-    try {
-        const response = await handleFetchData({id, action: "post-get-by-id",});
-        document.getElementById("modalPostTitle").value = response.data[0].titulo;
-        document.getElementById("modalPostContent").value = response.data[0].contenido;
-        document.getElementById("modalPostId").value = response.data[0].id_post;
-        
-        // Cargar las opciones del select
-        const select = document.getElementById("modalPostType");
-        // Limpiar opciones existentes
-        select.innerHTML = '';
-        
-        // Crear las opciones basadas en los tipos disponibles
-        const tipos = {
-            "ilu": "Iluminación",
-            "mobi": "Mobiliario",
-            "text": "Textiles",
-            "acc": "Accesorios"
-        };
-
-        // Agregar las opciones al select
-        Object.entries(tipos).forEach(([valor, texto]) => {
-            const option = document.createElement('option');
-            option.value = valor;
-            option.textContent = texto;
-            // Si es el tipo actual del post, seleccionarlo
-            if (valor === response[0].tipo) {
-                option.selected = true;
-            }
-            select.appendChild(option);
-        });
-
-        const modal = document.getElementById("editPostModal");
-        const closeBtn = document.getElementById("close");
-
-        // Función para cerrar el modal
-        const closeModal = () => {
-            modal.style.display = "none";
-        };
-
-        // Event listener para el botón de cierre (×)
-        closeBtn.onclick = closeModal;
-
-        // Event listener para cerrar el modal al hacer clic fuera de él
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        };
-
-        // Event listeners para los botones
-        document.getElementById("modalPostSave").onclick = async () => {
-            const title = document.getElementById("modalPostTitle").value;
-            const content = document.getElementById("modalPostContent").value;
-            const type = document.getElementById("modalPostType").value;
-            const postId = document.getElementById("modalPostId").value;
-            
-            if (!title || !content) {
-                showErrorMessage('Por favor, rellena todos los campos obligatorios.');
-                return;
-            }
-
-            const postUpdate = await handleFetchData(
-                {
-                    action: "post-update",
-                    id: postId,
-                    titulo: title,
-                    contenido: content,
-                    tipo: type,
-                });
-        
-            if(postUpdate.success) {
-                setPosts(postUpdate.data);
-            }
-
-            closeModal();
-        };
-
-        document.getElementById("modalPostCancel").onclick = closeModal;
-
-        // Mostrar el modal
-        modal.style.display = "block";
-    } catch (error) {
-        showErrorMessage(error);
-    }
-}
-
-async function deletePost(id) {
-    const deleteAction = await handleFetchData({
-        action: "post-delete",
-        id: id,
-    });
-    if(deleteAction.success) {
-        setPosts(deleteAction.data);
-    }
-};
-    
 async function setPosts(data) {
-
     try {
         // Primero limpiamos y luego añadimos los posts
         const postsContainer = document.getElementById('posts-container');
@@ -202,31 +113,41 @@ async function setPosts(data) {
             card.id = `card-${post.id_post}`;
             const userSession = JSON.parse(localStorage.getItem('responseData'));
 
-            // Crear avatar
-            const avatar = document.createElement('div');
-            avatar.classList.add('avatar');
-            let iniciales = post.nombre.charAt(0) + post.apellidos.charAt(0);
-            iniciales = iniciales.toUpperCase();
-            avatar.textContent = iniciales;
-            avatar.style.backgroundColor = colorAleatorio();
-            card.appendChild(avatar);
+            // Crear imagen de la card por tipo
+            const postImg = document.createElement('img');
+            postImg.classList.add('card-image-type');
+            postImg.alt = 'post image';
+            postImg.src = `client/assets/tipos/${post.tipo}.jpg`;
+            card.appendChild(postImg);
 
-            // Crear imagen
-            const userImg = document.createElement('img');
-            userImg.classList.add('image');
-            userImg.alt = 'user image';
-            userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
-            card.appendChild(userImg);
-
+            if(checkIfImgExists(`client/assets/users/user-${post.autor_id}.jpg`)) {
+                // Crear imagen del usuario
+                const userImg = document.createElement('img');
+                userImg.classList.add('image');
+                userImg.classList.add('image-post');
+                userImg.alt = 'user image';
+                userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
+                card.appendChild(userImg);
+            } else {
+                // Crear avatar
+                const avatar = document.createElement('div');
+                avatar.classList.add('avatar');
+                let iniciales = post.nombre.charAt(0) + post.apellidos.charAt(0);
+                iniciales = iniciales.toUpperCase();
+                avatar.textContent = iniciales;
+                avatar.style.backgroundColor = colorAleatorio();
+                card.appendChild(avatar);
+            }
 
             // Añadir campos a la card
             Object.entries(post).forEach((value) => {
                 const file = document.createElement('p');
                 file.classList.add('file');
+                file.classList.add(`post-${value[0]}`);
                 file.id = `post-${value[0]}-${index}`;
 
                 if(value[0] === 'fecha_modificacion') {
-                    value[1] = value[1] ? value[1] : '';
+                    value[1] = value[1] ? `(editado: ${value[1]})` : '';
                 }
 
                 if(value[0] === 'tipo') {
@@ -294,6 +215,109 @@ async function setPosts(data) {
         showErrorMessage(error);
     }
 }
+
+async function editPost(id) {
+    try {
+        const response = await handleFetchData({id, action: "post-get-by-id",});
+        document.getElementById("modalPostTitle").value = response.data[0].titulo;
+        document.getElementById("modalPostContent").value = response.data[0].contenido;
+        document.getElementById("modalPostId").value = response.data[0].id_post;
+        
+        // Cargar las opciones del select
+        const select = document.getElementById("modalPostType");
+        // Limpiar opciones existentes
+        select.innerHTML = '';
+        
+        // Crear las opciones basadas en los tipos disponibles
+        const tipos = {
+            "ilu": "Iluminación",
+            "mobi": "Mobiliario",
+            "text": "Textiles",
+            "acc": "Accesorios"
+        };
+
+        // Agregar las opciones al select
+        Object.entries(tipos).forEach(([valor, texto]) => {
+            const option = document.createElement('option');
+            option.value = valor;
+            option.textContent = texto;
+            // Si es el tipo actual del post, seleccionarlo
+            if (valor === response.data[0].tipo) {
+                option.selected = true;
+            }
+            select.appendChild(option);
+        });
+
+        const modal = document.getElementById("editPostModal");
+        const closeBtn = document.getElementById("close");
+
+        // Función para cerrar el modal
+        const closeModal = () => {
+            modal.style.display = "none";
+        };
+
+        // Event listener para el botón de cierre (×)
+        closeBtn.onclick = closeModal;
+
+        // Event listener para cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        };
+
+        // Event listeners para los botones
+        document.getElementById("modalPostSave").onclick = async () => {
+            const title = document.getElementById("modalPostTitle").value;
+            const content = document.getElementById("modalPostContent").value;
+            const type = document.getElementById("modalPostType").value;
+            const postId = document.getElementById("modalPostId").value;
+            
+            if (!title || !content) {
+                showErrorMessage('Por favor, rellena todos los campos obligatorios.');
+                return;
+            }
+
+            if(!checkValidContent(content).success) {
+                const message = checkValidContent(content).message
+                showErrorMessage(message);
+                return;
+            }
+
+            const postUpdate = await handleFetchData(
+                {
+                    action: "post-update",
+                    id: postId,
+                    titulo: title,
+                    contenido: content,
+                    tipo: type,
+                });
+        
+            if(postUpdate.success) {
+                setPosts(postUpdate.data);
+            }
+
+            closeModal();
+        };
+
+        document.getElementById("modalPostCancel").onclick = closeModal;
+
+        // Mostrar el modal
+        modal.style.display = "block";
+    } catch (error) {
+        showErrorMessage(error);
+    }
+}
+
+async function deletePost(id) {
+    const deleteAction = await handleFetchData({
+        action: "post-delete",
+        id: id,
+    });
+    if(deleteAction.success) {
+        setPosts(deleteAction.data);
+    }
+};
 
 function emptyPosts() {
     const postsContainer = document.getElementById('posts-container');
@@ -384,12 +408,23 @@ function createSingleComment(postId, comment) {
     commentContentContainer.classList.add('comment-content-container');
     commentContentContainer.id = `comment-content-container-${comment.id_comment}`;
 
-    const commentUserImg = document.createElement('img');
-    commentUserImg.classList.add('image');
-    commentUserImg.classList.add('image--comentario');
-    commentUserImg.alt = 'user image';
-    commentUserImg.src = `client//assets/users/user-${comment.id_usuario}.jpg`;
-    commentContentContainer.appendChild(commentUserImg);
+    if(checkIfImgExists(`client//assets/users/user-${comment.id_usuario}.jpg`)) {
+        const commentUserImg = document.createElement('img');
+        commentUserImg.classList.add('image');
+        commentUserImg.classList.add('image--comentario');
+        commentUserImg.alt = 'user image';
+        commentUserImg.src = `client//assets/users/user-${comment.id_usuario}.jpg`;
+        commentContentContainer.appendChild(commentUserImg);
+    } else {
+        const avatar = document.createElement('div');
+        avatar.classList.add('avatar--comentario');
+        let iniciales = comment.nombre_usuario.charAt(0) + comment.apellidos_usuario.charAt(0);
+        iniciales = iniciales.toUpperCase();
+        avatar.textContent = iniciales;
+        avatar.style.backgroundColor = colorAleatorio();
+        commentContentContainer.appendChild(avatar);
+    }
+
 
     const commentContent = document.createElement('p');
     commentContent.classList.add('content');
@@ -405,7 +440,7 @@ function createSingleComment(postId, comment) {
     if (comment.fecha_modificacion !== comment.fecha_creacion) {
         const editionDateContent = document.createElement('p');
         editionDateContent.classList.add('edition-date');
-        editionDateContent.textContent = comment.fecha_modificacion;
+        editionDateContent.textContent =  `(editado: ${comment.fecha_modificacion})`;
         commentContentContainer.appendChild(editionDateContent);
     }
 
@@ -437,7 +472,14 @@ function createSingleComment(postId, comment) {
 }
 
 async function addComment(id_post, content) {
-    if(content.trim()){
+    if(content.trim()) {
+
+        if(!checkValidContent(content).success) {
+            const message = checkValidContent(content).message
+            showErrorMessage(message);
+            return;
+        }
+
         const userSession = JSON.parse(localStorage.getItem('responseData'));
         const commentInput = document.getElementById('new-comment-input');
         commentInput.value= '';
@@ -547,6 +589,13 @@ async function editComment(postId, commentId) {
 async function updateComment(postId, commentId, content) {
 
     if(content.trim()) {
+
+        if(!checkValidContent(content).success) {
+            const message = checkValidContent(content).message
+            showErrorMessage(message);
+            return;
+        }
+        
         const commentsUpdated = await handleFetchData({
             action: "comments-update",
             commentId: commentId,
@@ -573,3 +622,14 @@ function changeInputToParagraph(commentId, value = '') {
 
     actionsContainer.parentNode.replaceChild(parrafo, actionsContainer)
 }
+
+function checkIfImgExists(image_url) {
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
+}
+
+
