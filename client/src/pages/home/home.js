@@ -113,10 +113,18 @@ async function setPosts(data) {
             card.id = `card-${post.id_post}`;
             const userSession = JSON.parse(localStorage.getItem('responseData'));
 
+            // Crear imagen de la card por tipo
+            const postImg = document.createElement('img');
+            postImg.classList.add('card-image-type');
+            postImg.alt = 'post image';
+            postImg.src = `client/assets/tipos/${post.tipo}.jpg`;
+            card.appendChild(postImg);
+
             if(checkIfImgExists(`client/assets/users/user-${post.autor_id}.jpg`)) {
-                // Crear imagen
+                // Crear imagen del usuario
                 const userImg = document.createElement('img');
                 userImg.classList.add('image');
+                userImg.classList.add('image-post');
                 userImg.alt = 'user image';
                 userImg.src = `client//assets/users/user-${post.autor_id}.jpg`;
                 card.appendChild(userImg);
@@ -135,6 +143,7 @@ async function setPosts(data) {
             Object.entries(post).forEach((value) => {
                 const file = document.createElement('p');
                 file.classList.add('file');
+                file.classList.add(`post-${value[0]}`);
                 file.id = `post-${value[0]}-${index}`;
 
                 if(value[0] === 'fecha_modificacion') {
