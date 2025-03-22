@@ -6,6 +6,13 @@
     box-shadow: var(--shadow);
     padding: 1.5rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-sm);
 }
 
 .card .actions .button {
@@ -13,14 +20,21 @@
     padding: 0.5rem 1rem;
     font-weight: 500;
     cursor: pointer;
-    background-color: transparent;
-    color:  var(--text-light);
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card .actions .button:hover {
+    background-color: var(--primary-hover);
 }
 
 .avatar {
     width: 100px;
     height: 100px;
-    background-color:var(--text-light);
+    background-color:var(--primary-color);
     color: var(--white);
     font-size: 36px;
     font-weight: bold;
@@ -28,6 +42,7 @@
     line-height: 100px; 
     border-radius: 50%;
     display: inline-block;
+    margin-bottom: 1rem;
 }
 
 .card .card-image-type {
@@ -38,10 +53,76 @@
 }
 
 .card .image {
+    width: 100%;
+    height: 250px; 
+    border-radius: var(--radius);
     object-fit: cover;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    margin-bottom: 1rem; 
+}
+
+.card .file {
+    font-size: 1rem;
+    text-align: left;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    line-height: 1.8;
+    background-color: transparent;
+    border-radius: var(--radius);
+    border-color: black;
+}
+
+.card .file:first-of-type {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.card .file:nth-of-type(2) {
+    font-style: italic;
+}
+
+.card .file:nth-of-type(3){
+    background-color: var(--background-color);
+}
+
+.card .file:nth-of-type(3) p {
+    text-align: justify;
+}
+
+.card .file:nth-of-type(4),
+.card .file:nth-of-type(5) {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.card .file:nth-of-type(4)::before {
+    content: "📅 Creado: ";
+    font-weight: bold;
+}
+
+.card .file:nth-of-type(5)::before {
+    content: "✏️ Modificado: ";
+    font-weight: bold;
+}
+
+.card .file:nth-of-type(6),
+.card .file:nth-of-type(7),
+.card .file:nth-of-type(8) {
+    font-size: 0.9rem;
+}  
+
+.card .file:nth-of-type(4),
+.card .file:nth-of-type(5),
+.card .file:nth-of-type(6),
+.card .file:nth-of-type(7),
+.card .file:nth-of-type(8) {
+    display: inline-block;
+    width: auto;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .card .image-post {
@@ -90,3 +171,4 @@
         background-position: 0 0;
     }
 }
+
