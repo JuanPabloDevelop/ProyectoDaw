@@ -25,16 +25,17 @@ export function validateForm(nombreCliente, apellidosCliente, emailCliente, cont
     return {success: true};
 }
 
-const palabrasProhibidas = ["palabra1", "palabra2", "palabra3", "test"];
+const palabrasProhibidas = ['mamón', 'mendrugo', 'zopenco', 'idiota', 'imbecil', 'tonto', 'gilipollas', 'zorra', 'puta', 'bobo', 'boba', 'puto', 'joder', 'hostia', 'concha', 'mierda', 'boludo', 'pija', 'verga', 'pene', 'enano', 'maricón', 'marica', 'pivita', 'fulana', 'judío', 'judía', 'jodas', 'mariquita', 'coño'];
 
 // Función para validar el contenido
-export function validarContenido(texto) {
-    const palabrasCensuradas = "No pueden usarse las siguientes palabras: ";
-    const count = 0;
+export function checkValidContent(texto) {
+    let palabrasCensuradas = "No pueden usarse las siguientes palabras: </br>";
+    let count = 0;
 
     for (let palabra of palabrasProhibidas) {
         if (texto.toLowerCase().includes(palabra.toLowerCase())) {
-            palabrasCensuradas += `, ${palabra}`
+
+            palabrasCensuradas += ` ${palabra}  </br>`
             count ++;
         }
     }
