@@ -1,4 +1,4 @@
-import {scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage } from '../../../js/helper.js'
+import {scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage, checkIfImgExists } from '../../../js/helper.js'
 import handleFetchData from '../../../js/service/services.js'
 import { checkValidContent } from '../../../js/validation.js'
 
@@ -51,7 +51,7 @@ export function setSelectTypeOptions(data, id) {
             action: "post-get-all",
             filterbytype: event.target.value,
             filterbyuser: selectUserType.value,
-            userId: currentUser.id,
+            userId: currentUser.id_usuario,
         });
         setTimeout(() => {
             if(filters.success) {
@@ -72,6 +72,7 @@ export function setSelectUser() {
     const selectTypeValue = document.getElementById("filter-type-select");
     let currentUser = JSON.parse(localStorage.getItem('responseData'));
 
+
     select.addEventListener('change', async (event) => {
         handleSkeleton();
         const filters = await handleFetchData(
@@ -79,7 +80,7 @@ export function setSelectUser() {
             action: "post-get-all",
             filterbytype: selectTypeValue.value,
             filterbyuser: event.target.value,
-            userId: currentUser.id,
+            userId: currentUser.id_usuario,
         });
         setTimeout(() => {
             if(filters.success) {
@@ -177,33 +178,34 @@ async function setPosts(data) {
                 card.appendChild(commentsCounter);
             };
 
-            if(userSession && (userSession.id === post.author_id || userSession.rol === '0')) { 
+            const actionsCell = document.createElement('div');
+            if(userSession && (userSession.id_usuario === post.author_id || userSession.rol === '0')) { 
                 // Añadir las acciones
-                const actionsCell = document.createElement('div');
                 actionsCell.id = 'post-actions-content';
                 actionsCell.classList.add('actions');
                 const editButton = document.createElement('button');
                 editButton.textContent = 'Editar';
+                editButton.classList.add('button')
                 editButton.classList.add('button')
                 editButton.onclick = () => editPost(post.id_post);
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Eliminar';
                 deleteButton.classList.add('button')
+                editButton.classList.add('button')
                 deleteButton.onclick = () => deletePost(post.id_post);
-
-                const commentsButton = document.createElement('button');
-                commentsButton.textContent = 'Comentar';
-                commentsButton.classList.add('button')
-                commentsButton.onclick = () => handleShowComments(post.id_post);
 
                 actionsCell.appendChild(editButton);
                 actionsCell.appendChild(deleteButton);
-                actionsCell.appendChild(commentsButton);
-
-                card.appendChild(actionsCell);        
             }
-
+            // Opcion comentar
+            const commentsButton = document.createElement('button');
+            commentsButton.textContent = 'Comentar';
+            commentsButton.classList.add('button')
+            commentsButton.classList.add('button-tertiary')
+            commentsButton.onclick = () => handleShowComments(post.id_post);
+            actionsCell.appendChild(commentsButton);
+            card.appendChild(actionsCell);    
             postsContainer.appendChild(card)
 
             // Añadir comentarios
@@ -389,6 +391,7 @@ function addCommentToCard(cardInfo, postId, comments) {
     const AddCommentButton = document.createElement('button');
     AddCommentButton.textContent = 'Enviar';
     AddCommentButton.classList.add('button')
+    AddCommentButton.classList.add('button-primary')
     AddCommentButton.onclick = () =>addComment(postId, commentInput.value);
     sendCommentContent.appendChild(AddCommentButton);
 
@@ -444,10 +447,9 @@ function createSingleComment(postId, comment) {
         commentContentContainer.appendChild(editionDateContent);
     }
 
-
     commentCard.appendChild(commentContentContainer);
 
-    if(userSession && (userSession.id === comment.id_usuario || userSession.rol === '0')) { 
+    if(userSession && (userSession.id_usuario === comment.id_usuario || userSession.rol === '0')) { 
         // Añadir las acciones
         const commentActionsCell = document.createElement('div');
         commentActionsCell.id = 'comments-actions-content';
@@ -495,7 +497,7 @@ async function addComment(id_post, content) {
             action: "comments-add",
             idPost: id_post,
             content: content,
-            userId: userSession.id,
+            userId: userSession.id_usuario,
         });
 
         if (updatedComments.success) {
@@ -569,11 +571,13 @@ async function editComment(postId, commentId) {
 
   const updateButton = document.createElement("button");
   updateButton.classList.add("button")
+  updateButton.classList.add("button-primary")
   updateButton.textContent = "Enviar";
   updateButton.onclick = () => updateComment(postId, commentId, input.value);
 
   const cancelButton = document.createElement("button");
   cancelButton.classList.add("button")
+  cancelButton.classList.add("button-secondary")
   cancelButton.textContent = "cancelar";
   cancelButton.onclick = () => changeInputToParagraph(commentId, valor);
 
@@ -622,14 +626,4 @@ function changeInputToParagraph(commentId, value = '') {
 
     actionsContainer.parentNode.replaceChild(parrafo, actionsContainer)
 }
-
-function checkIfImgExists(image_url) {
-    var http = new XMLHttpRequest();
-
-    http.open('HEAD', image_url, false);
-    http.send();
-
-    return http.status != 404;
-}
-
 

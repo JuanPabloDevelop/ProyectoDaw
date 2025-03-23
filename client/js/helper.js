@@ -70,3 +70,12 @@ export function showErrorMessage(mensaje) {
         mensajeContainer.classList.add('hidden');
     }, 5000);
 }
+
+export function checkIfImgExists(image_url) {
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
+}
