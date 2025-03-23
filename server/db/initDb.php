@@ -41,7 +41,12 @@
 				array("Mercedes", "Moreno González", 123456, "sofia.moreno@test.com", 1),
 				array("Diego", "Romero Navarro", 123456, "diego.romero@test.com", 1),
 				array("Elena", "Torres Molina", 123456, "elena.torres@test.com", 1),
-				array("Miguel", "Ortega Serrano", 123456, "miguel.ortega@test.com", 1)
+				array("Miguel", "Ortega Serrano", 123456, "miguel.ortega@test.com", 1),
+				array("Ana", "Jiménez Martín", 123456, "ana.jimenez@test.com", 1),
+				array("Carlos", "Moreno González", 123456, "carlos.moreno@test.com", 1),
+				array("Angel", "Romero Navarro", 123456, "angel.romero@test.com", 1),
+				array("Martin", "Torres Molina", 123456, "martin.torres@test.com", 1),
+				array("Daniel", "Ortega Serrano", 123456, "daniel.ortega@test.com", 1)
 			);
 			
 

@@ -131,7 +131,6 @@ function handleLogin(event) {
     return;
 }
 
-// Esto es lo que cambié para que se mostrase el spinner
 function handlePost(user) {
     const xhttp = new XMLHttpRequest();
     const datosJson = JSON.stringify(user);

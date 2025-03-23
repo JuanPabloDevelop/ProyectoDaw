@@ -29,9 +29,9 @@
                 "success" => true, 
                 "message" => "El usuario se ha actualizado correctamente y es administrador", 
                 "user" => array(
-                    "name" => $name,
-                    "lastName" => $lastName,
-                    "id" => $id,
+                    "nombre" => $name,
+                    "apellidos" => $lastName,
+                    "id_usuario" => $id,
                     "email" => $email,
                     "rol" =>  $rol,
                 ),
@@ -43,11 +43,11 @@
                 "success" => true, 
                 "message" => "El usuario se ha actualizado correctamente", 
                 "user" => array(
-                    "name" => $name,
-                    "lastName" => $lastName,
+                    "nombre" => $name,
+                    "apellidos" => $lastName,
                     "email" => $email,
                     "rol" =>  $rol,
-                    "id" => $id,
+                    "id_usuario" => $id,
                 ),
             );
         }

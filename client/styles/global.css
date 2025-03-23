@@ -178,12 +178,25 @@ tr:hover {
     border: none;
     cursor: pointer;
     transition: all 0.2s;
+}
+
+.button-primary {
     background-color: var(--primary-color);
     color:  var(--white);
 }
 
-.button:hover {
+.button-secondary {
+    transition: all 0.2s;
+    background-color: var(--secondary-color);
+    color:  var(--white);
+}
+
+.button-primary:hover {
     background-color: var(--primary-hover);
+}
+
+.button-secondary:hover {
+    background-color: var(--secondary-hover);
 }
 
 .button.secondary {

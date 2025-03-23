@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const titleElement = document.getElementById('title');
         // Cambiar el título de la página
         if (titleElement) {
-            const title = (isUserAdmin ? "Perfil Administrador: " : "Perfil Usuario: ") + user.name;
+            const title = (isUserAdmin ? "Perfil Administrador: " : "Perfil Usuario: ") + user.nombre;
             titleElement.innerHTML = title;
         }
         // Añadir info del usuario
@@ -137,12 +137,14 @@ function setUsers(data) {
         const actionsCell = document.createElement('td');
         const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
-        editButton.classList.add('button')
+        editButton.classList.add('button');
+        editButton.classList.add('button-primary');
         editButton.onclick = () => editUser(user.id_usuario);
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Eliminar';
         deleteButton.classList.add('button')
+        editButton.classList.add('button-secondaryy');
         deleteButton.onclick = () => deleteUser(user.id_usuario);
 
         const actionsDiv = document.createElement('div');
@@ -158,7 +160,6 @@ function setUsers(data) {
 
 //Añadir info del usuario
 function setProfileInfo(user) {
-
     Object.entries(user).forEach(value => {
         const profileFile = document.getElementById(`profile-${value[0]}`);
         profileFile.textContent = '';
@@ -191,7 +192,7 @@ async function editUser(userId) {
 
 function editCurrentUser() {
     const user = JSON.parse(localStorage.getItem('responseData'));
-    const email = user.id;
+    const id = user.id_usuario;
 
     const loading = document.getElementById('profile-loading');
     const form = document.getElementById('user-info');
@@ -203,7 +204,7 @@ function editCurrentUser() {
     setTimeout(() => {
         form.classList.remove('hidden');
         loading.classList.add('hidden');
-        handleGetUserById(email);
+        handleGetUserById(id);
     }, 2000)
 }
 

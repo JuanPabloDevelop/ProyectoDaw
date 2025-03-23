@@ -6,10 +6,10 @@
     <title>Proyecto Daw</title>
 	<link rel="stylesheet" href="./client/styles/estilos.css">
     <script src="./client/js/service/initDb.js" defer></script>
-    <script src="./client/js/menu.js" defer></script>
+    <script type="module" src="./client/js/menu.js" defer></script>
     <script src="./client/js/modal.js" defer></script>
     <script type="module">
-        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage } from "./client/js/helper.js";
+        import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showErrorMessage, checkIfImgExists } from "./client/js/helper.js";
     </script>
     <script type="module">
         import { checkValidContent } from "./client/js/validation.js";
@@ -29,7 +29,7 @@
         </div>
         <!-- Menu hamburguesa -->
         <div class="solo-mobile">
-            <a href="javascript:void(0);" id="menu-hamburguesa" class="menu-hamburguesa" onclick="openMenu()">
+            <a href="javascript:void(0);" id="menu-hamburguesa" class="menu-hamburguesa">
                 ☰
             </a>
         </div>
@@ -59,7 +59,7 @@
             <div class="skeleton"></div>
         </div>
         <section class="content hidden" id="content">
-            <button id="add-post-button" class="button">Añadir post</button>
+            <button id="add-post-button" class="button button-primary">Añadir post</button>
             <div class="display-space-around">
                 <div>
                     <label for="filter-type-select">Filtro por tipo:</label>
@@ -113,8 +113,8 @@
                 <textarea id="modalPostContent" name="modalPostContent" rows="5" required></textarea>
             </form>
             <div class="button-container">
-                <button class="button full" id="modalPostSave" type="button">Guardar</button>
-                <button class="button full" id="modalPostCancel" type="button">Cancelar</button>
+                <button class="button button-primary full" id="modalPostSave" type="button">Guardar</button>
+                <button class="button button-secondary full" id="modalPostCancel" type="button">Cancelar</button>
             </div>
         </div>
     </div>
