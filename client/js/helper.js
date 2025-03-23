@@ -49,17 +49,13 @@ export function colorAleatorio() {
 export function handleSkeleton() {
     const mainContent = document.getElementById("content");
     const cardLoading = document.getElementById("skeleton-container");
-    const footer =  document.getElementById('footer');
 
     if (mainContent.classList.contains('hidden')) {
-
         mainContent.classList.remove('hidden');
-        footer.classList.remove('hidden');
         cardLoading.classList.add('hidden');
         return;
     } else {
         mainContent.classList.add('hidden');
-        footer.classList.remove('hidden');
         cardLoading.classList.remove('hidden');
     };
 }
