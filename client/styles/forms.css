@@ -46,7 +46,7 @@
     font-size: 0.875rem;
 }
 
-.formulario__container input, textarea, .filter-select {
+.formulario__container input, textarea, .filter-select, .comment-input {
     width: 100%;
     padding: 0.625rem;
     border: 1px solid var(--border-color);
@@ -56,7 +56,7 @@
     font-size: 0.875rem;
 }
 
-.formulario__container input:focus, textarea:focus, .filter-select:focus {
+.formulario__container input:focus, textarea:focus, .filter-select:focus, .comment-input:hover {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-light);
 }
