@@ -165,13 +165,6 @@ async function setPosts(data) {
                 card.appendChild(file);
             });
 
-            // Mostrar fecha de modificación solo si es distinta a la de creación
-            const fechaCreacion = document.getElementById(`post-fecha_creacion-${0}`);
-            const fechaModificacion = document.getElementById(`post-fecha_modificacion-${0}`);
-            if(fechaCreacion && fechaModificacion) {
-                fechaCreacion.textContent === fechaModificacion.textContent ? fechaModificacion.style.display = 'none' : fechaModificacion.style.display = 'block';
-            }
-
             // Añadir número comentarios
             if(commentsFiltered.length > 0) {
                 const commentsCounter = document.createElement('p');
@@ -442,7 +435,7 @@ function createSingleComment(postId, comment) {
     creationDateContent.textContent = comment.fecha_creacion;
     commentContentContainer.appendChild(creationDateContent);
 
-    if (comment.fecha_modificacion !== comment.fecha_creacion) {
+    if (comment.fecha_modificacion) {
         const editionDateContent = document.createElement('p');
         editionDateContent.classList.add('edition-date');
         editionDateContent.textContent =  `(editado: ${comment.fecha_modificacion})`;

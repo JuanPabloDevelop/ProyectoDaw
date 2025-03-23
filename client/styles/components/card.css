@@ -58,14 +58,13 @@
     color: var(--white);
     top: 7%;
     left: 15%;
-    font-size: 51px;
+    font-size: 35px;
     font-weight: 500;
 }
 
 .card .file {
     font-size: 1rem;
     text-align: left;
-    margin-top: 1rem;
     padding: 0.5rem;
     line-height: 1.8;
     background-color: transparent;

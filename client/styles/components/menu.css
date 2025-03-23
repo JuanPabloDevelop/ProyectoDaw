@@ -18,6 +18,49 @@
   gap: 0.75rem;
 }
 
+
+.logo {
+  animation: pulse 2s 1;
+}
+
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo-texto {
+  white-space: nowrap;
+  overflow: hidden; 
+  border-right: 2px solid black;
+  animation: typing 1s steps(20, end), blink 0.5s step-end infinite alternate;
+}
+
+@keyframes typing {
+  from {
+      width: 0;
+  }
+  to {
+      width: 100%;
+  }
+}
+
+@keyframes blink {
+  from {
+      border-color: transparent;
+  }
+  to {
+      border-color: black;
+  }
+}
+
+
 .logo img {
   width: 2rem;
   height: 2rem;
