@@ -148,7 +148,9 @@ async function setPosts(data) {
                 file.id = `post-${value[0]}-${index}`;
 
                 if(value[0] === 'fecha_modificacion') {
-                    value[1] = value[1] ? value[1] : '';
+                    if(!value[1]) {
+                        return;
+                    }
                 }
 
                 if(value[0] === 'tipo') {
@@ -159,16 +161,9 @@ async function setPosts(data) {
                     return;
                 }
 
-                file.textContent = value[1];
+                file.innerHTML = value[1];
                 card.appendChild(file);
             });
-
-            // Mostrar fecha de modificación solo si es distinta a la de creación
-            const fechaCreacion = document.getElementById(`post-fecha_creacion-${0}`);
-            const fechaModificacion = document.getElementById(`post-fecha_modificacion-${0}`);
-            if(fechaCreacion && fechaModificacion) {
-                fechaCreacion.textContent === fechaModificacion.textContent ? fechaModificacion.style.display = 'none' : fechaModificacion.style.display = 'block';
-            }
 
             // Añadir número comentarios
             if(commentsFiltered.length > 0) {
@@ -440,7 +435,7 @@ function createSingleComment(postId, comment) {
     creationDateContent.textContent = comment.fecha_creacion;
     commentContentContainer.appendChild(creationDateContent);
 
-    if (comment.fecha_modificacion !== comment.fecha_creacion) {
+    if (comment.fecha_modificacion) {
         const editionDateContent = document.createElement('p');
         editionDateContent.classList.add('edition-date');
         editionDateContent.textContent =  `(editado: ${comment.fecha_modificacion})`;
@@ -578,7 +573,7 @@ async function editComment(postId, commentId) {
   const cancelButton = document.createElement("button");
   cancelButton.classList.add("button")
   cancelButton.classList.add("button-secondary")
-  cancelButton.textContent = "cancelar";
+  cancelButton.textContent = "Cancelar";
   cancelButton.onclick = () => changeInputToParagraph(commentId, valor);
 
   newActionContainer.innerHTML = "";

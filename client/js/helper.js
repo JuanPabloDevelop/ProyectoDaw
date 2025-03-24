@@ -51,7 +51,6 @@ export function handleSkeleton() {
     const cardLoading = document.getElementById("skeleton-container");
 
     if (mainContent.classList.contains('hidden')) {
-
         mainContent.classList.remove('hidden');
         cardLoading.classList.add('hidden');
         return;

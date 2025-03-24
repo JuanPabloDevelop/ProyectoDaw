@@ -5,6 +5,13 @@
     box-shadow: var(--shadow);
     padding: 1.5rem;
     margin-bottom: 1rem;
+    margin-top: 1rem;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-sm);
 }
 
 .card .actions .button {
@@ -12,14 +19,21 @@
     padding: 0.5rem 1rem;
     font-weight: 500;
     cursor: pointer;
-    background-color: transparent;
-    color:  var(--text-light);
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card .actions .button:hover {
+    background-color: var(--primary-hover);
 }
 
 .avatar {
     width: 100px;
     height: 100px;
-    background-color:var(--text-light);
+    background-color:var(--primary-color);
     color: var(--white);
     font-size: 36px;
     font-weight: bold;
@@ -27,6 +41,7 @@
     line-height: 100px; 
     border-radius: 50%;
     display: inline-block;
+    margin-bottom: 1rem;
 }
 
 .card .file.post-tipo {
@@ -36,15 +51,78 @@
     right: 4%;
     font-size: large;
     font-weight: 500;
+    font-style: italic;
 }
 
 .card .file.post-titulo {
     position: absolute;
-    color: var(--white);
+    color: var(--black);
     top: 7%;
     left: 15%;
-    font-size: 51px;
-    font-weight: 500;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(2px); 
+    padding: 0rem 0.5rem;
+    border-radius: 8px; 
+    border: 1px solid rgba(0, 0, 0, 0.6); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); 
+}
+
+.card .file {
+    font-size: 1rem;
+    text-align: left;
+    padding: 0.5rem;
+    line-height: 1.8;
+    background-color: transparent;
+    border-radius: var(--radius);
+    border-color: black;
+}
+
+
+.file.post-contenido {
+    text-align: justify;
+    background-color: var(--background-color);
+}
+
+.file.post-fecha_creacion,
+.file.post-fecha_modificacion {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+.file.post-fecha_creacion::before {
+    content: "📅 Creado: ";
+    font-weight: bold;
+}
+
+.file.post-fecha_modificacion::before {
+    content: "✏️ Modificado: ";
+    font-weight: bold;
+}
+
+.file.post-nombre,
+.file.post-apellidos,
+.file.post-email {
+    font-size: 0.9rem;
+}  
+
+.file.post-fecha_creacion,
+.file.post-fecha_modificacion,
+.file.post-nombre,
+.file.post-apellidos,
+.file.post-email {
+    display: inline-block;
+    width: auto;
+    margin-top: 2rem;
+}
+
+.card .image-post {
+    position: absolute;
+    left: 4%;
+    margin-top: 10px;
+    box-shadow: var(--shadow);
 }
 
 .skeleton {
@@ -67,3 +145,4 @@
         background-position: 0 0;
     }
 }
+
