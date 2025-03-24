@@ -31,6 +31,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2000);
 
     const addPostBtn = document.getElementById("add-post-button");
+    const userSession = JSON.parse(localStorage.getItem("responseData"));
+
+    if (userSession && addPostBtn) {
+    addPostBtn.classList.remove("hidden");
+    }
+
+    
     if (addPostBtn) {
         addPostBtn.addEventListener("click", () => {
             const modal = document.getElementById("editPostModal");

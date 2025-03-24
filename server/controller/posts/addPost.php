@@ -10,7 +10,7 @@
         $autor_id = $datos['autor_id'];
 
         $insert_result = add_post($con, $titulo, $contenido, $tipo, $autor_id);
-        $allPosts = get_posts($con);  // Corrección aquí
+        $allPosts = get_posts($con); 
 
         if (!$insert_result) {
             $data = array("success" => false, "message" => "Error al insertar el post");
