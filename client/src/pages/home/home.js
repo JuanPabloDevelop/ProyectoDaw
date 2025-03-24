@@ -31,44 +31,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, 2000);
 
     const addPostBtn = document.getElementById("add-post-button");
+    addPostBtn.onclick = () => handleAddPost();
+
     const userSession = JSON.parse(localStorage.getItem("responseData"));
 
     if (userSession && addPostBtn) {
-    addPostBtn.classList.remove("hidden");
-    }
-
-    
-    if (addPostBtn) {
-        addPostBtn.addEventListener("click", () => {
-            const modal = document.getElementById("editPostModal");
-            document.getElementById("modalPostTitle").value = '';
-            document.getElementById("modalPostContent").value = '';
-            document.getElementById("modalPostId").value = '';
-            document.querySelector("#editPostModal h2").textContent = 'Añadir Post';
-
-            const addButton = document.getElementById("modalPostSave")
-            addButton.textContent = 'Crear';
-            addButton.onclick= () => addPost();
-
-            const select = document.getElementById("modalPostType");
-            select.innerHTML = '';
-
-            const tipos = {
-                "ilu": "Iluminación",
-                "mobi": "Mobiliario",
-                "text": "Textiles",
-                "acc": "Accesorios"
-            };
-
-            Object.entries(tipos).forEach(([valor, texto]) => {
-                const option = document.createElement('option');
-                option.value = valor;
-                option.textContent = texto;
-                select.appendChild(option);
-            });
-
-            modal.style.display = "block";
-        });
+      addPostBtn.classList.remove("hidden");
     }
 });
 // Añadimos las opciones de manera dinámica
@@ -133,6 +101,11 @@ export function setSelectUser() {
         }, 100);
     })
 }
+
+const closeModal = (id) => {
+    const modal = document.getElementById(id);
+    modal.style.display = "none";
+};
 
 /**  POSTS **/
 async function setPosts(data) {
@@ -253,6 +226,41 @@ async function setPosts(data) {
     }
 }
 
+function handleAddPost() {
+    const modal = document.getElementById("editPostModal");
+    document.getElementById("modalPostTitle").value = '';
+    document.getElementById("modalPostContent").value = '';
+    document.getElementById("modalPostId").value = '';
+    document.querySelector("#editPostModal h2").textContent = 'Añadir Post';
+
+    const addButton = document.getElementById("modalPostSave")
+    addButton.textContent = 'Crear';
+    addButton.onclick= () => addPost();
+
+
+    const cancelAddButton = document.getElementById("modalPostCancel")
+    cancelAddButton.textContent = 'Cancelar';
+    cancelAddButton.onclick= () => closeModal("editPostModal");
+
+    const select = document.getElementById("modalPostType");
+    select.innerHTML = '';
+
+    const tipos = {
+        "ilu": "Iluminación",
+        "mobi": "Mobiliario",
+        "text": "Textiles",
+        "acc": "Accesorios"
+    };
+
+    Object.entries(tipos).forEach(([valor, texto]) => {
+        const option = document.createElement('option');
+        option.value = valor;
+        option.textContent = texto;
+        select.appendChild(option);
+    });
+
+    modal.style.display = "block";
+}
 
 async function addPost() {
     const userSession = JSON.parse(localStorage.getItem("responseData"));
@@ -282,7 +290,10 @@ async function addPost() {
     if (actionResult.success) {
         const ultimoObjeto = actionResult.data[actionResult.data.length - 1];
         setPosts(actionResult.data);
+
         setTimeout(() => {
+            const newPost = document.getElementById(`card-${ultimoObjeto.id_post}`);
+            newPost.classList.add('card-fade-in')
             scrollToElementId(`card-${ultimoObjeto.id_post}`)
         }, 100);
         
@@ -330,20 +341,17 @@ async function editPost(id) {
         const modal = document.getElementById("editPostModal");
         const closeBtn = document.getElementById("close");
 
-        // Función para cerrar el modal
-        const closeModal = () => {
-            modal.style.display = "none";
-        };
-
         // Event listener para el botón de cierre (×)
-        closeBtn.onclick = closeModal;
+        closeBtn.onclick =  () => closeModal("editPostModal");
 
         // Event listener para cerrar el modal al hacer clic fuera de él
         window.onclick = function(event) {
             if (event.target == modal) {
-                closeModal();
+                closeModal("editPostModal");
             }
         };
+
+        document.getElementById("modalPostCancel").onclick = () => closeModal("editPostModal");
 
         // Event listeners para los botones
         document.getElementById("modalPostSave").onclick = async () => {
@@ -379,10 +387,8 @@ async function editPost(id) {
                 }, 100);
             }
 
-            closeModal();
+            closeModal("editPostModal");
         };
-
-        document.getElementById("modalPostCancel").onclick = closeModal;
 
         // Mostrar el modal
         modal.style.display = "block";
