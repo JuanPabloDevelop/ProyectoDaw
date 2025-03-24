@@ -26,6 +26,22 @@
     align-items: center;
 }
 
+.comment-card .content{
+    margin-right: 1rem;
+}
+
+.comment-card .creation-date{
+    font-style: italic;
+}
+
+.comment-card .button.button-primary{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.comment-card .button.button-secondary{
+    margin-right: 1rem;
+}
 
 .comments-container-close {
     height: 0px;
@@ -39,6 +55,11 @@
 
 .comments-add-content {
     display: flex;
+    flex-direction: row; 
     padding-top: 12px;
+    margin-top: 1rem;
     border-top: 2px solid var(--border-color);
+    gap: 10px; 
 }
+
+

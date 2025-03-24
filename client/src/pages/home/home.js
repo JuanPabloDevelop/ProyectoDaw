@@ -573,7 +573,7 @@ async function editComment(postId, commentId) {
   const cancelButton = document.createElement("button");
   cancelButton.classList.add("button")
   cancelButton.classList.add("button-secondary")
-  cancelButton.textContent = "cancelar";
+  cancelButton.textContent = "Cancelar";
   cancelButton.onclick = () => changeInputToParagraph(commentId, valor);
 
   newActionContainer.innerHTML = "";

@@ -51,15 +51,23 @@
     right: 4%;
     font-size: large;
     font-weight: 500;
+    font-style: italic;
 }
 
 .card .file.post-titulo {
     position: absolute;
-    color: var(--white);
+    color: var(--black);
     top: 7%;
     left: 15%;
-    font-size: 35px;
-    font-weight: 500;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    background: rgba(255, 255, 255, 0.5); 
+    backdrop-filter: blur(2px); 
+    padding: 0rem 0.5rem;
+    border-radius: 8px; 
+    border: 1px solid rgba(0, 0, 0, 0.6); 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); 
 }
 
 .card .file {
@@ -72,73 +80,49 @@
     border-color: black;
 }
 
-.card .file:first-of-type {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
 
-.card .file:nth-of-type(2) {
-    font-style: italic;
-}
-
-.card .file:nth-of-type(3){
+.file.post-contenido {
+    text-align: justify;
     background-color: var(--background-color);
 }
 
-.card .file:nth-of-type(3) p {
-    text-align: justify;
-}
-
-.card .file:nth-of-type(4),
-.card .file:nth-of-type(5) {
+.file.post-fecha_creacion,
+.file.post-fecha_modificacion {
     font-size: 0.9rem;
     color: var(--text-light);
     font-style: italic;
 }
-
-.card .file:nth-of-type(4)::before {
+.file.post-fecha_creacion::before {
     content: "📅 Creado: ";
     font-weight: bold;
 }
 
-.post-fecha_modificacion::before {
+.file.post-fecha_modificacion::before {
     content: "✏️ Modificado: ";
     font-weight: bold;
 }
 
-.card .file:nth-of-type(6),
-.card .file:nth-of-type(7),
-.card .file:nth-of-type(8) {
+.file.post-nombre,
+.file.post-apellidos,
+.file.post-email {
     font-size: 0.9rem;
 }  
 
-.card .file:nth-of-type(4),
-.card .file:nth-of-type(5),
-.card .file:nth-of-type(6),
-.card .file:nth-of-type(7),
-.card .file:nth-of-type(8) {
+.file.post-fecha_creacion,
+.file.post-fecha_modificacion,
+.file.post-nombre,
+.file.post-apellidos,
+.file.post-email {
     display: inline-block;
     width: auto;
-    margin-right: 1rem;
+    margin-top: 2rem;
 }
 
 .card .image-post {
     position: absolute;
     left: 4%;
     margin-top: 10px;
-
-  box-shadow: var(--shadow);
-}
-
-.card .file.post-tipo {
-    position: absolute;
-    color: var(--white);
-    top: 4%;
-    right: 4%;
-    font-size: large;
-    font-weight: 500;
+    box-shadow: var(--shadow);
 }
 
 .skeleton {
