@@ -22,7 +22,11 @@
         case 'post-update':
             handleUpdatePost($con, $datos);
             break;
-
+        
+        case 'post-add':
+            handleAddPost($con, $datos);
+            break;
+ 
         default:
             $data = array("success" => false, "message" => "Acción no reconocida");
             echo json_encode($data);
@@ -73,5 +77,10 @@
     function handleUpdatePost($con, $datos) {
         require_once("./controller/posts/updatePost.php");
         handle_update_post($con, $datos);
+    }
+
+    function handleAddPost($con, $datos){
+        require_once("./controller/posts/addPost.php");
+        handle_add_post($con, $datos);
     }
 ?>

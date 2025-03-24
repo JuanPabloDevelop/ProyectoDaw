@@ -25,11 +25,10 @@
 		return $resultado;
 	};
 
-	function create_post($con, $nombre, $apellidos, $password, $email, $rol){
-		$stmt = mysqli_prepare($con, "insert into post(nombre, apellidos, password, email, rol) values(?, ?, ?, ?, ?)");
-		$post = array($nombre, $apellidos, $password ,$email, $rol);
-		mysqli_stmt_bind_param($stmt, "ssisi", $post[0], $post[1], $post[2], $post[3], $post[4]);
-		mysqli_stmt_execute($stmt);
+	function add_post($con, $titulo, $contenido, $tipo, $autor_id) {
+		$stmt = $con->prepare("insert into post (titulo, contenido, tipo, autor_id, fecha_creacion) values (?, ?, ?, ?, NOW())");
+		$stmt->bind_param("sssi", $titulo, $contenido, $tipo, $autor_id);
+		return $stmt->execute();
 	}
 
 	function delete_post($con, $id_post) {
