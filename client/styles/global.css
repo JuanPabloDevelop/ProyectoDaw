@@ -1,16 +1,13 @@
 /* Variables globales */
 :root {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
-
-    --secondary-color: #699d69;
-    --secondary-hover: #699d69;
-
+    --primary-color: #559155;
+    --primary-hover: #80b180;
     --background-color: #d8dfd8;
+    --secondary-color: #6b7280;
 
     --white: #ffffff;
     --black: #000000;
-    --text-color: #1e293b;
+    --text-color: #000000;
     --text-light: #64748b;
     --border-color: #e2e8f0;
     --success-color: #22c55e;
@@ -33,9 +30,6 @@ html, body {
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    height: auto;
-    background-color:  var(--background-color); 
-    color: var(--secondary-color); 
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -62,7 +56,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    min-height: 100vh;
+    min-height: fit-content;
 }
 
 /* Header */
@@ -172,6 +166,7 @@ tr:hover {
     align-items: center;
     justify-content: center;
     height: 40px;
+    width: 100px;
     padding: 0.5rem 1rem;
     font-weight: 500;
     border-radius: var(--radius);

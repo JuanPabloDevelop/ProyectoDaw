@@ -13,14 +13,6 @@ function toggleView() {
     mostrarLogin = !mostrarLogin;
 }
 
-function submitLogin() {
-    alert('Login submitted');
-}
-
-function submitRegistro() {
-    alert('Registro submitted');
-}
-
 // Inicializa la vista
 toggleView();
 
