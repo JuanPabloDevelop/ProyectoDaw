@@ -26,9 +26,11 @@
 	};
 
 	function add_post($con, $titulo, $contenido, $tipo, $autor_id) {
-		$stmt = $con->prepare("insert into post (titulo, contenido, tipo, autor_id, fecha_creacion) values (?, ?, ?, ?, NOW())");
-		$stmt->bind_param("sssi", $titulo, $contenido, $tipo, $autor_id);
-		return $stmt->execute();
+		$fecha_actual = date("Y-m-d h:ia");
+		$fecha_modificacion = '';
+		$stmt = mysqli_prepare($con, "insert into post(tipo, titulo, contenido, fecha_creacion, fecha_modificacion, autor_id) values(?, ?, ?, ?, ?, ?)");
+		mysqli_stmt_bind_param($stmt, "sssssi", $tipo, $titulo, $contenido, $fecha_actual, $fecha_modificacion, $autor_id, );
+		return mysqli_stmt_execute($stmt);;
 	}
 
 	function delete_post($con, $id_post) {

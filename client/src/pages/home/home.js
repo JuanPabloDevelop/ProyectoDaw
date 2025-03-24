@@ -45,7 +45,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("modalPostContent").value = '';
             document.getElementById("modalPostId").value = '';
             document.querySelector("#editPostModal h2").textContent = 'Añadir Post';
-            document.getElementById("modalPostSave").textContent = 'Crear';
+
+            const addButton = document.getElementById("modalPostSave")
+            addButton.textContent = 'Crear';
+            addButton.onclick= () => addPost();
 
             const select = document.getElementById("modalPostType");
             select.innerHTML = '';
@@ -67,57 +70,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             modal.style.display = "block";
         });
     }
-
-    document.getElementById("modalPostSave").onclick = async () => {
-        const title = document.getElementById("modalPostTitle").value;
-        const content = document.getElementById("modalPostContent").value;
-        const type = document.getElementById("modalPostType").value;
-        const postId = document.getElementById("modalPostId").value;
-
-        if (!title || !content) {
-            showErrorMessage('Por favor, rellena todos los campos obligatorios.');
-            return;
-        }
-
-        if (!checkValidContent(content).success) {
-            showErrorMessage(checkValidContent(content).message);
-            return;
-        }
-
-        const userSession = JSON.parse(localStorage.getItem("responseData"));
-        if (!userSession) {
-            showErrorMessage('Debes iniciar sesión para crear un post.');
-            return;
-        }
-
-        let actionResult;
-
-        if (postId) {
-            actionResult = await handleFetchData({
-                action: "post-update",
-                id: postId,
-                titulo: title,
-                contenido: content,
-                tipo: type,
-            });
-        } else {
-            actionResult = await handleFetchData({
-                action: "post-add",
-                titulo: title,
-                contenido: content,
-                tipo: type,
-                autor_id: userSession.id_usuario
-            });
-        }
-
-        if (actionResult.success) {
-            setPosts(actionResult.data);
-        } else {
-            showErrorMessage("Hubo un error al procesar el post.");
-        }
-
-        document.getElementById("editPostModal").style.display = "none";
-    };
 });
 // Añadimos las opciones de manera dinámica
 export function setSelectTypeOptions(data, id) {
@@ -306,6 +258,48 @@ async function setPosts(data) {
     }
 }
 
+
+async function addPost() {
+    const userSession = JSON.parse(localStorage.getItem("responseData"));
+    const title = document.getElementById("modalPostTitle").value;
+    const content = document.getElementById("modalPostContent").value;
+    const type = document.getElementById("modalPostType").value;
+
+    if (!title || !content) {
+        showErrorMessage('Por favor, rellena todos los campos obligatorios.');
+        return;
+    }
+
+    if (!checkValidContent(content).success) {
+        showErrorMessage(checkValidContent(content).message);
+        return;
+    }
+
+    let actionResult = await handleFetchData({
+        action: "post-add",
+        titulo: title,
+        contenido: content,
+        tipo: type,
+        autor_id: userSession.id_usuario
+    });
+
+
+    if (actionResult.success) {
+        const ultimoObjeto = actionResult.data[actionResult.data.length - 1];
+        setPosts(actionResult.data);
+        setTimeout(() => {
+            scrollToElementId(`card-${ultimoObjeto.id_post}`)
+        }, 100);
+        
+
+    } else {
+        showErrorMessage("Hubo un error al procesar el post.");
+
+    }
+    document.getElementById("editPostModal").style.display = "none";
+
+};
+
 async function editPost(id) {
     try {
         const response = await handleFetchData({id, action: "post-get-by-id",});
@@ -385,6 +379,9 @@ async function editPost(id) {
         
             if(postUpdate.success) {
                 setPosts(postUpdate.data);
+                setTimeout(() => {
+                    scrollToElementId(`card-${postId}`)
+                }, 100);
             }
 
             closeModal();
@@ -412,28 +409,6 @@ async function deletePost(id) {
 function emptyPosts() {
     const postsContainer = document.getElementById('posts-container');
     postsContainer.innerHTML = 'No hay registros.';
-}
-
-async function updateScrolledPosts(id, comments) {
-    const postsContainer = document.getElementById('posts-container');
-    const card = document.getElementById(`card-${id}`);
-    const enrichCard = addCommentToCard(card, id, comments);
-    postsContainer.appendChild(enrichCard);
-
-    // Actualizo los posts
-    const getPosts = await handleFetchData(
-        {
-            action: "post-get-all",
-            filter: "all",
-        });
-
-    if(getPosts.success) {
-        setPosts(getPosts.data);
-    } else {
-        emptyPosts();
-    }
-
-    scrollToElementId(`comments-container-${id}`);
 }
 
 /**  COMMENTS **/
