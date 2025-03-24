@@ -1,6 +1,6 @@
 <?php
     $host = "localhost";
     $username = "root";
-    $pass = "";
+    $pass = "BddMsQl-y.";
     $dbname = "foro";
 ?>
