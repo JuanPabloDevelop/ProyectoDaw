@@ -4,6 +4,8 @@
     --primary-hover: #80b180;
     --background-color: #d8dfd8;
     --secondary-color: #6b7280;
+    --secondary-hover: #4b5563; 
+
 
     --white: #ffffff;
     --black: #000000;
@@ -200,7 +202,9 @@ tr:hover {
     background-color: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
-    transition: all 0.3s ease;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .button-tertiary:hover {
@@ -208,6 +212,7 @@ tr:hover {
     color: var(--white);
     transform: scale(1.05);
 }
+
 
 
 
