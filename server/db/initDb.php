@@ -137,7 +137,7 @@
  						<p>Estas tiras son perfectas para crear efectos de luz indirecta que añaden profundidad y calidez a los espacios. Además, su bajo consumo energético las convierte en una opción sostenible y eficiente.</p>
  						<p>Para un toque más dramático, elige tiras LED con cambio de color, que permiten ajustar la atmósfera según tu estado de ánimo o la ocasión. Desde tonos cálidos para relajarte hasta colores vibrantes para fiestas, las posibilidades son infinitas. Además, su instalación es sencilla y puede realizarse en casi cualquier superficie.</p>", $fecha_actual, $fecha_actual, 1),
 
-							array("acc", "Jarrones", "<p>Los jarrones son una excelente manera de agregar estilo y color a cualquier habitación. Puedes elegir entre una gran variedad de formas, tamaños y materiales, como cerámica, vidrio o metal, y combinarlos con flores frescas o simplemente dejarlos como elementos decorativos solitarios.</p>
+						array("acc", "Jarrones", "<p>Los jarrones son una excelente manera de agregar estilo y color a cualquier habitación. Puedes elegir entre una gran variedad de formas, tamaños y materiales, como cerámica, vidrio o metal, y combinarlos con flores frescas o simplemente dejarlos como elementos decorativos solitarios.</p>
  						<p>Los jarrones altos son ideales para espacios amplios, mientras que los pequeños pueden colocarse en mesas o estanterías. Además, son una forma sencilla de cambiar la decoración según la temporada o el estado de ánimo. Para un toque moderno, opta por jarrones geométricos en tonos neutros, o elige diseños coloridos para dar vida a un espacio minimalista.</p>
  						<p>No olvides que los jarrones también pueden ser piezas de arte por sí mismos. Un jarrón único con un diseño escultórico puede convertirse en el punto focal de una habitación, atrayendo miradas y añadiendo personalidad a tu decoración.</p>", $fecha_actual, $fecha_actual, 1),
  
@@ -215,45 +215,101 @@
 		if(!isset($resultado) || get_num_rows($resultado) == 0){
 			$stmt = mysqli_prepare($con, "insert into comment(contenido, fecha_creacion, fecha_modificacion, usuario_id, post_id) values(?, ?, ?, ?, ?)");
 			$comments = array(
-				array("Excelente", $fecha_actual, "", 1, 1),
-				array("Lo recomendaré", $fecha_actual, "", 1, 2),
-				array("Lo veo insuficiente", $fecha_actual, "", 1, 3),
-				array("Está sacado de una revista", $fecha_actual, "", 1, 4),
-				array("No estoy de acuerdo. Creo que aporta un punto de vista interesante con respecto al resto", $fecha_actual, "", 1, 5),
-				array("Estoy de acuerdo", $fecha_actual, "", 1, 6),
-				array("Esto me hace reflexionar", $fecha_actual, "", 1, 7),
-				array("Es justo lo que necesitaba", $fecha_actual, "", 1, 8),
-				array("No lo veo interesante", $fecha_actual, "", 1, 9),
-				array("A veces pasa si lo lees por encima", $fecha_actual, "", 1, 10),
-				array("Necesito más detalles", $fecha_actual, "", 1, 11),
-				array("Necesito más detalles", $fecha_actual, "", 1, 12),
-				array("Necesito más detalles", $fecha_actual, "", 1, 11),
-				array("Necesito más detalles", $fecha_actual, "", 1, 12),
-				array("Necesito más detalles", $fecha_actual, "", 1, 11),
-				array("Necesito más detalles", $fecha_actual, "", 1, 10),
-				array("Necesito más detalles", $fecha_actual, "", 1, 9),
-				array("Necesito más detalles", $fecha_actual, "", 1, 11),
-				array("Necesito más detalles", $fecha_actual, "", 1, 12),
-				array("Muy interesante", $fecha_actual, "", 2, 3),
-				array("Gracias por compartir", $fecha_actual, "", 3, 5),
-				array("¡Gran aporte!", $fecha_actual, "", 4, 7),
-				array("Esto me ayudó mucho", $fecha_actual, "", 5, 2),
-				array("No estoy de acuerdo", $fecha_actual, "", 6, 4),
-				array("Súper útil", $fecha_actual, "", 7, 6),
-				array("Necesito más detalles", $fecha_actual, "", 8, 8),
-				array("¡Fantástico!", $fecha_actual, "", 9, 9),
-				array("Esto me hace reflexionar", $fecha_actual, "", 6, 6),
-				array("Buen contenido", $fecha_actual, "", 8, 8),
-				array("No estoy seguro de esto", $fecha_actual, "", 6, 6),
-				array("Es justo lo que necesitaba", $fecha_actual, "", 6, 1),
-				array("¡Motivador!", $fecha_actual, "", 4, 3),
-				array("Estoy impresionado", $fecha_actual, "", 4, 5),
-				array("¿Dónde puedo aprender más?", $fecha_actual, "", 6, 7),
-				array("Sencillo pero efectivo", $fecha_actual, "", 7, 2),
-				array("Interesante enfoque", $fecha_actual, "", 8, 4),
-				array("Increíble trabajo", $fecha_actual, "", 9, 6),
-				array("Voy a recomendarlo", $fecha_actual, "", 2, 8)
-			);
+            // Mid-Century
+            array("¡Me encanta el estilo Mid-Century! La combinación de materiales naturales y líneas sencillas es fascinante.", $fecha_actual, "", 2, 1),
+            array("Muy buen artículo, me da muchas ideas para redecorar mi casa.", $fecha_actual, "", 3, 1),
+			array("¡Este artículo me ha inspirado a redecorar toda mi sala! Estoy empezando con el estilo Mid-Century.", $fecha_actual, "", 4, 1),
+			array("El estilo Mid-Century es perfecto para hogares pequeños. Sus líneas sencillas y funcionalidad hacen maravillas en el espacio.", $fecha_actual, "", 7, 1),
+
+            // Lámparas de bola de vidrio opalino
+            array("Nunca había considerado las lámparas de bola de vidrio opalino, ¡pero ahora quiero una para mi sala!", $fecha_actual, "", 2, 2),
+            array("Es una opción genial para iluminar el espacio con estilo. Me encanta su versatilidad.", $fecha_actual, "", 4, 2),
+			array("¡Gracias por este artículo! Siempre estoy buscando nuevas ideas de iluminación, y esto es justo lo que necesitaba.", $fecha_actual, "", 5, 2),
+
+            // Mesas nido
+            array("Las mesas nido son perfectas para espacios pequeños, siempre se ven elegantes y funcionales.", $fecha_actual, "", 5, 3),
+            array("Excelente elección de tema. Las mesas nido se están volviendo cada vez más populares.", $fecha_actual, "", 6, 3),
+
+            // Alfombras shaggy
+            array("¡Las alfombras shaggy son tan acogedoras! Las tengo en mi sala y definitivamente mejoran el ambiente.", $fecha_actual, "", 3, 4),
+            array("Muy interesante. Ahora tengo una mejor idea sobre cómo elegir la alfombra perfecta.", $fecha_actual, "", 2, 4),
+			array("Excelente artículo, ¡definitivamente una alfombra shaggy es la mejor opción para cualquier habitación!", $fecha_actual, "", 5, 4),
+
+            // Velas y portavelas
+            array("Las velas aromáticas son ideales para crear un ambiente relajante en casa. ¡Me encanta la idea!", $fecha_actual, "", 6, 5),
+            array("¡Gran elección! Aporta una atmósfera cálida y tranquila.", $fecha_actual, "", 7, 5),
+
+            // Iluminación focal
+            array("La iluminación focal puede cambiar completamente el ambiente de un espacio. Es clave para resaltar ciertos detalles.", $fecha_actual, "", 8, 6),
+            array("Sin duda, la iluminación focal es una excelente forma de crear énfasis en elementos decorativos.", $fecha_actual, "", 5, 6),
+			array("Una excelente forma de crear atmósferas únicas. ¡Me encanta este tipo de iluminación!", $fecha_actual, "", 7, 6),
+			array("Me encanta cómo la iluminación focal puede transformar el ambiente de una habitación, creando énfasis donde más lo necesitamos.", $fecha_actual, "", 6, 6),
+
+            //  Lámparas colgantes de fibras naturales
+            array("Me encanta cómo las lámparas de fibras naturales aportan un toque orgánico. ¡Quiero poner una en mi comedor!", $fecha_actual, "", 9, 7),
+            array("El estilo rústico nunca pasa de moda, estas lámparas son un acierto total.", $fecha_actual, "", 3, 7),
+			array("Las lámparas de fibras naturales aportan una sensación de calidez. ¡Me gustaría tener varias en mi comedor!", $fecha_actual, "", 8, 7),
+            array("¡Qué gran idea! Me encanta cómo las lámparas de fibras naturales pueden crear una atmósfera tan acogedora en el hogar.", $fecha_actual, "", 2, 7),
+
+            //  Plantas naturales
+            array("Las plantas siempre añaden frescura a los espacios. ¡Quiero más plantas en mi hogar!", $fecha_actual, "", 4, 8),
+            array("Muy buen consejo, las plantas naturales son esenciales para mantener el aire limpio y darle vida a cualquier habitación.", $fecha_actual, "", 5, 8),
+
+            //  Art Déco
+            array("¡El Art Déco es tan elegante! Me encanta cómo se mezcla lo antiguo con lo moderno.", $fecha_actual, "", 6, 9),
+            array("Excelente artículo. El Art Déco tiene un glamour único y es perfecto para darle lujo a cualquier espacio.", $fecha_actual, "", 2, 9),
+			array("¡Me encanta el Art Déco! Es un estilo tan sofisticado y lleno de glamour, perfecto para cualquier hogar.", $fecha_actual, "", 4, 9),
+
+
+            //  Bancos de pie de cama
+            array("Los bancos de pie de cama son funcionales y con mucho estilo. ¡Son perfectos para cualquier dormitorio!", $fecha_actual, "", 7, 10),
+            array("Totalmente de acuerdo, son ideales para añadir espacio de almacenamiento sin perder el estilo.", $fecha_actual, "", 8, 10),
+
+            //  Flexos industriales
+            array("Los flexos industriales son la opción perfecta para un espacio de trabajo moderno. Me encanta su diseño robusto.", $fecha_actual, "", 5, 11),
+            array("¡Ideal para escritorios! Aporta un toque industrial muy elegante.", $fecha_actual, "", 9, 11),
+
+            //  Cojines de sofá
+            array("Los cojines de sofá realmente pueden cambiar el look de una sala. ¡Una forma económica de renovar la decoración!", $fecha_actual, "", 4, 12),
+            array("Siempre tengo cojines nuevos cada temporada para darle un aire fresco al salón. ¡Gran consejo!", $fecha_actual, "", 3, 12),
+
+            //  Cortinas opacas
+            array("Las cortinas opacas son perfectas para mantener la privacidad. Las tengo en mi dormitorio y funcionan de maravilla.", $fecha_actual, "", 2, 13),
+            array("Gran elección de tema, las cortinas opacas no solo mejoran la decoración, sino que también ofrecen mucha funcionalidad.", $fecha_actual, "", 6, 13),
+
+            //  Iluminación de exteriores
+            array("La iluminación exterior transforma completamente un jardín. ¡Una de las mejores inversiones para crear ambiente!", $fecha_actual, "", 9, 14),
+            array("¡Gracias por los consejos! Estoy pensando en instalar luces solares en mi terraza para darle un toque acogedor.", $fecha_actual, "", 4, 14),
+
+            //  Tiras LED Empotradas
+            array("Las tiras LED empotradas son una excelente opción para crear efectos de luz sutiles. ¡Perfectas para cualquier ambiente!", $fecha_actual, "", 8, 15),
+            array("Muy práctico, y me encanta la idea de cambiar el color de las luces según el ambiente que busque crear.", $fecha_actual, "", 2, 15),
+			array("¡Son una opción genial para techos y paredes! Me gusta que son discretas pero muy efectivas para dar ambiente.", $fecha_actual, "", 6, 15),
+
+
+            //  Jarrones
+            array("Los jarrones siempre son un detalle decorativo que aporta mucho estilo a una habitación. ¡Me encanta la idea de tener varios!", $fecha_actual, "", 5, 16),
+            array("¡Perfectos para cualquier espacio! Además de decorar, pueden servir como piezas de arte.", $fecha_actual, "", 3, 16),
+
+            //  Aparadores
+            array("Los aparadores no solo son funcionales, sino que también pueden convertirse en una pieza clave de la decoración. ¡Gran tema!", $fecha_actual, "", 2, 17),
+            array("Estoy buscando uno para mi salón, ¡gracias por la inspiración!", $fecha_actual, "", 8, 17),
+			array("¡Me encantan los aparadores con acabado en madera! Son perfectos para darle un toque cálido a cualquier sala.", $fecha_actual, "", 5, 17),
+
+            //  Boho Chic
+            array("Me encanta el estilo Boho Chic. Es tan relajado y lleno de personalidad. ¡Estoy pensando en aplicarlo a mi casa!", $fecha_actual, "", 9, 18),
+            array("Es un estilo perfecto para aquellos que buscan algo único y con mucho carácter. ¡Gracias por la inspiración!", $fecha_actual, "", 6, 18),
+
+            //  Lámparas de araña
+            array("Las lámparas de araña son la pieza central perfecta para cualquier sala. Añaden elegancia y sofisticación.", $fecha_actual, "", 4, 19),
+            array("¡Qué hermoso artículo! Las lámparas de araña realmente transforman un espacio.", $fecha_actual, "", 3, 19),
+
+            //  Relojes de Pared
+            array("¡Los relojes de pared son un detalle tan único! Siempre me ha gustado cómo combinan funcionalidad y estética.", $fecha_actual, "", 6, 20),
+            array("Los relojes de pared pueden ser una excelente pieza central en la decoración de cualquier habitación.", $fecha_actual, "", 5, 20),
+			array("¡Gran idea! Los relojes de pared son una forma fácil de darle personalidad a cualquier espacio.", $fecha_actual, "", 7, 20)
+
+        );
 			
 			foreach($comments as $comment){
 				mysqli_stmt_bind_param($stmt, "sssii", $comment[0], $comment[1], $comment[2], $comment[3], $comment[4]);
