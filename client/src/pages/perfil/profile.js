@@ -144,7 +144,7 @@ function setUsers(data) {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Eliminar';
         deleteButton.classList.add('button')
-        editButton.classList.add('button-secondaryy');
+        deleteButton.classList.add('button-secondary');
         deleteButton.onclick = () => deleteUser(user.id_usuario);
 
         const actionsDiv = document.createElement('div');
