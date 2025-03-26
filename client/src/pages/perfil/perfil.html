@@ -11,7 +11,6 @@
 <body>
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
     <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
-    <button class="button button-secondary" onclick="history.back();">VOLVER</button>
 
     <h1 id="title">Registro Exitoso!!</h1>
     <div id="user-info" class="user-info">
@@ -22,8 +21,10 @@
         <p>Rol: <span id="profile-rol"></span></p>
     </div>
     <div id="profile-loading" class="user-info hidden"><span class="loading-spinner"></span></div>
-
-    <button class="button button-primary" onclick="editCurrentUser()">Editar</button>
+    <div class="button-container">
+        <button class="button button-primary" onclick="editCurrentUser()">Editar</button>
+        <button class="button button-secondary" onclick="history.back();">Volver</button>
+    </div>
     <table id="table" class="hidden">
         <thead>
             <tr>

@@ -4,7 +4,7 @@
     --primary-hover: #80b180;
 
     --secondary-color: #6b7280;
-    --secondary-color: #6b7280;
+    --secondary-hover: #acb1bb;
 
     --tertiary-color: #979e7e;
     --tertiary-color: #dfe07c;
@@ -109,13 +109,25 @@ main {
 }
 
 /* User info section */
-.user-info {
-    background-color:  var(--white);
-    border-radius: var(--radius);
+#title{
     padding: 2rem;
-    box-shadow: var(--shadow);
-    margin-bottom: 2rem;
+}
+
+.user-info {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
     min-height: 215px;
+    width: 80%;
+    margin: 0 auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    border: 1px solid #f0f0f0; 
+}
+
+.user-info:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .user-info p {
@@ -130,26 +142,35 @@ main {
     font-weight: 500;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
 /* Table styles */
 table {
-    width: 100%;
+    width: 90%;    
     border-collapse: collapse;
     background-color:  var(--white);
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    margin: 2rem 0;
+    margin: auto;
+    margin-bottom: 3rem;
 }
 
 thead {
-    background-color: #f8fafc;
+    background-color: #687e68;
 }
 
 th {
     text-align: center;
     padding: 1rem;
     font-weight: 600;
-    color: var(--text-light);
+    color: var(--white);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -163,7 +184,7 @@ tr:last-child td {
 }
 
 tr:hover {
-    background-color:  var(--white);
+    background-color:  #809d80;
 }
 
 /* Buttons */
@@ -200,15 +221,6 @@ tr:hover {
     background-color: var(--secondary-hover);
 }
 
-.button.secondary {
-    background-color:  var(--white);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-}
-
-.button.secondary:hover {
-    background-color: #f8fafc;
-}
 
 
 /* Animations */

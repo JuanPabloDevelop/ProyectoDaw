@@ -657,7 +657,6 @@ async function editComment(postId, commentId) {
 async function updateComment(postId, commentId, content) {
 
     if(content.trim()) {
-
         if(!checkValidContent(content).success) {
             const message = checkValidContent(content).message
             showErrorMessage(message);
