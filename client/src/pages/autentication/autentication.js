@@ -59,7 +59,7 @@ function cleanInputs() {
 }
 
 function validateForm(nombreCliente, apellidosCliente, emailCliente, contraseñaCliente, confirmarConstraseñaCliente) {
-    const regexNombre = /^[A-Za-z\s]{2,}$/;
+    const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñÜü\s]{2,}$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexContraseñas = /^.{6,}$/;
 
@@ -145,11 +145,11 @@ function handlePost(user) {
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
         }
-        loadingButton(`${user.action}-button`);
+        loadingButton('login-button');
     };
     xhttp.onerror = function () {
         console.log('Error de red');
-        loadingButton(`${user.action}-button`);
+        loadingButton('login-button');
         showErrorMessage('Error de red');
     };
     xhttp.send(datosJson);
