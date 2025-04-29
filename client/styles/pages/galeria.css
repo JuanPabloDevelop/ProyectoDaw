@@ -1,10 +1,10 @@
 /* galeria.css */
 a.button {
-    display: inline-flex; /* Igual que un button */
+    display: inline-flex; 
     align-items: center;
     justify-content: center;
     height: 30px;
-    width: 100px; /* o 100px, como prefieras */
+    width: 100px; 
     font-weight: 500;
     border-radius: var(--radius);
     margin: 2rem auto;

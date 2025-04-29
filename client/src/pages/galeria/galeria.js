@@ -1,17 +1,18 @@
 import { handleSkeleton, showErrorMessage } from '../../../js/helper.js';
 
-const ACCESS_KEY = 'EUnkfYoD-vf16kTu2aEFsVhRy8ySh9JORf--ucs-X6o'; // Tu API Key de Unsplash
+const ACCESS_KEY = 'EUnkfYoD-vf16kTu2aEFsVhRy8ySh9JORf--ucs-X6o'; // API Key de Unsplash
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
     handleSkeleton();
-    await loadImages('modern interior design'); // Cargamos imágenes de Modern por defecto
+    await loadImages('modern interior design'); // Carga de  imágenes de Modern por defecto
     handleSkeleton();
   } catch (error) {
     showErrorMessage(error.message);
     console.error(error);
   }
-
+  
+  // Detectar cambio de estilo en el select
   const select = document.getElementById('style-select');
   select.addEventListener('change', async (e) => {
     const selectedStyle = e.target.value;
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+// Función para cargar imágenes desde Unsplash
 async function loadImages(query) {
   try {
     const response = await fetch(`https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=12&client_id=${ACCESS_KEY}`);
@@ -37,6 +39,7 @@ async function loadImages(query) {
   }
 }
 
+// Función para mostrar imágenes en la galería
 function displayImages(images) {
   const container = document.getElementById('gallery-container');
   container.innerHTML = '';

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const menu = document.getElementById('menu');
   const menuMobileContainer = document.getElementById('menu-hamburguesa-lista-container');
 
-  // 🔥 NUEVO: Si hay user, eliminar botones Login inmediatamente
+// Si hay user, se eliminan botones de login
   if (user) {
     const loginButtonDesktop = document.getElementById('login-button');
     if (loginButtonDesktop) {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // 🔵 AÑADIR BOTÓN GALERÍA SIEMPRE
+  // Crear botón de galería haya o no sesión iniciada
   const galeriaItemDesktop = document.createElement('li');
   const galeriaLinkDesktop = document.createElement('a');
   galeriaLinkDesktop.href = "./client/src/pages/galeria/galeria.html";
@@ -42,8 +42,8 @@ document.addEventListener("DOMContentLoaded", function() {
   galeriaLinkMobile.textContent = "GALERIA";
   menuMobileContainer.appendChild(galeriaLinkMobile);
 
+  // Si hay sesión 
   if (user) {
-    // 🔵 CREAR PERFIL Y LOGOUT
     const newMenuItemPerfil = document.createElement('li');
     const newMenuLinkPerfil = document.createElement('a');
     newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
     menu.appendChild(newMenuItemLogout);
     menu.appendChild(newMenuItemPerfil);
 
-    // 🔵 PERFIL Y LOGOUT MOBILE
+    // Perfil y Logout mobile
     const newMenuLinkPerfilMobile = document.createElement('a');
     newMenuLinkPerfilMobile.href = "./client/src/pages/perfil/perfil.html";
     newMenuLinkPerfilMobile.textContent = "PERFIL";
