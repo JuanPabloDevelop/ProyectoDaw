@@ -1,95 +1,104 @@
-import { checkIfImgExists, colorAleatorio } from './helper.js'
+import { checkIfImgExists, colorAleatorio } from './helper.js';
 
-  document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
 
-  const menuMobile = document.getElementById('menu-hamburguesa');
-  menuMobile.addEventListener("click", openMenu);
+  const menuMobileButton = document.getElementById('menu-hamburguesa');
+  menuMobileButton.addEventListener("click", openMenu);
 
-    // Eliminar el elemento de login
   const user = JSON.parse(localStorage.getItem('responseData'));
+
+  const menu = document.getElementById('menu');
+  const menuMobileContainer = document.getElementById('menu-hamburguesa-lista-container');
+
+  // 🔥 NUEVO: Si hay user, eliminar botones Login inmediatamente
   if (user) {
-      // Eliminar el elemento de login
-      const loginElement = document.getElementById('login-button');
-      const loginMobileElement = document.getElementById('login-button-hamburguesa');
+    const loginButtonDesktop = document.getElementById('login-button');
+    if (loginButtonDesktop) {
+      loginButtonDesktop.parentElement.remove();
+    }
 
-      // Version Desktop
-      if (loginElement) {
-          loginElement.parentElement.remove();
+    const loginButtonMobile = document.getElementById('login-button-hamburguesa');
+    if (loginButtonMobile) {
+      loginButtonMobile.remove();
+    }
+  }
 
-          // Crear nuevos elementos de lista: login y perfil
-          const newMenuItemPerfil = document.createElement('li');
-          const newMenuLinkPerfil = document.createElement('a');
-          newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
+  // 🔵 AÑADIR BOTÓN GALERÍA SIEMPRE
+  const galeriaItemDesktop = document.createElement('li');
+  const galeriaLinkDesktop = document.createElement('a');
+  galeriaLinkDesktop.href = "./client/src/pages/galeria/galeria.html";
+  if (user) {
+    galeriaLinkDesktop.classList.add('button', 'button-primary'); // SI está logueado → botón primary
+  } else {
+    galeriaLinkDesktop.classList.add('button', 'button-secondary'); // SI NO está logueado → botón secondary
+  }
+  galeriaLinkDesktop.textContent = "GALERIA";
+  galeriaItemDesktop.appendChild(galeriaLinkDesktop);
+  menu.appendChild(galeriaItemDesktop);
 
-          if(checkIfImgExists(`client/assets/users/user-${user.id_usuario}.jpg`)) {
-              const commentUserImg = document.createElement('img');
-              commentUserImg.classList.add('image');
-              commentUserImg.classList.add('image-menu');
-              commentUserImg.classList.add('avatar--comentario');
-              commentUserImg.alt = 'user image';
-              commentUserImg.src = `client/assets/users/user-${user.id_usuario}.jpg`;
-              newMenuLinkPerfil.appendChild(commentUserImg);
-          } else {
-              const avatar = document.createElement('div');
-              avatar.classList.add('image');
-              avatar.classList.add('image-menu');
-              
-              let iniciales = user.nombre.charAt(0) + user.apellidos.charAt(0);
-              iniciales = iniciales.toUpperCase();
-              avatar.textContent = iniciales;
-              avatar.style.backgroundColor = colorAleatorio();
-              newMenuLinkPerfil.appendChild(avatar);
-          }
+  const galeriaLinkMobile = document.createElement('a');
+  galeriaLinkMobile.href = "./client/src/pages/galeria/galeria.html";
+  galeriaLinkMobile.classList.add('button');
+  galeriaLinkMobile.textContent = "GALERIA";
+  menuMobileContainer.appendChild(galeriaLinkMobile);
 
+  if (user) {
+    // 🔵 CREAR PERFIL Y LOGOUT
+    const newMenuItemPerfil = document.createElement('li');
+    const newMenuLinkPerfil = document.createElement('a');
+    newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
 
-          const newMenuItemLogout = document.createElement('li');
-          const newMenuLinkLogout = document.createElement('a');
-          newMenuLinkLogout.href = "./client/src/pages/logout/logout.html";
-          newMenuLinkLogout.textContent = "LOGOUT";
+    if (checkIfImgExists(`client/assets/users/user-${user.id_usuario}.jpg`)) {
+      const commentUserImg = document.createElement('img');
+      commentUserImg.classList.add('image', 'image-menu', 'avatar--comentario');
+      commentUserImg.alt = 'user image';
+      commentUserImg.src = `client/assets/users/user-${user.id_usuario}.jpg`;
+      newMenuLinkPerfil.appendChild(commentUserImg);
+    } else {
+      const avatar = document.createElement('div');
+      avatar.classList.add('image', 'image-menu');
+      let iniciales = user.nombre.charAt(0) + user.apellidos.charAt(0);
+      iniciales = iniciales.toUpperCase();
+      avatar.textContent = iniciales;
+      avatar.style.backgroundColor = colorAleatorio();
+      newMenuLinkPerfil.appendChild(avatar);
+    }
 
-          // Añadir los nuevos enlaces a los nuevos elementos de lista
-          newMenuItemLogout.appendChild(newMenuLinkLogout);
-          newMenuItemPerfil.appendChild(newMenuLinkPerfil);
+    const newMenuItemLogout = document.createElement('li');
+    const newMenuLinkLogout = document.createElement('a');
+    newMenuLinkLogout.href = "./client/src/pages/logout/logout.html";
+    newMenuLinkLogout.textContent = "LOGOUT";
 
-          // Añadir los nuevos elementos de lista al menú
-          const menu = document.getElementById('menu');
-          menu.appendChild(newMenuItemLogout);
-          menu.appendChild(newMenuItemPerfil);
-      }
+    newMenuItemLogout.appendChild(newMenuLinkLogout);
+    newMenuItemPerfil.appendChild(newMenuLinkPerfil);
 
-      // Version mobile
-      if (loginMobileElement) {
-    
-          loginMobileElement.parentElement.remove();
+    menu.appendChild(newMenuItemLogout);
+    menu.appendChild(newMenuItemPerfil);
 
-          // Crear nuevos elementos de lista: login y perfil
-          const newMenuLinkPerfil = document.createElement('a');
-          newMenuLinkPerfil.href = "./client/src/pages/perfil/perfil.html";
-          newMenuLinkPerfil.textContent = "PERFIL";
+    // 🔵 PERFIL Y LOGOUT MOBILE
+    const newMenuLinkPerfilMobile = document.createElement('a');
+    newMenuLinkPerfilMobile.href = "./client/src/pages/perfil/perfil.html";
+    newMenuLinkPerfilMobile.textContent = "PERFIL";
 
-          const newMenuLinkLogout = document.createElement('a');
-          newMenuLinkLogout.href = "./client/src/pages/logout/logout.html"; 
-          newMenuLinkLogout.textContent = "LOGOUT";
+    const newMenuLinkLogoutMobile = document.createElement('a');
+    newMenuLinkLogoutMobile.href = "./client/src/pages/logout/logout.html";
+    newMenuLinkLogoutMobile.textContent = "LOGOUT";
 
-          // Añadir los nuevos elementos de lista al menú
-          const menuMobile = document.getElementById("menu-hamburguesa-lista");
-          menuMobile.appendChild(newMenuLinkPerfil);
-          menuMobile.appendChild(newMenuLinkLogout);
-      }
-  };
+    const menuMobile = document.getElementById('menu-hamburguesa-lista');
+    menuMobile.appendChild(newMenuLinkPerfilMobile);
+    menuMobile.appendChild(newMenuLinkLogoutMobile);
+  }
 });
-
 
 // Evento Scroll
 let header = document.getElementById("header");
 window.addEventListener("scroll", function(){
-  if(window.scrollY==0){
+  if(window.scrollY == 0){
     header.setAttribute("style","height:80px");
   } else {
     header.setAttribute("style","height:54px;background:#FFFFFF");
   }
 });
-
 
 function openMenu() {
   const x = document.getElementById("menu-hamburguesa-lista");
