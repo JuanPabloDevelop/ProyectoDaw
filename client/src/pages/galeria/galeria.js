@@ -4,7 +4,6 @@ const ACCESS_KEY = 'EUnkfYoD-vf16kTu2aEFsVhRy8ySh9JORf--ucs-X6o'; // API Key de 
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    handleSkeleton();
     await loadImages('modern interior design'); // Carga de  imágenes de Modern por defecto
     handleSkeleton();
   } catch (error) {
@@ -47,6 +46,9 @@ function displayImages(images) {
   images.forEach(image => {
     const card = document.createElement('div');
     card.classList.add('card', 'image-card', 'animate-fade-in');
+    card.addEventListener('click', () => {
+      window.location.href = `./details/details.html?id=${image.id}`;
+    });
 
     const img = document.createElement('img');
     img.src = image.urls.small;
