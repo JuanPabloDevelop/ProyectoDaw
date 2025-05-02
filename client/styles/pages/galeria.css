@@ -16,6 +16,7 @@
 }
 
 .image-card:hover {
+  filter: grayscale(100%);
   transform: scale(1.03);
   box-shadow: var(--shadow-sm);
 }

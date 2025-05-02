@@ -7,7 +7,6 @@
   <title>Galería de Estilos de Interiorismo</title>
   <link rel="stylesheet" href="../../../../styles/estilos.css">
   <link rel="stylesheet" href="../../../../styles/pages/galeria.css"> 
-  <link rel="stylesheet" href="./details.css">
   <script type="module" src="./details.js" defer></script>
 </head>
 <body>
@@ -18,8 +17,16 @@
       </div>
       <p class="solo-escritorio logo-texto">interiordesign.com</p>
     </div>
-    <a href="../galeria.html" class="button button-primary">Volver</a>
+    <ul class="menu" id="menu">
+      <li>
+        <a href="../galeria.html" >GALERIA</a>
+      </li>
+        <li>
+            <a href="../../../../../index.html">HOME</a>
+        </li>
+    </ul>
   </header>
+
   <main id="main">
     <div id="error-mensaje" class="mensaje-container error-mensaje hidden"></div>
 
@@ -46,9 +53,11 @@
             <p><strong>Fecha de creación:</strong> <span id="fecha-creacion"></span></p>
             <br>
           </div>
-          <a id="download" target="_blank" class="button button-primary">Download</a>
+          <a id="download" target="_blank" class="button button-secondary">Download</a>
         </div>
       </div>
+      <br>
+      <a href="../galeria.html" class="button button-primary">Volver</a>
     </section>
   </main>
 

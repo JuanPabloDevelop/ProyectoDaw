@@ -9,6 +9,24 @@
     <script src="../../../js/modal.js" defer></script>
 </head>
 <body>
+
+    <header class="header display-space-around">
+        <div class="logo-container">
+          <div class="logo">
+              <figure><img width="20" src="../../../assets/logo-negro.jpg"></figure>
+          </div>
+          <p class="solo-escritorio logo-texto">interiordesign.com</p>
+        </div>
+        <ul class="menu" id="menu">
+            <li>
+                <a href="../../../../index.html">HOME</a>
+            </li>
+            <li>
+                <a href="../logout/logout.html">LOGOUT</a>
+            </li>
+        </ul>
+      </header>
+
     <div id="error-mensaje"  class="mensaje-container error-mensaje hidden"></div>
     <div id="success-mensaje" class="mensaje-container success-mensaje hidden"></div>
 
@@ -23,7 +41,6 @@
     <div id="profile-loading" class="user-info hidden"><span class="loading-spinner"></span></div>
     <div class="button-container">
         <button class="button button-primary" onclick="editCurrentUser()">Editar</button>
-        <button class="button button-secondary" onclick="history.back();">Volver</button>
     </div>
     <table id="table" class="hidden">
         <thead>

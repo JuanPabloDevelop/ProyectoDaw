@@ -27,11 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const galeriaItemDesktop = document.createElement('li');
   const galeriaLinkDesktop = document.createElement('a');
   galeriaLinkDesktop.href = "./client/src/pages/galeria/galeria.html";
-  if (user) {
-    galeriaLinkDesktop.classList.add('button', 'button-primary'); // SI está logueado → botón primary
-  } else {
-    galeriaLinkDesktop.classList.add('button', 'button-secondary'); // SI NO está logueado → botón secondary
-  }
+
   galeriaLinkDesktop.textContent = "GALERIA";
   galeriaItemDesktop.appendChild(galeriaLinkDesktop);
   menu.appendChild(galeriaItemDesktop);
@@ -65,15 +61,9 @@ document.addEventListener("DOMContentLoaded", function() {
       newMenuLinkPerfil.appendChild(avatar);
     }
 
-    const newMenuItemLogout = document.createElement('li');
-    const newMenuLinkLogout = document.createElement('a');
-    newMenuLinkLogout.href = "./client/src/pages/logout/logout.html";
-    newMenuLinkLogout.textContent = "LOGOUT";
-
-    newMenuItemLogout.appendChild(newMenuLinkLogout);
     newMenuItemPerfil.appendChild(newMenuLinkPerfil);
 
-    menu.appendChild(newMenuItemLogout);
+
     menu.appendChild(newMenuItemPerfil);
 
     // Perfil y Logout mobile
