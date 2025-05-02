@@ -210,7 +210,7 @@ tr:hover {
 .button-secondary {
     transition: all 0.2s;
     background-color: var(--secondary-color);
-    color:  var(--white);
+    color:  var(--white);;
 }
 
 .button-primary:hover {

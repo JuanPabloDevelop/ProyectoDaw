@@ -45,7 +45,15 @@
 }
 
 
-/* TXT Sizes */
+/* Txt Styles */
 .txt-small {
     font-size: 0.8rem;
+}
+
+.txt-color-white {
+    color: var(--white) !important;
+}
+
+.txt-color-white:hover {
+    color: var(--primary-color) !important;
 }
