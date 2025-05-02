@@ -9,30 +9,17 @@
   <script type="module" src="./galeria.js" defer></script>
 </head>
 <body>
-  <header class="header">
-    <h1>Galería de Estilos de Interiorismo</h1>
+  <header class="header display-space-around">
+    <div class="logo-container">
+      <div class="logo">
+          <figure><img width="20" src="../../../assets/logo-negro.jpg"></figure>
+      </div>
+      <p class="solo-escritorio logo-texto">interiordesign.com</p>
+    </div>
     <a href="../../../../index.html" class="button button-primary">Volver</a>
   </header>
 
-  <!-- Filtro de estilos -->
-  <div class="filter-container">
-    <select id="style-select" class="filter-select">
-      <option value="">Seleccione un estilo...</option>
-      <option value="modern interior design">Moderno</option>
-      <option value="minimalist interior">Minimalista</option>
-      <option value="rustic interior">Rústico</option>
-      <option value="industrial interior">Industrial</option>
-      <option value="scandinavian interior">Escandinavo</option>
-      <option value="classic interior design">Clásico</option>
-      <option value="bohemian interior">Bohemio</option>
-      <option value="mid-century modern interior">Mid-century</option>
-      <option value="tropical interior design">Tropical</option>
-      <option value="japandi interior">Japandi</option>
-      <option value="mediterranean interior">Mediterráneo</option>
-      <option value="art deco interior design">Art Déco</option>
-      <option value="contemporary interior design">Contemporáneo</option>
-    </select>
-  </div>
+
 
   <main id="main">
     <div id="error-mensaje" class="mensaje-container error-mensaje hidden"></div>
@@ -45,6 +32,27 @@
     </div>
 
     <section id="content" class="content hidden">
+      <h1>Galería de Estilos de Interiorismo</h1>
+
+      <!-- Filtro de estilos -->
+      <div class="filter-container">
+        <select id="style-select" class="filter-select">
+          <option value="">Seleccione un estilo...</option>
+          <option value="modern interior design">Moderno</option>
+          <option value="minimalist interior">Minimalista</option>
+          <option value="rustic interior">Rústico</option>
+          <option value="industrial interior">Industrial</option>
+          <option value="scandinavian interior">Escandinavo</option>
+          <option value="classic interior design">Clásico</option>
+          <option value="bohemian interior">Bohemio</option>
+          <option value="mid-century modern interior">Mid-century</option>
+          <option value="tropical interior design">Tropical</option>
+          <option value="japandi interior">Japandi</option>
+          <option value="mediterranean interior">Mediterráneo</option>
+          <option value="art deco interior design">Art Déco</option>
+          <option value="contemporary interior design">Contemporáneo</option>
+        </select>
+      </div>
       <div id="gallery-container" class="gallery-container"></div>
     </section>
   </main>

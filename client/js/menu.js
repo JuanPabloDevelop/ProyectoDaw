@@ -38,9 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   const galeriaLinkMobile = document.createElement('a');
   galeriaLinkMobile.href = "./client/src/pages/galeria/galeria.html";
-  galeriaLinkMobile.classList.add('button');
   galeriaLinkMobile.textContent = "GALERIA";
-  menuMobileContainer.appendChild(galeriaLinkMobile);
+
+  const menuMobile = document.getElementById('menu-hamburguesa-lista');
+  menuMobile.appendChild(galeriaLinkMobile);
 
   // Si hay sesión 
   if (user) {

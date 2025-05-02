@@ -120,6 +120,7 @@ function handleLogin(event) {
             pwd: constraseñaCliente,
         });
     }, 2000); // Dos segundos de delay para simular una petición más lenta
+
     return;
 }
 
@@ -139,18 +140,19 @@ function handlePost(user) {
                 localStorage.setItem('responseData', JSON.stringify(response.data));
                 window.location.href = 'http://localhost/ejercicios/ProyectoDaw/index.html';
             } else {
+                loadingButton('login-button');
                 showErrorMessage(response.message);
             }
 
         } else {
+            loadingButton('login-button');
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
         }
         loadingButton(`${user.action}-button`);
     };
     xhttp.onerror = function () {
         console.log('Error de red');
-        loadingButton(`${user.action}-button`);
-        showErrorMessage('Error de red');
+        loadingButton(`${user.action.includes('login') ? 'login' : 'register'}-button`);
     };
     xhttp.send(datosJson);
 }

@@ -22,7 +22,7 @@
 	function add_comment($con, $id_post, $id_user, $content){
 		$fecha_actual = date("Y-m-d h:ia");
 		$stmt = mysqli_prepare($con, "insert into comment(contenido, fecha_creacion, fecha_modificacion, usuario_id, post_id) values(?, ?, ?, ?, ?)");
-		$comment = array($content, $fecha_actual, $fecha_actual ,$id_user, $id_post);
+		$comment = array($content, $fecha_actual, '' ,$id_user, $id_post);
 		mysqli_stmt_bind_param($stmt, "sssii", $comment[0], $comment[1], $comment[2], $comment[3], $comment[4]);
 		mysqli_stmt_execute($stmt);
 	}
