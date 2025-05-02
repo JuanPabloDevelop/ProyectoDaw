@@ -26,12 +26,18 @@
     align-items: center;
 }
 
-.comment-card .content{
+.comment-card .content {
     margin-right: 1rem;
 }
 
-.comment-card .creation-date{
+.comment-card .creation-date {
     font-style: italic;
+}
+
+.comment-card .edition-date {
+    margin-left: 4px;
+    font-style: italic;
+    color:var(--text-light);
 }
 
 .comment-card .button.button-primary{

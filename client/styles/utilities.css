@@ -35,3 +35,17 @@
 .ml-2 {
     margin-left: 8px;
 }
+
+.mb-1 {
+    margin-bottom: 4px;
+}
+
+.mb-2 {
+    margin-bottom: 8px;
+}
+
+
+/* TXT Sizes */
+.txt-small {
+    font-size: 0.8rem;
+}

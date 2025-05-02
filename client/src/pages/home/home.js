@@ -3,6 +3,7 @@ import handleFetchData from '../../../js/service/services.js'
 import { checkValidContent } from '../../../js/validation.js'
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const userSession = JSON.parse(localStorage.getItem("responseData"));
     setTimeout(async () => {
         handleSkeleton();
 
@@ -26,14 +27,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             const parseFilters = filters.data.map(item =>parseTipo(item.tipo));
             localStorage.setItem('filters', parseFilters);
             setSelectTypeOptions(filters.data, 'filter-type-select');
-            setSelectUser();
+
+            if(userSession) {
+                setSelectUser();
+            }
         }
     }, 2000);
 
     const addPostBtn = document.getElementById("add-post-button");
     addPostBtn.onclick = () => handleAddPost();
-
-    const userSession = JSON.parse(localStorage.getItem("responseData"));
 
     if (userSession && addPostBtn) {
       addPostBtn.classList.remove("hidden");
@@ -58,17 +60,16 @@ export function setSelectTypeOptions(data, id) {
         {
             action: "post-get-all",
             filterbytype: event.target.value,
-            filterbyuser: selectUserType.value,
-            userId: currentUser.id_usuario,
+            filterbyuser: selectUserType.value || 'allUsers',
+            userId: currentUser?.id_usuario || null,
         });
         setTimeout(() => {
             if(filters.success) {
-                handleSkeleton();
                 setPosts(filters.data);
             } else {
-                handleSkeleton();
                 emptyPosts();
             }
+            handleSkeleton();
         }, 100);
     }
     );
@@ -76,6 +77,7 @@ export function setSelectTypeOptions(data, id) {
 
 // Añadimos event
 export function setSelectUser() {
+    document.getElementById("filter-user-select-container").classList.remove('hidden');
     const select = document.getElementById("filter-user-select");
     const selectTypeValue = document.getElementById("filter-type-select");
     let currentUser = JSON.parse(localStorage.getItem('responseData'));
@@ -187,7 +189,8 @@ async function setPosts(data) {
             };
 
             const actionsCell = document.createElement('div');
-            if(userSession && (userSession.id_usuario === post.author_id || userSession.rol === '0')) { 
+            
+            if(userSession && (userSession.id_usuario === post.autor_id || userSession.rol === '0')) { 
                 // Añadir las acciones
                 actionsCell.id = 'post-actions-content';
                 actionsCell.classList.add('actions');
@@ -437,6 +440,7 @@ function addCommentToCard(cardInfo, postId, comments) {
     if(!comments.length) {
         const emptyCommentText = document.createElement('p');
         emptyCommentText.classList.add('comments-empty-text');
+        emptyCommentText.id = 'comments-empty-text';
         emptyCommentText.textContent = "Sé el primero en comentar";
         commentsListContainer.appendChild(emptyCommentText);
     }

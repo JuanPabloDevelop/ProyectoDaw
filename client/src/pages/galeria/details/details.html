@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería de Estilos de Interiorismo</title>
+  <link rel="stylesheet" href="../../../../styles/estilos.css">
+  <link rel="stylesheet" href="../../../../styles/pages/galeria.css"> 
+  <script type="module" src="./details.js" defer></script>
+</head>
+<body>
+  <header class="header display-space-around">
+    <div class="logo-container">
+      <div class="logo">
+          <figure><img width="20" src="../../../../assets/logo-negro.jpg"></figure>
+      </div>
+      <p class="solo-escritorio logo-texto">interiordesign.com</p>
+    </div>
+    <ul class="menu" id="menu">
+      <li>
+        <a href="../galeria.html" >GALERIA</a>
+      </li>
+        <li>
+            <a href="../../../../../index.html">HOME</a>
+        </li>
+    </ul>
+  </header>
+
+  <main id="main">
+    <div id="error-mensaje" class="mensaje-container error-mensaje hidden"></div>
+
+    <div id="skeleton-container" class="skeleton-container">
+      <div class="skeleton" style="height:40px;"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+
+    <section id="content" class="content hidden">
+      <h1 id="titulo"></h1>
+      <div class="display-flex">
+        <img id="imagen" class="imagen hidden" src="" alt="Imagen de estilo de interiorismo">
+        <div class="details">
+          <img id="autor-imagen" class="image hidden" src="" alt="Imagen de estilo de interiorismo">
+          <p><span id="autor" class="txt-small"></span></p>
+          <br>
+          <div class="details-info">
+            <p><strong>Descripción:</strong> <span id="descripcion"></span></p>
+            <p><strong>Likes:</strong> <span id="likes"></span></p>
+            <p><strong>Descargas:</strong> <span id="descargas"></span></p>
+            <p><strong>Vistas:</strong> <span id="vistas"></span></p>
+            <p><strong>Fecha de creación:</strong> <span id="fecha-creacion"></span></p>
+            <br>
+          </div>
+          <a id="download" target="_blank" class="button button-secondary">Download</a>
+        </div>
+      </div>
+      <br>
+      <a href="../galeria.html" class="button button-primary">Volver</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; 2025 Proyecto Daw. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>

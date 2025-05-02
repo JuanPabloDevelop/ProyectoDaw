@@ -78,12 +78,12 @@
   list-style: none;
 }
 
-menu li a {
+.menu li a {
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
   color: var(--text-color);
-  font-weight: 500;
+  font-weight: 700;
   text-decoration: none;
   border-radius: var(--radius);
   transition: all 0.2s;

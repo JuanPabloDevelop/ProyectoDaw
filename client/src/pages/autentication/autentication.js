@@ -120,6 +120,7 @@ function handleLogin(event) {
             pwd: constraseñaCliente,
         });
     }, 2000); // Dos segundos de delay para simular una petición más lenta
+
     return;
 }
 
@@ -141,15 +142,14 @@ function handlePost(user) {
             } else {
                 showErrorMessage(response.message);
             }
-
         } else {
             showErrorMessage(`Error: ${xhttp.status}, ${xhttp.statusText}`);
         }
-        loadingButton('login-button');
+        loadingButton(`${user.action.includes('login') ? 'login' : 'register'}-button`);
     };
     xhttp.onerror = function () {
         console.log('Error de red');
-        loadingButton('login-button');
+        loadingButton(`${user.action.includes('login') ? 'login' : 'register'}-button`);
         showErrorMessage('Error de red');
     };
     xhttp.send(datosJson);
