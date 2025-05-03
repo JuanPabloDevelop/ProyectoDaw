@@ -2,6 +2,14 @@ import { scrollToElementId, parseTipo, colorAleatorio, handleSkeleton, showError
 import handleFetchData from '../../../js/service/services.js'
 import { checkValidContent } from '../../../js/validation.js'
 
+const tipos = {
+    "ilu": "Iluminación",
+    "deco": "Estilos decoración",
+    "mobi": "Mobiliario",
+    "text": "Textiles",
+    "acc": "Accesorios"
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
     const userSession = JSON.parse(localStorage.getItem("responseData"));
     setTimeout(async () => {
@@ -248,12 +256,7 @@ function handleAddPost() {
     const select = document.getElementById("modalPostType");
     select.innerHTML = '';
 
-    const tipos = {
-        "ilu": "Iluminación",
-        "mobi": "Mobiliario",
-        "text": "Textiles",
-        "acc": "Accesorios"
-    };
+
 
     Object.entries(tipos).forEach(([valor, texto]) => {
         const option = document.createElement('option');
@@ -320,14 +323,6 @@ async function editPost(id) {
         const select = document.getElementById("modalPostType");
         // Limpiar opciones existentes
         select.innerHTML = '';
-        
-        // Crear las opciones basadas en los tipos disponibles
-        const tipos = {
-            "ilu": "Iluminación",
-            "mobi": "Mobiliario",
-            "text": "Textiles",
-            "acc": "Accesorios"
-        };
 
         // Agregar las opciones al select
         Object.entries(tipos).forEach(([valor, texto]) => {
@@ -704,13 +699,6 @@ document.getElementById("add-post-button").addEventListener("click", () => {
 
     const select = document.getElementById("modalPostType");
     select.innerHTML = '';
-
-    const tipos = {
-        "ilu": "Iluminación",
-        "mobi": "Mobiliario",
-        "text": "Textiles",
-        "acc": "Accesorios"
-    };
 
     Object.entries(tipos).forEach(([valor, texto]) => {
         const option = document.createElement('option');
