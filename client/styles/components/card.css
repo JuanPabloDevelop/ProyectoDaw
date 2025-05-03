@@ -57,6 +57,7 @@
 .card .file.post-titulo {
     position: absolute;
     color: var(--black);
+    max-width: 500px;
     top: 7%;
     left: 17%;
     font-size: 30px;
@@ -68,6 +69,12 @@
     border-radius: 8px; 
     border: 1px solid rgba(0, 0, 0, 0.6); 
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); 
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limita a dos líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .card .file {
