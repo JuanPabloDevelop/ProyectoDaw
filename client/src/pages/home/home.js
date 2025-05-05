@@ -440,26 +440,28 @@ function addCommentToCard(cardInfo, postId, comments) {
         commentsListContainer.appendChild(emptyCommentText);
     }
 
-    // Input para añadir comentarios
-    const sendCommentContent = document.createElement('div');
-    sendCommentContent.id = 'comments-add-content';
-    sendCommentContent.classList.add('comments-add-content');
+    const userSession = JSON.parse(localStorage.getItem('responseData'));
+    if(userSession) {
+        // Input para añadir comentarios
+        const sendCommentContent = document.createElement('div');
+        sendCommentContent.id = 'comments-add-content';
+        sendCommentContent.classList.add('comments-add-content');
 
-    const commentInput = document.createElement('input');
-    commentInput.classList.add('comment-input');
-    commentInput.id = 'new-comment-input';
-    commentInput.placeholder = 'Escribe un comentario...';
-    sendCommentContent.appendChild(commentInput);
+        const commentInput = document.createElement('input');
+        commentInput.classList.add('comment-input');
+        commentInput.id = 'new-comment-input';
+        commentInput.placeholder = 'Escribe un comentario...';
+        sendCommentContent.appendChild(commentInput);
 
-    const AddCommentButton = document.createElement('button');
-    AddCommentButton.textContent = 'Enviar';
-    AddCommentButton.classList.add('button')
-    AddCommentButton.classList.add('button-primary')
-    AddCommentButton.onclick = () =>addComment(postId, commentInput.value);
-    sendCommentContent.appendChild(AddCommentButton);
+        const AddCommentButton = document.createElement('button');
+        AddCommentButton.textContent = 'Enviar';
+        AddCommentButton.classList.add('button')
+        AddCommentButton.classList.add('button-primary')
+        AddCommentButton.onclick = () =>addComment(postId, commentInput.value);
+        sendCommentContent.appendChild(AddCommentButton);
 
-    commentsContainer.appendChild(sendCommentContent);
-
+        commentsContainer.appendChild(sendCommentContent);
+    }
     return card;
 };
 
@@ -626,6 +628,8 @@ async function editComment(postId, commentId) {
   // Creamos un div para incluir el input y el boton
   const newActionContainer = document.createElement("div");
   newActionContainer.id = `actions-content-${commentId}`;
+  newActionContainer.classList.add("display-flex")
+
 
   const input = document.createElement("input");
   input.type = "text";

@@ -32,26 +32,28 @@
     </div>
     <div id="registro" class="formulario__container hidden">
         <form onsubmit="handleRegister(event)">
-            <label for="register-name">Nombre:</label>
+            <label for="register-name">Nombre: *</label>
             <input id="register-name" type="text" name="name" required>
-            <label for="register-apellidos">Apellidos:</label>
+            <label for="register-apellidos">Apellidos: *</label>
             <input id="register-apellidos" type="text" name="apellidos" required>
-            <label for="register-email">Correo electrónico:</label>
+            <label for="register-email">Correo electrónico: *</label>
             <input id="register-email" type="email" name="email" required>
-            <label for="register-password">Contraseña:</label>
+            <label for="register-password">Contraseña: *</label>
             <div class="password-container">
                 <input id="register-password" type="password" name="pwd" required class="hidden-password"> 
                 <span class="toggle-password" onclick="togglePasswordVisibility('register-password')">
                     <i class="fa fa-eye"></i>
                 </span> 
             </div>
-            <label for="register-repeat-password">Confirmar contraseña:</label>
+            <label for="register-repeat-password">Confirmar contraseña: *</label>
             <div class="password-container">
                 <input id="register-repeat-password" type="password" name="repeatPwd" required class="hidden-password"> 
                 <span class="toggle-repeat-password" onclick="togglePasswordVisibility('register-repeat-password')">
                     <i class="fa fa-eye"></i>
                 </span> 
             </div>
+            <p style="color:black"><small>* campos obligatorios</small></p>
+            <br>
             <button class="button button-primary full" type="submit">Registrarse</button>
         </form>
         <button id="toggleView" class="button button-secondary full" onclick="toggleView()">Login</button>
